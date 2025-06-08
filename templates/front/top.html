@@ -1,0 +1,1291 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section hero-animate-ready">
+    <picture>
+        <source srcset="{% static 'front/img/top/keyvisual.avif' %}" type="image/avif">
+        <source srcset="{% static 'front/img/top/keyvisual.webp' %}" type="image/webp">
+        <img src="{% static 'front/img/top/keyvisual.jpg' %}" alt="キービジュアル" class="hero-background-img">
+    </picture>
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>ファンとの絆を深める、<br>あなただけのアプリ</h1>
+            <p>ファンとのつながりを加速する。<br>『L4U（エルフォーユー）』 で、もっと身近に、もっと特別に。</p>
+            <a href="{% url 'front:app_request' %}" class="cta-button">
+                無料でアプリを開設
+            </a>
+        </div>
+        <div class="hero-devices">
+            <img src="{% static 'front/img/top/hero_device_02.png' %}" alt="" class="device-left">
+            <img src="{% static 'front/img/top/hero_device_01.png' %}" alt="" class="device-right">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<section class="about-service">
+    <div class="about-container">
+        <h2 class="about-title">
+            L4U（エルフォーユー）とは
+            <span class="title-underline"></span>
+        </h2>
+        <p class="about-description">
+            あなただけの<span class="about-description-highlight">専用アプリ</span>を<span class="about-description-highlight">簡単に作成</span>できる、<span class="about-description-highlight">完全無料</span>のアプリ作成サービスです。
+        </p>
+        <p class="about-sub-description">
+            ファンとの継続的なコミュニケーションでつながりを深め、<br>あなたの活動の新しい収益化をサポートします。
+        </p>
+    </div>
+</section>
+
+<div class="service-features-wrapper">
+    <div class="service-features-container">
+        <div class="service-features-title-wrapper">
+            <h2 class="service-features-title">L4Uの3つの特徴</h2>
+        </div>
+        
+        <div class="features-list">
+            <section class="service-feature-section">
+                <div class="feature-number-block">
+                    <span class="feature-number">01</span>
+                </div>
+                
+                <div class="feature-content-wrapper">
+                    <div class="feature-header">
+                        <span class="feature-label">POINT 01</span>
+                        <h3 class="feature-title">ファンとのつながりを深める専用アプリ</h3>
+                    </div>
+                    
+                    <div class="feature-details">
+                        <div class="feature-visual">
+                            <div class="feature-icon">
+                                <img src="{% static 'front/img/top/artist_exclusive_icon.png' %}" alt="アーティスト専用アプリ">
+                            </div>
+                            <p class="icon-caption">アーティスト専用アプリ</p>
+                        </div>
+                        
+                        <div class="feature-description">
+                            <p class="feature-intro">あなただけの専用アプリで、ファンとのつながりを深められます。</p>
+                            
+                            <ul class="feature-list-items">
+                                <li>専用のサーバー環境が用意されているので、安心してコンテンツを保管・配信できます</li>
+                                <li>アーティストの想いを直接届け、ファンとの交流を促進することができます</li>
+                                <li>より強固なコミュニティを構築し、長期的な関係性を築けます</li>
+                                <!-- <li>音楽や作品の共有、イベント告知など、様々な形でファンとの絆を深めることができます</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="service-feature-section">
+                <div class="feature-number-block">
+                    <span class="feature-number">02</span>
+                </div>
+                
+                <div class="feature-content-wrapper">
+                    <div class="feature-header">
+                        <span class="feature-label">POINT 02</span>
+                        <h3 class="feature-title">費用面の心配なく、気軽にアプリ運営をスタート</h3>
+                    </div>
+                    
+                    <div class="feature-details">
+                        <div class="feature-visual">
+                            <div class="feature-icon">
+                                <img src="{% static 'front/img/top/cost_free_icon.png' %}" alt="初期費用・月額費は0円">
+                            </div>
+                            <p class="icon-caption">初期費用・月額費は0円</p>
+                        </div>
+                        
+                        <div class="feature-description">
+                            <p class="feature-intro">初期費用も月額利用料も一切不要。コストゼロで始められます。</p>
+                            
+                            <ul class="feature-list-items">
+                                <li>アプリ開設にかかる初期費用も、月額利用料も一切不要です</li>
+                                <li>コストゼロで始められるから、どなたでも気軽に導入できます</li>
+                                <li>費用を抑えられる分、ファンとのコミュニケーションやコンテンツ制作に集中できます</li>
+                                <!-- <li>本来の活動に専念できる環境で、クリエイティブな挑戦に集中できます</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="service-feature-section">
+                <div class="feature-number-block">
+                    <span class="feature-number">03</span>
+                </div>
+                
+                <div class="feature-content-wrapper">
+                    <div class="feature-header">
+                        <span class="feature-label">POINT 03</span>
+                        <h3 class="feature-title">多彩な収益機能で、ファンの応援をダイレクトに還元</h3>
+                    </div>
+                    
+                    <div class="feature-details">
+                        <div class="feature-visual">
+                            <div class="feature-icon">
+                                <img src="{% static 'front/img/top/revenue_icon.png' %}" alt="収益アップにつながる仕組み">
+                            </div>
+                            <p class="icon-caption">収益アップにつながる仕組み</p>
+                        </div>
+                        
+                        <div class="feature-description">
+                            <p class="feature-intro">さまざまな収益化の仕組みを用意し、ファンとの関係を深めながら収益化できます。</p>
+                            
+                            <ul class="feature-list-items">
+                                <li>月額制サブスクやコンテンツ販売、ライブ配信での投げ銭など、多様な収益化機能を搭載</li>
+                                <li>業界最低水準のシステム利用料により、ファンの応援を最大限収益に反映できます</li>
+                                <li>コミュニティを盛り上げながら、着実な収益アップを目指せる環境を提供</li>
+                                <!-- <li>ファンの支援を次の活動につなげる、持続可能な創作活動の循環を実現できます</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="features-detail">
+    <h2 class="features-detail-title">アプリの機能紹介</h2>
+    <div class="feature-block">
+        <div class="feature-content">
+            <div class="text-content">
+                <h2>2shot機能</h2>
+                <p class="feature-subtitle">ファンとの特別な時間</p>
+                <h3>一対一のライブ体験</h3>
+                <p>アーティストとファンが直接つながる、貴重な機会を提供します。2shot機能で、ファンとの関係性をさらに強化し、より深いエンゲージメントを実現できます。</p>
+                <ul>
+                    <li>
+                        <span class="feature-list-heading">特別感のあるイベントとして活用</span>
+                        <span class="feature-list-detail">一対一ならではの親密さとファンが感じる特別感を演出</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">ファンの声をリアルに受け取れる</span>
+                        <span class="feature-list-detail">直接会話だからこそファンの熱量をダイレクトに感じられる</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">安心して利用できる管理機能</span>
+                        <span class="feature-list-detail">通報機能などが揃っているから、不安なく使用できる</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="feature-image">
+                <img src="{% static 'front/img/top/2shot_feature.png' %}" alt="2shot機能のスクリーンショット">
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-block">
+        <div class="feature-content">
+            <div class="feature-image">
+                <img src="{% static 'front/img/top/live_feature.png' %}" alt="ライブ機能のスクリーンショット">
+            </div>
+            <div class="text-content">
+                <h2>ライブ機能</h2>
+                <p class="feature-subtitle">ファンと一緒に盛り上がる生配信</p>
+                <h3>リアルタイムの熱気を共有</h3>
+                <p>アーティストが開催するライブ配信に、複数のファンが同時参加。コメントや投げ銭機能で、その場で直接応援できる新しい交流スタイルです。</p>
+                <ul>
+                    <li>
+                        <span class="feature-list-heading">みんなで参加するライブ配信</span>
+                        <span class="feature-list-detail">複数のファンが同時に視聴・コメントできるから、その瞬間の熱気を一緒に楽しめる</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">投げ銭機能でダイレクトにサポート</span>
+                        <span class="feature-list-detail">ファンの想いをすぐに形にできるので、アーティスト活動を後押し</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">リアルタイムのコミュニケーション</span>
+                        <span class="feature-list-detail">コメントを通じてアーティストとやり取りすることで、より身近な存在に</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-block">
+        <div class="feature-content">
+            <div class="text-content">
+                <h2>コレクション機能</h2>
+                <p class="feature-subtitle">アーティストとの思い出</p>
+                <h3>アーティスト独自のアルバム</h3>
+                <p>コレクション機能では、アーティストが画像や動画をテーマごとにまとめて投稿できます。ファンにとっては、アルバムをめくるように思い出を振り返りながら、アーティストの世界観をじっくり味わえるギャラリーとして楽しめます。</p>
+                <ul>
+                    <li>
+                        <span class="feature-list-heading">テーマごとに写真や動画を整理・共有</span>
+                        <span class="feature-list-detail">イベント別、作品別など自由に分類してわかりやすい一覧を作成</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">アルバム形式で世界観を表現</span>
+                        <span class="feature-list-detail">写真や動画をまとめることで、アーティストの個性を引き立てる</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">ファンがいつでも思い出を楽しめるギャラリー</span>
+                        <span class="feature-list-detail">過去の投稿も簡単に振り返れるので、長く愛されるコンテンツに</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="feature-image">
+                <img src="{% static 'front/img/top/collection_feature.png' %}" alt="コレクション機能のスクリーンショット">
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-block">
+        <div class="feature-content">
+            <div class="feature-image">
+                <img src="{% static 'front/img/top/shop_feature.png' %}" alt="ショップ機能のスクリーンショット">
+            </div>
+            <div class="text-content">
+                <h2>ショップ機能</h2>
+                <p class="feature-subtitle">ファンに向けた「グッズ」「2shot」「デジタルコンテンツ」商品を簡単に販売</p>
+                <h3>多彩なアイテムを管理・提供</h3>
+                <p>ショップ機能では、配送が必要なグッズ商品から、2shot商品、デジタルコンテンツ商品まで、幅広い商品を販売することができます。管理しやすいシステムで、販売から提供までスムーズに運用可能です。</p>
+                <ul>
+                    <li>
+                        <span class="feature-list-heading">オリジナルグッズの販売</span>
+                        <span class="feature-list-detail">Tシャツやポスターなど、配送が必要な商品の販売</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">デジタルコンテンツの販売</span>
+                        <span class="feature-list-detail">コレクション機能向けの画像・動画やライブ参加券の販売
+                        </span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">2shotチケットの販売</span>
+                        <span class="feature-list-detail">2shot機能を利用するために必要なチケットの販売</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-block">
+        <div class="feature-content">
+            <div class="text-content">
+                <h2>タイムライン機能</h2>
+                <p class="feature-subtitle">ファンとの出来事を共有</p>
+                <h3>アーティストの日常を発信</h3>
+                <p>タイムライン機能では、アーティストだけがタイムラインを投稿できます。ファンはいいねやコメントで気軽に反応できるため、コミュニケーションを盛り上げるのにぴったり。あなただけの特別な情報を共有できます。</p>
+                <ul>
+                    <li>
+                        <span class="feature-list-heading">テキストや写真、動画を簡単に投稿・共有可能</span>
+                        <span class="feature-list-detail">最新の活動報告や告知、オフショットなどを気軽に発信</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">ファンとのコメントやリアクションを通じた交流</span>
+                        <span class="feature-list-detail">いいねやコメントなどでコミュニケーションを楽しめる</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">限定のタイムラインとして特別感を演出</span>
+                        <span class="feature-list-detail">一般公開しない情報や限定コンテンツを届ける</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="feature-image">
+                <img src="{% static 'front/img/top/timeline_feature.png' %}" alt="タイムライン機能のスクリーンショット">
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-block">
+        <div class="feature-content">
+            <div class="feature-image">
+                <img src="{% static 'front/img/top/communication_feature.png' %}" alt="コミュニケーション機能のスクリーンショット">
+            </div>
+            <div class="text-content">
+                <h2>コミュニケーション機能</h2>
+                <p class="feature-subtitle">つながりを深める「ルーム」と「DM」</p>
+                <h3>多彩なコミュニケーションをワンストップで</h3>
+                <p>「ルーム」を活用すれば、ファン同士やアーティストとグループで交流でき、メッセージ・画像・動画を気軽に共有できます。1対1でやり取りしたいときは「DM」を使って、よりパーソナルなコミュニケーションを楽しめます。</p>
+                <ul>
+                    <li>
+                        <span class="feature-list-heading">ルームでグループ交流</span>
+                        <span class="feature-list-detail">複数のメンバーが参加できるチャットルーム。メッセージへのリアクション機能も活用して、コミュニティをさらに盛り上げる</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">DMで1対1の特別なやり取り</span>
+                        <span class="feature-list-detail">テキスト・画像・動画を直接送れるプライベート空間。ファンとアーティストの距離をぐっと縮める</span>
+                    </li>
+                    <li>
+                        <span class="feature-list-heading">コミュニティの活性化に貢献</span>
+                        <span class="feature-list-detail">グループと個別の交流を使い分け、ファン同士やアーティストとの絆を深める</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="fan-monetization-section">
+    <div class="fan-monetization-content">
+        <div class="fan-monetization-text">
+            <h1 class="fan-monetization-heading">ファンとつながり、<br>活動を輝かせる</h1>
+            <p class="fan-monetization-description">L4Uは、あなたのファンとの関係を深めるだけでなく、その関係を持続可能な収益源に変えるための多様な機能を提供します。活動の対価を得ながら、ファンにも特別な体験を提供できる、あなた専用のアプリを簡単に作成できます。</p>
+            
+            <div class="monetization-features">
+                <div class="monetization-feature" data-delay="0.2">
+                    <div class="monetization-feature-icon">
+                        <img src="{% static 'front/img/top/monetization/super_charge.png' %}" alt="ライブ配信アイコン">
+                    </div>
+                    <div class="monetization-feature-content">
+                        <h3>ライブ配信の投げ銭</h3>
+                        <p>ファンがライブ配信中にリアルタイムで投げ銭を送ることができます。ライブを通してファンとの絆を深めながら即時の収益を得られます。</p>
+                    </div>
+                </div>
+
+                <div class="monetization-feature" data-delay="0.4">
+                    <div class="monetization-feature-icon">
+                        <img src="{% static 'front/img/top/monetization/2shot.png' %}" alt="2shotアイコン">
+                    </div>
+                    <div class="monetization-feature-content">
+                        <h3>2shot</h3>
+                        <p>ファンとの一対一のビデオ通話機能。2shotに参加する券をアプリ内のショップで販売でき、さらに2shot中にライブ配信と同様に投げ銭を受け取ることもできます。</p>
+                    </div>
+                </div>
+
+                <div class="monetization-feature" data-delay="0.6">
+                    <div class="monetization-feature-icon">
+                        <img src="{% static 'front/img/top/monetization/shop.png' %}" alt="ショップアイコン">
+                    </div>
+                    <div class="monetization-feature-content">
+                        <h3>オリジナル商品の販売</h3>
+                        <p>アプリ内ショップ機能で、オリジナルのグッズを販売できます。ファンはアプリ内で簡単に購入でき、購入された商品からの収益を得られます。</p>
+                    </div>
+                </div>
+
+                <div class="monetization-feature" data-delay="0.8">
+                    <div class="monetization-feature-icon">
+                        <img src="{% static 'front/img/top/monetization/subscribe.png' %}" alt="VIPアイコン">
+                    </div>
+                    <div class="monetization-feature-content">
+                        <h3>有料会員制度</h3>
+                        <p>月額制の会員システムで継続的な収入を確保。会員限定コンテンツなどで、ファンに価値を提供しながら安定した収益基盤を構築できます。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fan-monetization-visual">
+            <div class="monetization-images">
+                <img src="{% static 'front/img/top/monetization/income.png' %}" alt="アプリ画面1" class="monetization-image">
+                <img src="{% static 'front/img/top/monetization/revenue.png' %}" alt="アプリ画面2" class="monetization-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% include 'front/_case_study.html' %}
+
+
+
+<section class="revenue-section">
+    <div class="revenue-title-wrapper">
+        <h2 class="revenue-title">収益化の仕組み</h2>
+    </div>
+    <div class="revenue-card">
+        <div class="revenue-flow-container">
+            <p class="revenue-description">
+                コンテンツが購入されると、まずApple/Googleやクレジットカード決済の手数料が差し引かれ、その残額から20%をシステム利用料としていただき、残りがあなたの収益となります。
+            </p>
+
+            <!-- デスクトップ用収益フロー -->
+            <div class="revenue-flow-simple">
+                <div class="revenue-step-simple" data-step="0">
+                    <div class="flow-label source">ファンからの収益</div>
+                    <div class="step-icon-container">
+                        <img src="{% static 'front/img/top/revenue/phone_icon.png' %}" alt="決済金額">
+                    </div>
+                    <div class="step-text">決済金額</div>
+                </div>
+
+                <div class="step-connector" data-connector="0">
+                    <div class="step-connector-line"></div>
+                    <div class="step-connector-arrow"></div>
+                </div>
+
+                <div class="revenue-step-simple" data-step="1">
+                    <div class="flow-label deduction">手数料</div>
+                    <div class="step-icon-container">
+                        <img src="{% static 'front/img/top/revenue/fee_icon.png' %}" alt="決済手数料">
+                    </div>
+                    <div class="step-text">決済手数料</div>
+                </div>
+
+                <div class="step-connector" data-connector="1">
+                    <div class="step-connector-line"></div>
+                    <div class="step-connector-arrow"></div>
+                </div>
+
+                <div class="revenue-step-simple" data-step="2">
+                    <div class="flow-label deduction">手数料</div>
+                    <div class="step-icon-container">
+                        <img src="{% static 'front/img/top/revenue/system_icon.png' %}" alt="システム手数料">
+                    </div>
+                    <div class="step-text">システム手数料</div>
+                </div>
+
+                <div class="step-connector" data-connector="2">
+                    <div class="step-connector-line"></div>
+                    <div class="step-connector-arrow"></div>
+                </div>
+
+                <div class="revenue-step-simple" data-step="3">
+                    <div class="flow-label result">受け取り金額</div>
+                    <div class="step-icon-container highlight">
+                        <img src="{% static 'front/img/top/revenue/income_icon.png' %}" alt="あなたの収益">
+                    </div>
+                    <div class="step-text">あなたの収益</div>
+                </div>
+            </div>
+
+            <!-- モバイル用収益フロー -->
+            <div class="revenue-flow-mobile">
+                <div class="mobile-revenue-item" data-mobile-step="0">
+                    <div class="mobile-icon-section">
+                        <div class="mobile-step-icon">
+                            <img src="{% static 'front/img/top/revenue/phone_icon.png' %}" alt="決済金額">
+                        </div>
+                        <div class="mobile-step-label source">ファンからの収益</div>
+                    </div>
+                    <div class="mobile-text-section">
+                        <div class="mobile-step-text">決済金額</div>
+                        <div class="mobile-arrow" data-mobile-arrow="0"></div>
+                    </div>
+                </div>
+
+                <div class="mobile-revenue-item" data-mobile-step="1">
+                    <div class="mobile-icon-section">
+                        <div class="mobile-step-icon">
+                            <img src="{% static 'front/img/top/revenue/fee_icon.png' %}" alt="決済手数料">
+                        </div>
+                        <div class="mobile-step-label deduction">手数料</div>
+                    </div>
+                    <div class="mobile-text-section">
+                        <div class="mobile-step-text">決済手数料</div>
+                        <div class="mobile-arrow" data-mobile-arrow="1"></div>
+                    </div>
+                </div>
+
+                <div class="mobile-revenue-item" data-mobile-step="2">
+                    <div class="mobile-icon-section">
+                        <div class="mobile-step-icon">
+                            <img src="{% static 'front/img/top/revenue/system_icon.png' %}" alt="システム手数料">
+                        </div>
+                        <div class="mobile-step-label deduction">手数料</div>
+                    </div>
+                    <div class="mobile-text-section">
+                        <div class="mobile-step-text">システム手数料</div>
+                        <div class="mobile-arrow" data-mobile-arrow="2"></div>
+                    </div>
+                </div>
+
+                <div class="mobile-revenue-item" data-mobile-step="3">
+                    <div class="mobile-icon-section">
+                        <div class="mobile-step-icon highlight">
+                            <img src="{% static 'front/img/top/revenue/income_icon.png' %}" alt="あなたの収益">
+                        </div>
+                        <div class="mobile-step-label result">受け取り金額</div>
+                    </div>
+                    <div class="mobile-text-section">
+                        <div class="mobile-step-text">あなたの収益</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="revenue-sub-description">
+                詳しい計算方法や手数料の詳細については、<a href="{% url 'front:revenue' %}" class="text-link">別ページ</a>にてご確認いただけます。
+            </p>
+        </div>
+
+        <div class="revenue-divider"></div>
+
+        <div class="revenue-comparison-container">
+            <h3 class="revenue-subtitle">アーティストへの還元率</h3>
+            <div class="revenue-comparison-cards">
+                <div class="revenue-comparison-card recommended" data-percentage="80">
+                    <div class="recommended-badge">おすすめ</div>
+                    <div class="circular-progress-container">
+                        <div class="circular-progress recommended">
+                            <div class="progress-percentage recommended">80%</div>
+                        </div>
+                    </div>
+                    <h3 class="comparison-service-name">L4U</h3>
+                    <p class="comparison-detail">決済手数料を除く金額から<br>80%があなたの収益に</p>
+                </div>
+                
+                <div class="revenue-comparison-card" data-percentage="70">
+                    <div class="circular-progress-container">
+                        <div class="circular-progress default">
+                            <div class="progress-percentage">70%</div>
+                        </div>
+                    </div>
+                    <h3 class="comparison-service-name">サービスA</h3>
+                    <p class="comparison-detail">決済手数料を除く金額から<br>70%があなたの収益に</p>
+                </div>
+                
+                <div class="revenue-comparison-card" data-percentage="65">
+                    <div class="circular-progress-container">
+                        <div class="circular-progress default">
+                            <div class="progress-percentage">65%</div>
+                        </div>
+                    </div>
+                    <h3 class="comparison-service-name">サービスB</h3>
+                    <p class="comparison-detail">決済手数料を除く金額から<br>65%があなたの収益に</p>
+                </div>
+            </div>
+
+            <!-- <div class="revenue-calculation-container">
+                <h3 class="calculation-title">月間売上100万円の場合の決済ごとの収益例</h3>
+                <div class="payment-comparison-cards">
+                    <div class="payment-comparison-card" style="--revenue-percent: 56; --fee-percent: 30; --system-percent: 14;">
+                        <div class="payment-service-header">
+                            <h4 class="payment-service-name">Apple決済</h4>
+                        </div>
+                        
+                        <div class="payment-breakdown-visual">
+                            <div class="payment-pie-chart"></div>
+                            <div class="payment-center-amount">
+                                <span class="center-amount-label">収益</span>
+                                <span class="center-amount-value">56万円</span>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-legend">
+                            <div class="legend-item">
+                                <span class="legend-color top-revenue"></span>
+                                <span class="legend-label">あなたの収益</span>
+                                <span class="legend-value">56%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color top-fee"></span>
+                                <span class="legend-label">Apple手数料</span>
+                                <span class="legend-value">30%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color top-system"></span>
+                                <span class="legend-label">システム手数料</span>
+                                <span class="legend-value">14%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-comparison-card" style="--revenue-percent: 56; --fee-percent: 30; --system-percent: 14;">
+                        <div class="payment-service-header">
+                            <h4 class="payment-service-name">Google決済</h4>
+                        </div>
+                        
+                        <div class="payment-breakdown-visual">
+                            <div class="payment-pie-chart"></div>
+                            <div class="payment-center-amount">
+                                <span class="center-amount-label">収益</span>
+                                <span class="center-amount-value">56万円</span>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-legend">
+                            <div class="legend-item">
+                                <span class="legend-color top-revenue"></span>
+                                <span class="legend-label">あなたの収益</span>
+                                <span class="legend-value">56%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color top-fee"></span>
+                                <span class="legend-label">Google手数料</span>
+                                <span class="legend-value">30%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color top-system"></span>
+                                <span class="legend-label">システム手数料</span>
+                                <span class="legend-value">14%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-comparison-card" style="--revenue-percent: 77.1; --fee-percent: 3.6; --system-percent: 19.3;">
+                        <div class="payment-service-header">
+                            <h4 class="payment-service-name">クレジット決済</h4>
+                        </div>
+                        
+                        <div class="payment-breakdown-visual">
+                            <div class="payment-pie-chart"></div>
+                            <div class="payment-center-amount">
+                                <span class="center-amount-label">収益</span>
+                                <span class="center-amount-value">77万円</span>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-legend">
+                            <div class="legend-item">
+                                <span class="legend-color top-revenue"></span>
+                                <span class="legend-label">あなたの収益</span>
+                                <span class="legend-value">77.1%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color top-fee"></span>
+                                <span class="legend-label">決済手数料</span>
+                                <span class="legend-value">3.6%</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color top-system"></span>
+                                <span class="legend-label">システム手数料</span>
+                                <span class="legend-value">19.3%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="calculation-note">※詳しくは<a href="{% url 'front:revenue' %}" class="text-link">別ページ</a>にてご確認ください。</p>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+
+<section class="revenue-cta-section">
+    <div class="revenue-cta-wrapper">
+        <div class="revenue-cta-content">
+            <h3 class="revenue-cta-title">あなただけのアプリを作りませんか？</h3>
+            <p class="revenue-cta-highlight">初期費用・月額費用0円で<br>始められます</p>
+            <p class="revenue-cta-description">
+                2shot、ライブ配信、限定コンテンツ販売など、<br>
+                多彩な機能を使って、自由に活動を展開できます。
+            </p>
+            <a href="{% url 'front:app_request' %}" class="revenue-cta-button">
+                無料でアプリを開設する
+            </a>
+        </div>
+        <div class="revenue-cta-visual">
+            <div class="visual-element">
+                <span class="visual-text">START</span>
+                <span class="visual-subtext">YOUR APP</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="setup-flow-wrapper">
+    <section class="setup-flow-alternate">
+        <div class="section-header">
+            <h2 class="section-title">開設までの流れ</h2>
+            <p class="section-subtitle">簡単5ステップでアプリを開設</p>
+            <span class="step-badge">全5ステップ</span>
+        </div>
+    
+        <svg width="0" height="0" style="position: absolute;">
+            <defs>
+                <marker id="arrowMarker" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M9,0 L9,6 L0,3 z" fill="#e0e7ff" />
+                </marker>
+            </defs>
+        </svg>
+    
+        <!-- デスクトップビュー -->
+        <div class="desktop-view">
+
+            <div class="step-info">
+                <div class="step-text">
+                    <div class="step-number">STEP：1</div>
+                    <h3 class="step-title">フォームからの申請</h3>
+                    <p class="step-description">
+                        専用フォームから必要事項を入力して申請いただきます。<br>
+                        お申し込みに必要な情報を準備してから始めることをおすすめします。
+                    </p>
+                    <span class="step-duration">所要時間：30分程度</span>
+                </div>
+                <div class="setup-flow-image">
+                    <div class="step-bg-decoration"></div>
+                    <img src="{% static 'front/img/top/setup_flow/step1.png' %}" alt="フォーム申請">
+                </div>
+                <div class="connector-line">
+                    <svg viewBox="0 0 200 100">
+                        <path d="M 10 50 Q 100 0 190 50" />
+                    </svg>
+                </div>
+            </div>
+    
+            <div class="step-info">
+                <div class="step-text">
+                    <div class="step-number">STEP：2</div>
+                    <h3 class="step-title">審査</h3>
+                    <p class="step-description">
+                        通常7営業日以内に当サービス側で審査を行います。<br>
+                        審査結果はメールでお知らせいたします。
+                    </p>
+                    <span class="step-duration">通常7営業日以内</span>
+                </div>
+                <div class="setup-flow-image">
+                    <div class="step-bg-decoration"></div>
+                    <img src="{% static 'front/img/top/setup_flow/step2.png' %}" alt="審査">
+                </div>
+                <div class="connector-line-reverse">
+                    <svg viewBox="0 0 200 100">
+                        <path d="M 10 50 Q 100 100 190 50" />
+                    </svg>
+                </div>
+            </div>
+    
+            <div class="step-info">
+                <div class="step-text">
+                    <div class="step-number">STEP：3</div>
+                    <h3 class="step-title">アプリ情報の入力</h3>
+                    <p class="step-description">
+                        アプリ名やロゴ画像、コンテンツ名などの設定情報を入力。<br>
+                        魅力的なアプリにするための重要なステップです。
+                    </p>
+                    <span class="step-duration">所要時間：1時間程度</span>
+                </div>
+                <div class="setup-flow-image">
+                    <div class="step-bg-decoration"></div>
+                    <img src="{% static 'front/img/top/setup_flow/step3.png' %}" alt="情報入力">
+                </div>
+                <div class="connector-line">
+                    <svg viewBox="0 0 200 100">
+                        <path d="M 10 50 Q 100 0 190 50" />
+                    </svg>
+                </div>
+            </div>
+    
+            <div class="step-info">
+                <div class="step-text">
+                    <div class="step-number">STEP：4</div>
+                    <h3 class="step-title">アプリの開設</h3>
+                    <p class="step-description">
+                        準備が整った段階でGoogle PlayとApp Storeへ申請を行います。<br>
+                        ストアの審査には2〜6週間程度かかります。
+                    </p>
+                    <span class="step-duration">ストア審査：2〜6週間</span>
+                    <p class="step-notice">※ストアの審査状況によってはさらにお時間をいただく場合がございます。</p>
+                </div>
+                <div class="setup-flow-image">
+                    <div class="step-bg-decoration"></div>
+                    <img src="{% static 'front/img/top/setup_flow/step4.png' %}" alt="アプリ開設">
+                </div>
+                <div class="connector-line-reverse">
+                    <svg viewBox="0 0 200 100">
+                        <path d="M 10 50 Q 100 100 190 50" />
+                    </svg>
+                </div>
+            </div>
+    
+            <div class="step-info">
+                <div class="step-text">
+                    <div class="step-number">STEP：5</div>
+                    <h3 class="step-title">サービスのスタート</h3>
+                    <p class="step-description">
+                        ストアの審査を通過しアプリが公開されると、<br>
+                        いよいよ投稿を始めてファンとの交流を深め、<br>
+                        サービスをスタートしていただけます。
+                    </p>
+                </div>
+                <div class="setup-flow-image">
+                    <div class="step-bg-decoration"></div>
+                    <img src="{% static 'front/img/top/setup_flow/step5.png' %}" alt="サービススタート">
+                </div>
+            </div>
+        </div>
+    
+        <!-- モバイルカルーセル -->
+        <div class="mobile-carousel">
+            <div class="carousel-container" id="carouselContainer">
+
+                <div class="carousel-item">
+                    <img src="{% static 'front/img/top/setup_flow/step1.png' %}" alt="フォーム申請">
+                    <div class="step-number">STEP：1</div>
+                    <h3 class="step-title">フォームからの申請</h3>
+                    <p class="step-description">専用フォームから必要事項を入力して申請いただきます。</p>
+                    <span class="step-duration">所要時間：30分程度</span>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="{% static 'front/img/top/setup_flow/step2.png' %}" alt="審査">
+                    <div class="step-number">STEP：2</div>
+                    <h3 class="step-title">審査</h3>
+                    <p class="step-description">通常7営業日以内に当サービス側で審査を行います。</p>
+                    <span class="step-duration">通常7営業日以内</span>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="{% static 'front/img/top/setup_flow/step3.png' %}" alt="情報入力">
+                    <div class="step-number">STEP：3</div>
+                    <h3 class="step-title">アプリ情報の入力</h3>
+                    <p class="step-description">アプリ名やロゴ画像、コンテンツ名などの設定情報を入力。</p>
+                    <span class="step-duration">所要時間：1時間程度</span>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="{% static 'front/img/top/setup_flow/step4.png' %}" alt="アプリ開設">
+                    <div class="step-number">STEP：4</div>
+                    <h3 class="step-title">アプリの開設</h3>
+                    <p class="step-description">準備が整った段階でGoogle PlayとApp Storeへ申請を行います。</p>
+                    <span class="step-duration">ストア審査：2〜6週間</span>
+                    <p class="step-notice">※審査状況により時間がかかる場合があります。</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="{% static 'front/img/top/setup_flow/step5.png' %}" alt="サービススタート">
+                    <div class="step-number">STEP：5</div>
+                    <h3 class="step-title">サービスのスタート</h3>
+                    <p class="step-description">アプリが公開されたら、ファンとの交流をスタート！</p>
+                </div>
+            </div>
+    
+            <div class="carousel-indicators">
+                <span class="indicator-dot active" data-slide="0"></span>
+                <span class="indicator-dot" data-slide="1"></span>
+                <span class="indicator-dot" data-slide="2"></span>
+                <span class="indicator-dot" data-slide="3"></span>
+                <span class="indicator-dot" data-slide="4"></span>
+            </div>
+
+            <div class="carousel-nav carousel-prev" onclick="prevSlide()">&#10094;</div>
+            <div class="carousel-nav carousel-next" onclick="nextSlide()">&#10095;</div>
+        </div>
+    </section>
+</div>
+
+<section class="after-launch-section">
+    <div class="after-launch-container">
+        <div class="after-launch-title-container">
+            <h2 class="after-launch-title">アプリが開設されたらすること</h2>
+        </div>
+        
+        <div class="after-launch-content-wrapper">
+            <div class="after-launch-video-section">
+                <div class="after-launch-video-container">
+                    <img src="{% static 'front/img/top/functional_specs/app_intro.png' %}" alt="アプリ開設後の設定手順" class="after-launch-video-placeholder">
+                    <div class="after-launch-play-button" onclick="openAfterLaunchVideoModal()">
+                        <div class="after-launch-play-icon"></div>
+                    </div>
+                </div>
+                <div class="after-launch-video-cta-message">
+                    <p>詳しい操作方法は動画をご覧ください。</p>
+                </div>
+            </div>
+            
+            <div class="after-launch-steps-section">
+                <div class="after-launch-steps-intro">
+                    <p>アプリが開設されたら、以下のステップを実行してみましょう</p>
+                </div>
+                
+                <div class="after-launch-steps-list">
+                    <div class="after-launch-step-item">
+                        <div class="after-launch-step-number">1</div>
+                        <div class="after-launch-step-content">
+                            <h4>プロフィールの設定と編集</h4>
+                            <p>あなたの個性が伝わるプロフィールを設定し、ファンに魅力をしっかり届けましょう。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="after-launch-step-item">
+                        <div class="after-launch-step-number">2</div>
+                        <div class="after-launch-step-content">
+                            <h4>アカウントの作成</h4>
+                            <p>アプリの運営をスムーズに行うために、管理用アカウントを作成し、必要な権限を設定しましょう。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="after-launch-step-item">
+                        <div class="after-launch-step-number">3</div>
+                        <div class="after-launch-step-content">
+                            <h4>コンテンツの作成</h4>
+                            <p>タイムラインの投稿、コレクションの作成、ルームを作成して、ファンに向けた魅力的なコンテンツを用意しましょう。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="after-launch-step-item">
+                        <div class="after-launch-step-number">4</div>
+                        <div class="after-launch-step-content">
+                            <h4>その他の設定</h4>
+                            <p>定期メッセージやカレンダーの設定などを行い、スムーズに運用できる環境を整えましょう。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="after-launch-mobile-cta-message">
+            <p>詳しい操作方法は動画をご覧ください。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ビデオモーダル -->
+<div id="afterLaunchVideoModal" class="after-launch-video-modal">
+    <div class="after-launch-modal-content">
+        <video id="afterLaunchModalVideo" class="after-launch-modal-video" controls>
+            <source src="{% static 'front/video/functional_specs/app_intro.mp4' %}" type="video/mp4">
+            お使いのブラウザは動画再生に対応していません。
+        </video>
+    </div>
+</div>
+
+
+
+<section class="faq-section">
+    <div class="faq-title-wrapper">
+        <h2 class="faq-title">よくある質問</h2>
+    </div>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="question-label">Q.</span>
+                本当にアプリの作成は無料？
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    <span class="answer-label">A.</span>
+                    <div class="faq-answer-text">
+                        はい、アプリの作成から運用まで完全無料でご利用いただけます。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="question-label">Q.</span>
+                導入審査はどのようなことを行うのでしょうか？
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    <span class="answer-label">A.</span>
+                    <div class="faq-answer-text">
+                        審査は2段階に分かれており、まずL4Uとしてアプリの作成が行えるかどうかの審査を行います。アプリが公序良俗に反することがないかや決済の審査に通るか、最低限の収益基準を満たすかなどの確認を行います。そちらが問題なかった場合アプリをAppleやGoogleのストアに申請しストア側での審査を行います。審査によってはアプリの受付や公開することができない場合があります。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="question-label">Q.</span>
+                収益の還元率はどのくらいですか？
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    <span class="answer-label">A.</span>
+                    <div class="faq-answer-text">
+                        コンテンツが購入されると、<font color="red">決済手数料を差し引いた残額</font>から20%のシステム利用料をいただき、残りがユーザー様の収益となります。詳細や具体例については、<a href="{% url 'front:revenue' %}" class="text-link">別ページ</a>にてご確認ください。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="question-label">Q.</span>
+                収益の受け取り方法を教えてください
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    <span class="answer-label">A.</span>
+                    <div class="faq-answer-text">
+                        ご登録いただいた銀行口座に、決済会社からの振り込み月の翌月末までにお支払いします。売り上げの明細はアプリ画面やCMSでいつでもご確認いただけます。詳細については、<a href="{% url 'front:revenue' %}" class="text-link">別ページ</a>をご覧ください。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="question-label">Q.</span>
+                アーティストやスタッフの管理する人の種類がよくわからないです
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    <span class="answer-label">A.</span>
+                    <div class="faq-answer-text">
+                        アーティストやスタッフの種類は「アーティスト」「スタッフ」「管理者」「管理スタッフ」に分かれています。詳細については、<a href="functional_specs/permissions_overview/" class="text-link">こちらのページ</a>をご覧ください。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span class="question-label">Q.</span>
+                カレンダーの設定は何ができますか？
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    <span class="answer-label">A.</span>
+                    <div class="faq-answer-text">
+                        外部のGoogleカレンダーなどの機能を連携させてアプリ内でスケジュールを表示する機能です。アプリ内で独自のカレンダーでの予定を入れることはできませんので、こちらの機能をご利用の場合はGoogleカレンダーなど外部公開で利用できるスケジュールを登録いただいてから、URLの設定を行ってください。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="usage-guide">
+    <div class="usage-guide-title-wrapper">
+        <h2 class="usage-guide-title">各機能の使い方</h2>
+    </div>
+    <div class="swiper guide-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <a href="{% url 'front:timeline' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/timeline.png' %}" alt="タイムライン機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:collection' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/collection.png' %}" alt="コレクション機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:room' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/room.png' %}" alt="ルーム機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:live' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/live.png' %}" alt="ライブ機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:goods_shop' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/goods_shop.png' %}" alt="ショップ機能（グッズ）のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:digital_goods_shop' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/digital_goods_shop.png' %}" alt="ショップ機能（デジタルコンテンツ）のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:2shot_shop' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/2shot_shop.png' %}" alt="ショップ機能（2shot）のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:dm' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/dm.png' %}" alt="DM機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:2shot' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/2shot.png' %}" alt="2shot機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:moderation' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/moderation.png' %}" alt="ミュート機能・ユーザー制限機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:delivery_management' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/delivery_management.png' %}" alt="配送管理機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:permission_management' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/permission_management.png' %}" alt="権限管理機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:account_management' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/account_management.png' %}" alt="アカウント管理機能のスクリーンショット">
+                </a>
+            </div>
+            <div class="swiper-slide">
+                <a href="{% url 'front:permissions_overview' %}" class="guide-item">
+                    <img class="usage-img" src="{% static 'front/img/top/functional_specs/permission_overview.png' %}" alt="権限についてのスクリーンショット">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cta-split-unified">
+    <div class="cta-unified-wrapper">
+        <div class="cta-split-left">
+            <div class="cta-split-content">
+                <h2>さあ、始めましょう</h2>
+                <p>あなた専用のファンアプリで<br>
+                新しい活動の形を</p>
+            </div>
+        </div>
+        <div class="cta-split-right">
+            <div class="cta-split-content">
+                <p class="cta-subtitle">初期費用・月額費用ずっと0円</p>
+                <a href="{% url 'front:app_request' %}" class="cta-button-split">
+                    無料でアプリを開設する
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="top-contact-section">
+    <div class="top-contact-container">
+        <div class="top-contact-message">
+            <h2 class="top-contact-catchphrase">
+                あなたの想いを、<br>
+                <strong>L4U</strong>で形にしませんか
+            </h2>
+            <p class="top-contact-sub-message">
+                ファンとの距離を、もっと近くに。<br>
+                想いを伝える場所を、もっと特別に。
+            </p>
+        </div>
+
+        <div class="top-contact-form-card">
+            <div class="top-contact-form-header">
+                <h3 class="top-contact-form-title">お問い合わせ</h3>
+                <p class="top-contact-form-subtitle">お気軽にご相談ください</p>
+            </div>
+
+            <form class="top-contact-form" method="post" novalidate>
+                {% csrf_token %}
+                
+                <div class="top-contact-field-group">
+                    <label class="top-contact-field-label">
+                        お名前<span class="top-contact-required">*</span>
+                    </label>
+                    <input type="text" id="name" name="name" class="top-contact-input" placeholder="山田 太郎" required value="{{ form.name.value|default:'' }}">
+                    {% if form.name.errors %}
+                    <div class="custom-error-message">
+                        {% for error in form.name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="top-contact-field-group">
+                    <label class="top-contact-field-label">
+                        メールアドレス<span class="top-contact-required">*</span>
+                    </label>
+                    <input type="email" id="email" name="email" class="top-contact-input" placeholder="example@email.com" required value="{{ form.email.value|default:'' }}">
+                    {% if form.email.errors %}
+                    <div class="custom-error-message">
+                        {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="top-contact-field-group">
+                    <label class="top-contact-field-label">
+                        お問い合わせカテゴリ<span class="top-contact-required">*</span>
+                    </label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                    <div class="custom-error-message">
+                        {% for error in form.category.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="top-contact-field-group">
+                    <label class="top-contact-field-label">
+                        お問い合わせ内容<span class="top-contact-required">*</span>
+                    </label>
+                    <textarea id="message" name="message" class="top-contact-textarea" placeholder="ご質問やご要望をお聞かせください" required>{{ form.message.value|default:'' }}</textarea>
+                    <div class="top-contact-char-count">
+                        <span id="messageLength">0</span>/1000文字
+                    </div>
+                    {% if form.message.errors %}
+                    <div class="custom-error-message">
+                        {% for error in form.message.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="top-contact-submit" id="submitBtn" disabled>送信する</button>
+            </form>
+
+            <div class="top-contact-privacy-note">
+                ※お問い合わせいただいた内容は、弊社の個人情報保護方針に基づき適切に管理いたします。
+                詳細は<a href="/privacy" class="top-contact-privacy-link">プライバシーポリシー</a>をご確認ください。
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const messageField = document.querySelector('#message');
+    const messageLength = document.querySelector('#messageLength');
+    const submitBtn = document.querySelector('#submitBtn');
+    const form = document.querySelector('.top-contact-form');
+    const maxLength = 1000;
+
+    // カテゴリセレクトボックスに必要なクラスを追加
+    const categorySelect = document.querySelector('select[name="category"]');
+    if (categorySelect) {
+        categorySelect.classList.add('top-contact-select');
+    }
+
+    function updateSubmitButton() {
+        const nameField = document.querySelector('#name');
+        const emailField = document.querySelector('#email');
+        const categoryField = categorySelect;
+        
+        let isValid = true;
+        
+        // 各フィールドのバリデーション
+        if (!nameField.value.trim()) {
+            isValid = false;
+        }
+        
+        if (!emailField.value.trim()) {
+            isValid = false;
+        }
+        
+        if (categoryField && !categoryField.value) {
+            isValid = false;
+        }
+        
+        if (!messageField.value.trim()) {
+            isValid = false;
+        }
+
+        if (messageField.value.length > maxLength) {
+            isValid = false;
+        }
+
+        submitBtn.disabled = !isValid;
+    }
+
+    function updateCharCount() {
+        const length = messageField.value.length;
+        messageLength.textContent = length;
+        
+        if (length > maxLength) {
+            messageLength.classList.add('count-error');
+        } else {
+            messageLength.classList.remove('count-error');
+        }
+        
+        updateSubmitButton();
+    }
+
+    // 初期文字数表示の更新
+    if (messageField.value) {
+        messageLength.textContent = messageField.value.length;
+    }
+
+    messageField.addEventListener('input', updateCharCount);
+    form.addEventListener('input', updateSubmitButton);
+    
+    // 初期状態のボタン状態を更新
+    updateSubmitButton();
+});
+</script>
+
+{% endblock %}

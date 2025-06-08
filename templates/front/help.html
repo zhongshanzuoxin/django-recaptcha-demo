@@ -1,0 +1,969 @@
+{% extends 'front/_base.html' %}
+
+{% block content %}
+  <div class="container help">
+    <h2 class="help-title">FAQ</h2>
+    
+    <div class="help-container">
+      <div class="help-section">
+        <!-- ここからヘルプ本文 -->
+        <article>
+          <h3>当サイトについて</h3>
+          <section id="help-box-1-1" class="help-box top">
+            <input id="help-1-1" type="checkbox" />
+            <label for="help-1-1">
+              <span class="question">Q</span>
+              <span class="question-title">機能の説明に書いてある項目がアプリに見当たりません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                アプリによっては、項目の名称が変更されていることがあります。これは、アプリ開設時にカスタマイズされた結果です。以下の項目は変更可能であり、アプリごとに異なる名称で表示される場合があります。<br /><br />
+                変更可能な項目一覧<br />
+                ・Home<br />
+                ・Shop<br />
+                ・コレクション<br />
+                ・ピックアップ<br />
+                ・タイムライン<br />
+                ・グッズ<br />
+                ・2shot<br />
+                ・ライブ<br />
+                ・チャット（Chat）<br />
+                ・ルーム<br />
+                ・DM（ダイレクトメッセージ）<br />
+                ・More<br />
+                ・商品<br />
+                ・アーティスト<br />
+                上記の項目がアプリ内で異なる名前で表示されている場合がありますので、該当する内容を探す際にはご注意ください。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">コレクションについて</h3>
+          <section id="help-box-2-1" class="help-box top">
+            <input id="help-2-1" type="checkbox" />
+            <label for="help-2-1">
+              <span class="question">Q</span>
+              <span class="question-title">コレクションとはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                コレクションは、ファンの皆様に共有可能なアルバム機能です。<br />
+                イベントごとの思い出や特別な瞬間をアルバム形式でまとめ、ファンの皆様と共有できるコンテンツとなっています。<br />
+                詳しくはこちら：<a href="https://service.accel-fan.jp/functional_specs/collection/" target="_blank">コレクション機能の使い方</a>をご覧ください。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">Shopについて</h3>
+          <section id="help-box-3-1" class="help-box top">
+            <input id="help-3-1" type="checkbox" />
+            <label for="help-3-1">
+              <span class="question">Q</span>
+              <span class="question-title">Shopとはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                Shopは、アーティストがファンに向けて直接商品を販売できる機能です。<br />
+                限定アイテムやグッズなどを通じて、ファンとの特別なつながりを築く場として活用されています。<br />
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-2" class="help-box">
+            <input id="help-3-2" type="checkbox" />
+            <label for="help-3-2">
+              <span class="question">Q</span>
+              <span class="question-title">商品の種類について教えてください。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                出品可能な商品は、以下の3種類です。<br />
+                1. 配送が必要な商品  <br />
+                ・Tシャツやグッズなど、実際に配送が必要な商品のことです。  <br />
+
+                ・詳しくはこちら：<a href="https://service.accel-fan.jp/functional_specs/goods_shop/" target="_blank">ショップ機能の使い方(グッズ)</a><br />
+
+                2. デジタルコンテンツ商品  <br />
+                ・デジタル形式のコンテンツを商品として販売できます。例えば、コレクションなどが該当します。  <br />
+
+                3. 2shot商品  <br />
+                ・2shot（アーティストとファンの2ショット撮影）を行う際のチケット商品です。  <br />
+
+                ・詳しくはこちら：<a href="https://service.accel-fan.jp/functional_specs/2shot_shop/" target="_blank">ショップ機能の使い方(2shot)</a><br /><br />
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-3" class="help-box">
+            <input id="help-3-3" type="checkbox" />
+            <label for="help-3-3">
+              <span class="question">Q</span>
+              <span class="question-title">デジタルコンテンツについて教えてください。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                デジタルコンテンツとは、商品として販売するコレクションのことです。<br /><br />
+
+                ・コレクションをデジタルコンテンツとして販売すると、その商品を購入したファンのみがコレクションを閲覧することができます。<br />
+                ・アーティストの思い出や特別なコンテンツを、購入者限定で共有する仕組みです。<br />
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-4" class="help-box">
+            <input id="help-3-4" type="checkbox" />
+            <label for="help-3-4">
+              <span class="question">Q</span>
+              <span class="question-title">コレクションの販売方法を教えて下さい。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                コレクション作成後にデジタルコンテンツとして商品を登録する必要があります。<br /><br />
+
+                手順<br />
+                1. コレクションの作成<br />
+                ・販売したいコンテンツをコレクションとして作成してください。<br />
+                ・コレクション作成時の設定：<br />
+                ・公開範囲は「個人向け」を選択してください。<br />
+                ・詳細設定は行わずに作成をお願いいたします。<br />
+
+                2. デジタルコンテンツ商品として登録<br />
+                ・作成したコレクションをデジタルコンテンツ商品として登録します。<br />
+                ・登録後、商品として販売可能になります。<br />
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-5" class="help-box">
+            <input id="help-3-5" type="checkbox" />
+            <label for="help-3-5">
+              <span class="question">Q</span>
+              <span class="question-title">商品を発送して配送状況を更新しましたが、発送を取り消しました。配送状況の更新も取り消したいです。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                配送状況の更新を取り消すことはできません。<br />
+                お手数ですが、ダイレクトメッセージなどで直接、購入された方へご連絡をお願いいたします。<br />
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-6" class="help-box">
+            <input id="help-3-6" type="checkbox" />
+            <label for="help-3-6">
+              <span class="question">Q</span>
+              <span class="question-title">購入した商品のキャンセル申請がありました。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                CMSからキャンセル可能です。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-7" class="help-box">
+            <input id="help-3-7" type="checkbox" />
+            <label for="help-3-7">
+              <span class="question">Q</span>
+              <span class="question-title">購入した商品の配送先変更の申請がありました。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                CMSから変更が可能です。<br /><br />
+                配送先を変更することで送料が変わる場合、配送先を変更しただけでは正しい送料が適用されません。<br />
+                CMSで一度購入をキャンセルしてから、ユーザー様に再度正しい配送先で購入していただくようお伝えください。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-8" class="help-box">
+            <input id="help-3-8" type="checkbox" />
+            <label for="help-3-8">
+              <span class="question">Q</span>
+              <span class="question-title">2shot商品を作成する時に、エラーが表示されて2shot開始日時と終了日時を登録できません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                2shot商品では、1人あたりの2shot時間により、2shot開始日時と終了日時に指定できる範囲が変わります。<br /><br />
+
+                ・1人あたりの2shot時間が「1分 〜 5分未満」の場合<br />
+                2shot開始日時〜終了日時が6時間以内である必要があります。<br />
+                ・1人あたりの2shot時間が「5分 〜 30分未満」の場合<br />
+                2shot開始日時〜終了日時が18時間以内である必要があります。<br />
+                ・1人あたりの2shot時間が「30分 〜 120分未満」の場合<br />
+                2shot開始日時〜終了日時が72時間以内である必要があります。<br />
+                ・1人あたりの2shot時間が「120分以上」の場合<br />
+                120分以上の2sho商品は作成できません。<br />
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-9" class="help-box">
+            <input id="help-3-9" type="checkbox" />
+            <label for="help-3-9">
+              <span class="question">Q</span>
+              <span class="question-title">2shot商品を作成する時に、2shot開催ユーザーに登録したいユーザーを選択できません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                2shot開催ユーザーの選択可能な一覧に表示されるユーザーは、「アーティスト検索に含める」という条件を持っているユーザーのみです。  <br />
+                以下の手順で設定をご確認ください。<br /><br />
+
+                手順<br />
+                1. アプリ内の「More > アカウント管理 > 権限管理」に移動します。<br />
+                2. 対象ユーザーが「アーティスト検索に含める」に設定されているかをご確認ください。<br /><br />
+
+                注意点<br />
+                ・「アーティスト検索に含める」設定を変更できるユーザーは権限によって異なります。<br />
+                ・詳しくはこちら：<a href="https://service.accel-fan.jp/functional_specs/permissions_overview/" target="_blank">権限について</a>をご覧ください。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-10" class="help-box">
+            <input id="help-3-10" type="checkbox" />
+            <label for="help-3-10">
+              <span class="question">Q</span>
+              <span class="question-title">2shot商品を作成したのですが、深夜も販売されていました。深夜時間は売り出したくないです</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                2shot商品では、指定した範囲のすべての時間が販売対象となります。  <br />
+                そのため、販売したくない時間帯がある場合は、その時間帯を避けて、1日ごとに分けて商品を作成してください。<br /><br />
+
+                例）  <br />
+                10/01と10/02の2日間を販売したいが、時間帯を10時〜19時に限定したい場合  <br />
+                ・10/01の10時〜19時の2shot商品を作成する。  <br />
+                ・10/02の10時〜19時の2shot商品を作成する。<br /><br />
+
+                このように、それぞれの日時ごとに別の商品を作成することで対応が可能です。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-3-11" class="help-box">
+            <input id="help-3-11" type="checkbox" />
+            <label for="help-3-11">
+              <span class="question">Q</span>
+              <span class="question-title">購入制限とはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                購入制限とは、1人あたりが購入可能な個数を制限する機能です。<br />
+                例えば購入制限を「5」に設定した場合、1人あたり5つまで購入が可能です。<br />
+                購入制限を設定しない場合は、無制限に購入することができます。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">タイムラインについて</h3>
+          <section id="help-box-4-1" class="help-box top">
+            <input id="help-4-1" type="checkbox" />
+            <label for="help-4-1">
+              <span class="question">Q</span>
+              <span class="question-title">動画のダウンロードは行えないのでしょうか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                動画のダウンロード機能は提供しておりません。<br />
+                ・タイムライン投稿時に画像のダウンロードを許可すると、投稿された画像は全てダウンロード可能となります。<br />
+                ・例）画像3枚と動画1つを投稿した場合、画像3枚はダウンロード可能ですが、動画はダウンロードできません。<br /><br />
+
+                また、ダウンロードを許可している場合でも、ゲストの方はダウンロードできない仕組みとなっております。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">ルームについて</h3>
+          <section id="help-box-5-1" class="help-box top">
+            <input id="help-5-1" type="checkbox" />
+            <label for="help-5-1">
+              <span class="question">Q</span>
+              <span class="question-title">ルームとはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                アーティストとファンが一緒にコミュニケーションを取れるグループチャットスペースです。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-5-2" class="help-box">
+            <input id="help-5-2" type="checkbox" />
+            <label for="help-5-2">
+              <span class="question">Q</span>
+              <span class="question-title">新たなルームを作成したいのですが、できません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                ルームを作成できるのは、スタッフもしくは管理者権限を持っているユーザーのみです。  <br />
+                まずはどの権限を持っているかをご確認ください。<br />
+                詳しくはこちら：<a href="https://service.accel-fan.jp/functional_specs/permissions_overview/" target="_blank">権限について</a>をご覧ください。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">ダイレクトメッセージについて</h3>
+          <section id="help-box-6-1" class="help-box top">
+            <input id="help-6-1" type="checkbox" />
+            <label for="help-6-1">
+              <span class="question">Q</span>
+              <span class="question-title">メッセージを送りたいのですが、ダイレクトメッセージ一覧に表示されず、検索にも出てきません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                利用を制限されているか、アカウントを削除した、またはアーティスト自身が相手をミュートしている場合には、一覧にも検索にも表示されません。  <br />
+                利用制限とミュート状況をご確認ください。<br /><br />
+
+                利用を制限されておらず、ミュートもしていない場合は、ファンの方自身がアカウントを削除された可能性があります。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">ライブについて</h3>
+          <section id="help-box-7-1" class="help-box top">
+            <input id="help-7-1" type="checkbox" />
+            <label for="help-7-1">
+              <span class="question">Q</span>
+              <span class="question-title">ライブの始め方について教えてください。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                公開範囲が全体向けのライブでも、ゲストの方はライブに参加することができません。  <br />
+                ゲストの方がライブに参加するには、以下のいずれかの対応が必要です。<br />
+                ・招待コードを入力する  <br />
+                ・無料会員登録を行う  <br />
+                ・有料会員登録を行う
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-2" class="help-box">
+            <input id="help-7-2" type="checkbox" />
+            <label for="help-7-2">
+              <span class="question">Q</span>
+              <span class="question-title">ライブをスケジューリングせずに今すぐに開始する場合、プッシュ通知は送られるのでしょうか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                ライブを今すぐ開始する場合、プッシュ通知は自動で送られるようになっています。<br />
+                通知を送りたくない場合、スケジュールの登録で開始時間を現在時刻に設定の上、通知を送らない設定でスケジュールの登録をお願いいたします。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-3" class="help-box">
+            <input id="help-7-3" type="checkbox" />
+            <label for="help-7-3">
+              <span class="question">Q</span>
+              <span class="question-title">ライブのスケジュール登録で「告知開始日時」の設定欄があるのですが、これはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                告知開始日時は、アプリのHome画面にあるピックアップ一覧へ表示される日時を設定する項目です。<br />
+                また、告知開始時のプッシュ通知設定では、告知が開始されたタイミング（ピックアップ一覧に表示されるタイミング）で通知を送るかどうかを設定できます。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-4" class="help-box">
+            <input id="help-7-4" type="checkbox" />
+            <label for="help-7-4">
+              <span class="question">Q</span>
+              <span class="question-title">複数人で配信したいのですが、配信者は1人しか設定できないのでしょうか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                配信者は1人のみ設定できます。<br />
+                複数人での配信も可能ですが、1つのカメラに複数人が映る形式に限られます。<br />
+                複数のカメラ映像を同時に画面に表示することはできませんので、あらかじめご了承ください。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-5" class="help-box">
+            <input id="help-7-5" type="checkbox" />
+            <label for="help-7-5">
+              <span class="question">Q</span>
+              <span class="question-title">ライブのアーカイブはどこに保存されるのでしょうか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                アーカイブは、ライブ終了後にコレクションへ保存されます。<br />
+                なお、ライブの時間が長い場合は、保存完了までに時間がかかることがあります。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-6" class="help-box">
+            <input id="help-7-6" type="checkbox" />
+            <label for="help-7-6">
+              <span class="question">Q</span>
+              <span class="question-title">ライブのアーカイブの公開範囲は自動で設定されるのでしょうか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                アーカイブの公開範囲は自動で設定されます。<br />
+                コレクションで公開された後に、公開範囲を変更することが可能です。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-7" class="help-box">
+            <input id="help-7-7" type="checkbox" />
+            <label for="help-7-7">
+              <span class="question">Q</span>
+              <span class="question-title">ライブの招待機能とはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                この機能は、通常では参加できないファンの方がライブに参加できるようにするものです。<br />
+                招待機能を使うと、招待コードを発行し、特定のファンの方に配布できます。<br />
+                受け取ったファンはそのコードを友人などに共有でき、友人はゲストや有料会員の区別なくライブに参加できます。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-8" class="help-box">
+            <input id="help-7-8" type="checkbox" />
+            <label for="help-7-8">
+              <span class="question">Q</span>
+              <span class="question-title">招待コードはどこから発行できますか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                招待コードは、ライブスケジュールの編集画面の右上から発行できます。<br />
+                なお、招待コードを発行できるのはスタッフまたは管理者の権限を持つユーザーのみです。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-7-9" class="help-box">
+            <input id="help-7-9" type="checkbox" />
+            <label for="help-7-9">
+              <span class="question">Q</span>
+              <span class="question-title">招待コードの発行を取り消したいです。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                招待コードは一度発行してしまうと取り消すことができません。<br />
+                発行されたユーザーに即時で発行されてしまいます。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">2shotについて</h3>
+          <section id="help-box-8-1" class="help-box top">
+            <input id="help-8-1" type="checkbox" />
+            <label for="help-8-1">
+              <span class="question">Q</span>
+              <span class="question-title">2shotとはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                2shotとは、オンラインで開催することができる1対1の通話機能です。<br />
+                2shotはShopで商品として販売していただくことができます。<br />
+                詳しくはこちら：<a href="https://service.accel-fan.jp/functional_specs/2shot/" target="_blank">2shot機能の使い方</a>をご覧ください。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-8-2" class="help-box">
+            <input id="help-8-2" type="checkbox" />
+            <label for="help-8-2">
+              <span class="question">Q</span>
+              <span class="question-title">2shot中にカメラオフできません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                2shotではカメラのオフ機能やマイクのミュート機能はありません。<br />
+                あらかじめご了承ください。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-8-3" class="help-box">
+            <input id="help-8-3" type="checkbox" />
+            <label for="help-8-3">
+              <span class="question">Q</span>
+              <span class="question-title">2shotの開始画面にいる状態でファンの方が2shot商品を購入されましたが、「開始まで」の時間が更新されません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                開始前に2shot商品が購入された場合、開始までの時間は更新されません。<br />
+                一度退室してから再度入室をお願いいたします。  
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">スーパーチャージについて</h3>
+          <section id="help-box-9-1" class="help-box top">
+            <input id="help-9-1" type="checkbox" />
+            <label for="help-9-1">
+              <span class="question">Q</span>
+              <span class="question-title">スーパーチャージとはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                スーパーチャージは、2shotやライブ中にファンの方からアーティストの皆様へ送られるギフトです。<br />
+                スーパーチャージは以下の6種類があります。<br />
+                ・100コインチャージ<br />
+                ・500コインチャージ<br />
+                ・1000コインチャージ<br />
+                ・3000コインチャージ<br />
+                ・10000コインチャージ<br />
+                ・50000コインチャージ<br /><br />
+
+                スーパーチャージをされたファンの方のコメントは、チャージ額に応じてコメントの背景が変わります。<br />
+                スーパーチャージされた方のコメントを見た際、ぜひお礼を伝えてみましょう！
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">権限について</h3>
+          <section id="help-box-10-1" class="help-box top">
+            <input id="help-10-1" type="checkbox" />
+            <label for="help-10-1">
+              <span class="question">Q</span>
+              <span class="question-title">権限は何種類ありますか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                権限は以下の4種類がございます。<br />
+                ・アーティスト<br />
+                ・スタッフ<br />
+                ・管理者<br />
+                ・管理スタッフ<br /><br />
+
+                上から下に向かって権限が強くなります。<br />
+                詳しくはこちら：<a href="https://service.accel-fan.jp/functional_specs/permissions_overview/" target="_blank">権限について</a>をご覧ください。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">アカウントについて</h3>
+          <section id="help-box-11-1" class="help-box top">
+            <input id="help-11-1" type="checkbox" />
+            <label for="help-11-1">
+              <span class="question">Q</span>
+              <span class="question-title">アカウントを追加したいです。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                アプリ内の「More > アカウント管理」から追加が可能です。<br />
+                アカウントを追加することができるのは、スタッフと管理者のみです。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-11-2" class="help-box">
+            <input id="help-11-2" type="checkbox" />
+            <label for="help-11-2">
+              <span class="question">Q</span>
+              <span class="question-title">運営関係者が退職したためアカウントを削除したいです。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                アプリ内の「More > アカウント管理」から削除が可能です。<br />
+                削除した後でも同画面からアカウントの復旧は可能となります。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-11-3" class="help-box">
+            <input id="help-11-3" type="checkbox" />
+            <label for="help-11-3">
+              <span class="question">Q</span>
+              <span class="question-title">アカウントの権限を変更したいです。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                アプリ内の「More > アカウント管理」から権限の変更が可能です。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-11-4" class="help-box">
+            <input id="help-11-4" type="checkbox" />
+            <label for="help-11-4">
+              <span class="question">Q</span>
+              <span class="question-title">ミュートについて教えてください。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                ミュートはお客様の画面でのみコメントやダイレクトメッセージが非表示になります。<br />
+                ミュートをしても、ミュートされた方に通知がいくことはありません。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-11-5" class="help-box">
+            <input id="help-11-5" type="checkbox" />
+            <label for="help-11-5">
+              <span class="question">Q</span>
+              <span class="question-title">利用制限について教えてください</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                利用制限は、アプリを利用している方全員の画面で制限されているユーザーが投稿したコメントやダイレクトメッセージが非表示になります。<br />
+                制限された方は以下の機能を制限されることになります。<br />
+                ・Shop<br />
+                　- 2shot商品の購入<br />
+                　- すでに購入済みで未開催の2shotイベントへの参加<br />
+                ・ライブ<br />
+                　- ライブ視聴<br />
+                　- 招待コードの配布<br />
+                　- 招待コードの使用<br />
+                ・タイムライン<br />
+                　- コメントの書き込み<br />
+                　- コメントのいいね<br />
+                　- ミュート<br />
+                　- タイムラインのいいね<br />
+                　- 画像のダウンロード<br />
+                ・コミュニティ<br />
+                　- コメントの書き込み<br />
+                　- コメントへのリアクション<br />
+                　- ミュート<br />
+                ・ダイレクトメッセージ<br />
+                　- アーティストとのメッセージ<br />
+                制限された方には制限されたことを知らせる通知がいきます。<br />
+                制限する際に理由も記載いただきますが、その理由は制限された方に表示されます。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">お問い合わせについて</h3>
+          <section id="help-box-12-1" class="help-box top">
+            <input id="help-12-1" type="checkbox" />
+            <label for="help-12-1">
+              <span class="question">Q</span>
+              <span class="question-title">問い合わせがあった時に、メールで通知が来るタイミングを教えてください。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                お問い合わせの通知メールは、スタッフ権限を持つ方に対し、新規のお問い合わせが入った場合のみ送信されます。<br />
+                その後の更新については、アプリ内のお知らせ（ベルマーク）に通知が蓄積されますが、新たな通知が送信されることはありません。<br />
+                お問い合わせが更新されると、お知らせ内の問い合わせ履歴が自動で更新される仕組みです。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">コインについて</h3>
+          <section id="help-box-13-1" class="help-box top">
+            <input id="help-13-1" type="checkbox" />
+            <label for="help-13-1">
+              <span class="question">Q</span>
+              <span class="question-title">コイン購入を取り消したいと問い合わせがありました</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                当サービスでは、以下の3つの決済方法を提供しております。<br />
+                ・クレジットカードでの支払い<br />
+                ・Appleアカウントでの支払い<br />
+                ・Googleアカウントでの支払い<br /><br />
+
+                このうち、Appleアカウントで購入されたコインについては、サービス側で取引を取り消すことができません。<br />
+                そのため、お問い合わせいただいたファンの方には、Appleへ直接お問い合わせいただくか、返金口座への直接返金、またはAmazonギフト券の送付などの対応をご案内ください。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">NGワードについて</h3>
+          <section id="help-box-14-1" class="help-box top">
+            <input id="help-14-1" type="checkbox" />
+            <label for="help-14-1">
+              <span class="question">Q</span>
+              <span class="question-title">NGワードとはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                NGワードに設定された言葉が含まれている場合、投稿を制限することができます。<br />
+                NGワードが適用されるのは、コミュニティ、タイムライン、ダイレクトメール、ライブの各機能です。<br /><br />
+
+                例えば、NGワードに「NG」を設定した場合、投稿したコメントに「NG」という文字が含まれていると、そのコメントは投稿できません。<br />
+                また、NGワードが部分一致で適用されるため、上記の例では「waiting」のような単語も投稿できなくなります。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-14-2" class="help-box">
+            <input id="help-14-2" type="checkbox" />
+            <label for="help-14-2">
+              <span class="question">Q</span>
+              <span class="question-title">NGワードの設定方法を教えてください。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                NGワードの設定はCMSから行っていただくことができます。<br />
+                ワードの登録はいくつでも可能です。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">アプリカラーについて</h3>
+          <section id="help-box-15-1" class="help-box top">
+            <input id="help-15-1" type="checkbox" />
+            <label for="help-15-1">
+              <span class="question">Q</span>
+              <span class="question-title">アプリカラーを変更したのに、アプリに反映されません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                反映までにはお時間がかかります。<br />
+                10分〜15分お時間がかかることがございますので、しばらくお待ちください。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-15-2" class="help-box">
+            <input id="help-15-2" type="checkbox" />
+            <label for="help-15-2">
+              <span class="question">Q</span>
+              <span class="question-title">WEBサイトのカラーも変更したいです。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                WEBサイトのカラーは、アプリカラーと連動しています。<br />
+                アプリカラーを変更していただきますと、WEBもそのカラーに変更になります。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">収益について</h3>
+          <section id="help-box-16-1" class="help-box top">
+            <input id="help-16-1" type="checkbox" />
+            <label for="help-16-1">
+              <span class="question">Q</span>
+              <span class="question-title">収益の確認をしたいです。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                簡易な収益情報であれば、アプリ内のMoreからご確認いただけます。<br />
+                簡易な収益情報以外はCMSからご確認いただけます。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-16-2" class="help-box">
+            <input id="help-16-2" type="checkbox" />
+            <label for="help-16-2">
+              <span class="question">Q</span>
+              <span class="question-title">収益の確認をしたいのに、アプリ内で見ることができません。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                収益の確認をしていただけるのは、管理者権限を持っている方のみとなります。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">決済について</h3>
+          <section id="help-box-17-1" class="help-box top">
+            <input id="help-17-1" type="checkbox" />
+            <label for="help-17-1">
+              <span class="question">Q</span>
+              <span class="question-title">決済方法の種類について教えてください。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                当サービスでは、以下の3つの決済方法を提供しております。<br />
+                ・クレジットカードでの支払い<br />
+                ・Appleアカウントでの支払い<br />
+                ・Googleアカウントでの支払い
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">コンテンツ作成について</h3>
+          <section id="help-box-18-1" class="help-box top">
+            <input id="help-18-1" type="checkbox" />
+            <label for="help-18-1">
+              <span class="question">Q</span>
+              <span class="question-title">公開範囲とはなんですか？</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                公開範囲とは、コンテンツを表示するファンの対象範囲を設定できるものです。<br /><br />
+
+                公開範囲には主に3種類あります。<br />
+                1. 全体向け<br />
+                　- ゲストを含む全てのファンの方が見ることができます。<br />
+                2. 有料会員向け<br />
+                　- 有料会員のファンの方のみが見ることができます。<br />
+                3. 個人向け<br />
+                　- 選択されたファンの方のみが見ることができます。<br /><br />
+
+                運営関係者の皆様には、公開範囲に関わらず全てのコンテンツが表示されます。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-18-2" class="help-box">
+            <input id="help-18-2" type="checkbox" />
+            <label for="help-18-2">
+              <span class="question">Q</span>
+              <span class="question-title">コンテンツの作成に時間がかかります。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+              通信状況にもよりますが、画像や動画のファイルサイズが大きいと作成に時間がかかる場合があります。<br />
+              一度に送信できるファイルサイズの上限は500MBですが、送信する画像や動画の数を減らし、小さいファイルサイズでアップロードすることで、作成時間を短縮できます。<br />
+              また、一度にすべてを送信せず、編集画面から画像や動画を追加することも可能ですので、ぜひご活用ください。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">コンテンツ名について</h3>
+          <section id="help-box-19-1" class="help-box top">
+            <input id="help-19-1" type="checkbox" />
+            <label for="help-19-1">
+              <span class="question">Q</span>
+              <span class="question-title">コンテンツ名が省略して表示されてしまいます。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                文字数や端末によっては省略表示される場合がございます。<br />
+                ご了承ください。
+              </span>
+            </div>
+          </section>
+        </article>
+
+        <article>
+          <h3 class="mt-5">画像・動画について</h3>
+          <section id="help-box-20-1" class="help-box top">
+            <input id="help-20-1" type="checkbox" />
+            <label for="help-20-1">
+              <span class="question">Q</span>
+              <span class="question-title">画像を選択しようとするとエラーになります。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                画像へのアクセス権限がない可能性があります。<br />
+                一度、「端末の設定 > 権限の確認を行いたいアプリ情報 > 権限」で写真と動画の権限が許可されているかをご確認ください。
+              </span>
+            </div>
+          </section>
+          <section id="help-box-20-2" class="help-box">
+            <input id="help-20-2" type="checkbox" />
+            <label for="help-20-2">
+              <span class="question">Q</span>
+              <span class="question-title">「こちらの動画は再生できません。」と表示されてしまいます。</span>
+            </label>
+            <div class="help-box-answer">
+              <span class="answer">A</span>
+              <span class="answer-text">
+                お使いの端末によってはサポートされていない動画形式の可能性がございます。<br />
+                特に4Kの再生を行うことができない端末もございますので、動画形式を一度ご確認ください。
+              </span>
+            </div>
+          </section>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const elementId = localStorage.getItem('scrollToElement');
+      
+      if (elementId) {
+          const element = document.getElementById(elementId);
+          
+          if (element) {
+              // チェックボックスを開く（FAQを展開する）
+              const checkboxId = elementId.replace('box-', '');
+              const checkbox = document.getElementById(checkboxId);
+              if (checkbox) {
+                  checkbox.checked = true;
+              }
+              
+              setTimeout(function() {
+                  const questionLabel = element.querySelector('label');
+                  
+                  if (questionLabel) {
+                      const rect = questionLabel.getBoundingClientRect();
+                      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                      
+                      const centerPosition = rect.top + scrollTop - (window.innerHeight / 2) + (questionLabel.offsetHeight / 2);
+                      
+                      window.scrollTo({
+                          top: centerPosition,
+                          behavior: 'smooth'
+                      });
+                  }
+                  
+                  localStorage.removeItem('scrollToElement');
+              }, 300);
+          }
+      }
+  });
+  </script>
+
+  <style>
+  .highlight-faq {
+      animation: highlightFade 2s ease;
+  }
+
+  @keyframes highlightFade {
+      0% { background-color: rgba(99, 102, 241, 0.2); }
+      100% { background-color: transparent; }
+  }
+  </style>
+{% endblock %}

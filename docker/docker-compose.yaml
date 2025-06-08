@@ -1,0 +1,32 @@
+services:
+  mysql:
+    image: mysql:8.0.11
+    platform: linux/amd64
+    ports:
+      - 3306:3306
+    env_file:
+    - ./.env
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  
+  web:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    env_file:
+    - ./.env
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ..:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - mysql

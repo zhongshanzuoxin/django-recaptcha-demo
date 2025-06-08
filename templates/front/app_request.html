@@ -1,0 +1,303 @@
+{% extends 'front/_base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="contact-title">ファンアプリの申請</h1>
+
+    <div class="contact-container">
+        <p class="form-description">ファンアプリの申請は無料です。審査通過後、アプリの詳細設定が可能となります。</p>
+        
+        <form method="post" class="contact-form" novalidate>
+            {% csrf_token %}
+            
+            <div class="form-field">
+                <label for="{{ form.name.id_for_label }}">お名前・法人名<span class="required">*</span></label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-field">
+                <label for="{{ form.email.id_for_label }}">連絡用メールアドレス<span class="required">*</span></label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-field">
+                <label for="{{ form.website_url.id_for_label }}">公式サイト URL</label>
+                {{ form.website_url }}
+                <small class="form-text text-muted">アーティスト/グループなどの公式サイトがある場合は入力してください</small>
+                {% if form.website_url.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.website_url.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-section">
+                <h3 class="mt-5">SNSアカウント情報<span class="required">*</span></h3>
+                <small class="form-text text-muted">いずれかのSNSアカウント情報を入力してください</small>
+                
+                {% if form.non_field_errors %}
+                <div class="custom-error-message">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="form-field mt-2">
+                    <label for="{{ form.x_account.id_for_label }}">X（旧Twitter）</label>
+                    {{ form.x_account }}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.instagram.id_for_label }}">Instagram</label>
+                    {{ form.instagram }}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.youtube.id_for_label }}">YouTube</label>
+                    {{ form.youtube }}
+                </div>
+
+                <div class="form-field">
+                    <label for="{{ form.tiktok.id_for_label }}">TikTok</label>
+                    {{ form.tiktok }}
+                </div>
+
+                <div class="form-field">
+                    <label>その他のSNS</label>
+                    <div id="otherSnsContainer"></div>
+                    
+                    <button type="button" id="addSnsBtn" class="add-sns-button">
+                        <span class="add-icon">+</span> その他のSNSを追加
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="{{ form.followers_count.id_for_label }}">総フォロワー数<span class="required">*</span></label>
+                <div class="followers-input-group">
+                    {{ form.followers_count }}
+                    <span class="followers-unit">人</span>
+                </div>
+                <small class="form-text text-muted">全てのSNSアカウントの合計フォロワー数を入力してください</small>
+                {% if form.followers_count.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.followers_count.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-field">
+                <label for="{{ form.remarks.id_for_label }}">備考欄</label>
+                {{ form.remarks }}
+                <div class="char-count">
+                    <span id="remarksLength">0</span>/1000文字
+                </div>
+                {% if form.remarks.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.remarks.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="privacy-section">
+                <h4 class="privacy-title">プライバシーポリシーについて</h4>
+                <div class="privacy-notice">
+                    <p>
+                        申請いただいた内容は、弊社の掲げる個人情報保護方針に沿って管理し、
+                        お客様の同意なく第三者に開示・提供することはありません。<br>
+                        詳細につきましては
+                        <a href="/privacy" target="_blank">
+                            プライバシーポリシー
+                        </a>
+                        をご参照ください。
+                    </p>
+                </div>
+
+                <div class="privacy-agreement">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="privacyCheck" name="privacy_agreement">
+                        <span class="checkbox-label">プライバシーポリシーに同意する</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit-button" id="submitBtn" disabled>
+                    申請
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const remarksField = document.querySelector('#{{ form.remarks.id_for_label }}');
+    const remarksLength = document.querySelector('#remarksLength');
+    const submitBtn = document.querySelector('#submitBtn');
+    const form = document.querySelector('form');
+    const maxLength = 1000;
+    const privacyCheck = document.querySelector('#privacyCheck');
+
+    function checkSnsFields() {
+        const snsFields = [
+            form.querySelector('[name="x_account"]'),
+            form.querySelector('[name="instagram"]'),
+            form.querySelector('[name="youtube"]'),
+            form.querySelector('[name="tiktok"]')
+        ];
+
+        // メインSNSのチェック
+        const hasMainSns = snsFields.some(field => field.value);
+
+        // その他のSNSのチェック
+        const otherSnsFields = Array.from(form.querySelectorAll('[name^="other_sns_name_"]'));
+        const otherSnsUrls = Array.from(form.querySelectorAll('[name^="other_sns_url_"]'));
+        
+        // その他のSNSフィールドのペアごとにチェック
+        let isOtherSnsValid = true;
+        for (let i = 0; i < otherSnsFields.length; i++) {
+            const nameField = otherSnsFields[i];
+            const urlField = otherSnsUrls[i];
+            
+            // 両方の入力が必要
+            if (!nameField.value.trim() || !urlField.value.trim()) {
+                isOtherSnsValid = false;
+                break;
+            }
+        }
+
+        // メインSNSが入力されているか、その他のSNSが全て正しく入力されている
+        return isOtherSnsValid && (hasMainSns || otherSnsFields.some((field, index) => 
+            field.value && otherSnsUrls[index].value
+        ));
+    }
+
+    function updateSubmitButton() {
+        const requiredFields = ['name', 'email', 'followers_count'];
+        let isValid = true;
+        
+        // 必須フィールドのチェック
+        requiredFields.forEach(fieldName => {
+            const field = form.querySelector(`[name="${fieldName}"]`);
+            if (!field.value) {
+                isValid = false;
+            }
+        });
+
+        // SNSフィールドのチェック
+        if (!checkSnsFields()) {
+            isValid = false;
+        }
+
+        // 備考文字数チェック
+        if (remarksField.value.length > maxLength) {
+            isValid = false;
+        }
+
+        // プライバシーポリシーの同意チェック
+        if (!privacyCheck.checked) {
+            isValid = false;
+        }
+
+        submitBtn.disabled = !isValid;
+    }
+
+    function updateCharCount() {
+        const length = remarksField.value.length;
+        remarksLength.textContent = length;
+        
+        if (length > maxLength) {
+            remarksLength.classList.add('count-error');
+        } else {
+            remarksLength.classList.remove('count-error');
+        }
+        
+        updateSubmitButton();
+    }
+
+    remarksField.addEventListener('input', updateCharCount);
+    form.addEventListener('input', updateSubmitButton);
+
+    // その他のSNS入力フォームの追加
+    const otherSnsContainer = document.getElementById('otherSnsContainer');
+    const addSnsBtn = document.getElementById('addSnsBtn');
+    let snsCount = 0;
+    const maxSns = 3;
+
+    function createSnsField() {
+        if (snsCount >= maxSns) return;
+
+        const fieldDiv = document.createElement('div');
+        fieldDiv.className = 'form-field other-sns-field';
+        
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'sns-input-group';
+
+        const snsNameInput = document.createElement('input');
+        snsNameInput.type = 'text';
+        snsNameInput.name = `other_sns_name_${snsCount}`;
+        snsNameInput.placeholder = 'SNS名';
+        snsNameInput.className = 'sns-name-input';
+        snsNameInput.addEventListener('input', updateSubmitButton);
+
+        const snsUrlInput = document.createElement('input');
+        snsUrlInput.type = 'url';
+        snsUrlInput.name = `other_sns_url_${snsCount}`;
+        snsUrlInput.placeholder = 'URL';
+        snsUrlInput.className = 'sns-url-input';
+        snsUrlInput.addEventListener('input', updateSubmitButton);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'delete-sns-btn';
+        deleteBtn.innerHTML = '×';
+        deleteBtn.onclick = () => {
+            fieldDiv.remove();
+            snsCount--;
+            addSnsBtn.style.display = 'flex';
+            updateSubmitButton();
+        };
+
+        inputGroup.appendChild(snsNameInput);
+        inputGroup.appendChild(snsUrlInput);
+        inputGroup.appendChild(deleteBtn);
+        fieldDiv.appendChild(inputGroup);
+        otherSnsContainer.appendChild(fieldDiv);
+
+        snsCount++;
+        if (snsCount >= maxSns) {
+            addSnsBtn.style.display = 'none';
+        }
+    }
+
+    addSnsBtn.addEventListener('click', createSnsField);
+    
+    privacyCheck.addEventListener('change', updateSubmitButton);
+
+    // 初期状態のボタン制御
+    updateSubmitButton();
+});
+</script>
+{% endblock %}

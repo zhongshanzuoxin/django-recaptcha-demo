@@ -1,0 +1,213 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">ルーム機能の使い方</h1>
+
+    <!-- メイン動画セクション -->
+    <div class="spec-video-section">
+        <!-- サムネイル表示部分 -->
+        <div class="video-thumbnail-container" onclick="openVideoModal()">
+            <img class="video-thumbnail" src="{% static 'front/img/top/functional_specs/room.png' %}" alt="ルーム機能の説明動画サムネイル">
+            <div class="play-overlay">
+                <i class="material-icons">play_arrow</i>
+            </div>
+        </div>
+
+        <!-- ビデオモーダル -->
+        <div class="video-modal" id="videoModal">
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+            <div class="modal-content">
+                <video controls class="modal-video" id="modalVideo">
+                    <source src="{% static 'front/video/functional_specs/room.mp4' %}" type="video/mp4">
+                    お使いのブラウザは動画の再生に対応していません。
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>ルームの機能概要</h2>
+        <p>ルーム機能は、アーティストとファンが一緒にコミュニケーションを取れるグループチャットスペースです。メッセージ、画像、動画を共有でき、リアクション機能を使ってファンと交流を深めることができます。</p>
+    </div>
+
+    <!-- 権限表 -->
+    <div class="spec-permissions">
+        <h2>権限と利用可能な機能</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ルームの新規作成</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>ルームの編集</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>ルームの削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="permission-note">○：利用可能　×：利用不可</p>
+    </div>
+
+    <!-- ルームの作成方法セクション -->
+    <div class="spec-steps">
+        <h2>ルームの作成方法</h2>
+        <div class="step-item">
+            <h3 data-step="1">新規ルームの追加</h3>
+            <h4>方法1: Chat画面から</h4>
+            <ol class="step-instructions">
+                <li>フッターの「Chat」をタップ</li>
+                <li>Chat画面の「Room」セクションを見つける</li>
+                <li>セクション内の「➕」ボタンをタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_01.png' %}" alt="ホーム画面からルームを追加する説明画像" class="step-image">
+            </div>
+            <h4>方法2: ルーム一覧画面から</h4>
+            <ol class="step-instructions">
+                <li>フッターの「Chat」をタップ</li>
+                <li>Chat画面の「Room」セクションを見つける</li>
+                <li>セクション内の「Room」をタップ</li>
+                <li>画面右下の「➕」ボタンをタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_02.png' %}" alt="ルーム画面からルームを追加する説明画像" class="step-image">
+            </div>
+            <h4>方法3: More画面から</h4>
+            <ol class="step-instructions">
+                <li>More画面の「コンテンツ」をタップ</li>
+                <li>コンテンツの「Room」をタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_03.png' %}" alt="More画面からルームを追加する説明画像" class="step-image">
+            </div>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="2">ルーム情報の入力</h3>
+            <p>必要情報を入力します。</p>
+            <p>アプリの入力欄に「＊」がついている項目は必須項目です。</p>
+
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    Room名
+                </div>
+                <div class="accordion-content js-details-content">
+                    ルームのタイトルを入力することができます。<br/>
+                    255文字までの入力が可能ですが、長い名前は省略して表示される場合がございますのでご注意ください。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    アイコン画像
+                </div>
+                <div class="accordion-content js-details-content">
+                    一覧画面などに表示するための画像を設定することができます。<br/>
+                    GIFなどは設定できません。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    Roomの開放日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    ルームを公開する日時を設定することができます。<br/>
+                    過去の日付では設定できません。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    Roomの終了日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    ルームを終了する日時を設定することができます。<br/>
+                    こちらに設定した日時を過ぎますと、ファンの方含め全てのユーザーの画面に表示されなくなります。<br/>
+                    こちらの項目は設定しないことも可能です。<br/>
+                    設定しなかった場合、無期限にアクセスが可能となります。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    公開範囲
+                </div>
+                <div class="accordion-content js-details-content">
+                    公開範囲では、どのファンの方がルームに参加できるかを設定することができます。<br/>
+                    ルームには2種類の公開範囲が存在します。<br/>
+                    &nbsp;1. 全体向け<br/>
+                    &nbsp;2. 有料会員向け<br/><br/>
+
+                    1の全体向けでは、ゲストの方も含め、全てのファンの方が参加することができます。<br/>
+                    ゲストや利用制限中のファンの方はコメントを書き込むことはできません。<br/>
+                    2の有料会員向けでは、サブスクリプションに登録しているファンの方のみ参加することができます。<br/><br/>
+
+                    <div class="edit-point">※編集では変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    ピン留め
+                </div>
+                <div class="accordion-content js-details-content">
+                    ピン留めでは、特定のルームを固定することができます。<br/>
+                    ピン留めをONにすると固定、OFFにすると固定しません。<br/><br/>
+
+                    ルームが表示される箇所はChat画面とRoom画面ですが、この2箇所で固定されます。<br/>
+                    基本、公開した順に表示されますが、固定されたルームは公開日時関係なく一番初めに表示されるようになります。<br/><br/>
+
+                    ピン留め設定をONにできるのは、1つのルームのみです。<br/>
+                    あるルームでピン留めをONにした後、別のルームでピン留めをONにすると、最初にONにしていたルームは自動的にピン留めが解除されます。<br/>
+                    ご注意ください。
+                </div>
+            </div>
+            {% comment %} <div class="note-group">
+                <h4 class="note-heading">アイコン画像</h4>
+                <p class="note-text-plain">ルームのサムネイル画像として表示されます。</p>
+            </div> {% endcomment %}
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="3">確認と作成</h3>
+            <p>入力内容を確認し、「ルームを作成する」をタップして作成します。</p>
+        </div>
+    </div>
+
+    <!-- ルームのヒント -->
+    <div class="spec-tips">
+        <h3>ルームのヒント</h3>
+        <ul>
+            <li>イベントや特別な出来事に合わせてルームを作成すると、より活発な交流が期待できます。</li>
+            <li>参加可能範囲を適切に設定し、ターゲットとなるファン層との交流を促進しましょう。</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+{% endblock %}

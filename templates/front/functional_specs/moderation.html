@@ -1,0 +1,207 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">ミュート・ユーザー制限機能の使い方</h1>
+
+    <!-- メイン動画セクション -->
+    <!-- <div class="spec-video-section">
+        <img src="https://via.placeholder.com/800x450" alt="機能説明動画" class="placeholder-video">
+        <div class="play-button">
+            <span class="material-icons">play_circle</span>
+        </div>
+    </div> -->
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>機能概要</h2>
+        <p>アプリ内でのコミュニケーションを健全に保つため、２種類の機能を提供しています。状況に応じて適切な機能を選択し、快適なコミュニティ運営を実現しましょう。</p>
+
+    <!-- 権限表 -->
+    <div class="spec-permissions">
+        <h2>権限と利用可能な機能</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ユーザーのミュート</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>ミュートの解除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="partial">△</span></td>
+                    </tr>
+                    <tr>
+                        <td>ユーザーの制限</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>ユーザーの制限解除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="permission-note">○：利用可能　△：自分が実施したものだけ解除可能　×：利用不可</p>
+    </div>
+
+    <div class="spec-permissions">
+        <h2>機能効果の違い</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>ミュート</th>
+                        <th>ユーザー制限</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>影響範囲</td>
+                        <td>実行したユーザーにのみ適用</td>
+                        <td>全ユーザーに適用</td>
+                    </tr>
+                    <tr>
+                        <td>機能制限</td>
+                        <td>なし</td>
+                        <td>あり</td>
+                    </tr>
+                    <tr>
+                        <td>通知</td>
+                        <td>通知されない</td>
+                        <td>制限されたユーザーに通知</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 機能説明セクション -->
+    <div class="spec-steps">
+        <h2>各機能の詳細</h2>
+        <div class="step-item">
+            <h3 data-step="1">ミュート機能</h3>
+            <div class="info-box">
+                <h4>ミュート機能の効果</h4>
+                <ul>
+                    <li>ミュートしたユーザーのコメントが非表示になります</li>
+                    <li>ミュートしたユーザーからのDMを受信しなくなります</li>
+                    <li>ミュートしたことは相手に通知されません</li>
+                </ul>
+            </div>
+            <p class="mt-5">ミュートの設定方法：</p>
+            <ol class="step-instructions">
+                <li>対象ユーザーのコメント、メッセージを長押しする</li>
+                <li>メニューの「ミュート」を選択</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_15.png' %}" alt="ミュート設定の説明画像" class="step-image">
+            </div>
+            <p class="mt-5">ミュートの解除方法：</p>
+            <ol class="step-instructions">
+                <li>Moreの「ユーザー管理」を選択</li>
+                <li>ミュートしたユーザーの「ミュート解除」を選択</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_16.png' %}" alt="ミュート設定の説明画像" class="step-image">
+            </div>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="2">ユーザー制限機能</h3>
+            <div class="info-box">
+                <h4>ユーザー制限の効果</h4>
+                <ul>
+                    <li>制限されたユーザーのコメントがすべてのユーザーから非表示になります</li>
+                    <li>制限されたユーザーに制限された旨の通知が表示されます</li>
+                    <li>以下の機能が利用できなくなります
+                        <ul class="mt-2">
+                            <li>コメントの投稿</li>
+                            <li>メッセージの送信</li>
+                            <li>2shot券の購入</li>
+                            <li>2shotへの参加</li>
+                            <li>ライブへの参加</li>
+                            <li>ライブ招待コードの配布・使用など</li>
+                        </ul>
+                        <p>詳しくは<a href="{% url 'front:help' %}#help-box-11-5" class="faq-link" onclick="event.preventDefault(); navigateToFAQ('help-box-11-5');">FAQの「利用制限について教えてください」</a>をご確認ください。</p>
+                    </li>
+                </ul>
+            </div>
+            <p class="mt-5">ユーザー制限の設定方法：</p>
+            <ol class="step-instructions">
+                <li>対象ユーザーのコメント、メッセージを長押しする</li>
+                <li>メニューの「ユーザー制限」を選択</li>
+                <li>制限理由を入力する</li>
+                <li>「利用制限をかける」を選択</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_17.png' %}" alt="ユーザー制限の説明画像" class="step-image">
+            </div>
+            <p class="mt-5">ユーザー制限の解除方法：</p>
+            <ol class="step-instructions">
+                <li>Moreの「ユーザー管理」を選択</li>
+                <li>制限されたユーザーを選択</li>
+                <li>「利用制限を解除」を選択</li>
+            </ol>
+            <p class="note-text">アーティストは自分が制限したユーザーのみ解除可能です</p>
+            <p class="note-text">メールアドレスはスタッフ、管理者にのみ表示されます</p>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_21.png' %}" alt="ユーザー制限の説明画像" class="step-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- 運用のヒント -->
+    <div class="spec-tips">
+        <h3>適切な運用のために</h3>
+        <ul>
+            <li>ミュート機能は個人の快適な利用のために活用してください</li>
+            <li>ユーザー制限は慎重に判断し、適切な理由がある場合のみ実施してください</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+            <a href="{% url 'front:2shot' %}" class="spec-nav-link prev">
+                <span class="nav-label">前の記事</span>
+                <span class="nav-title">2shot機能</span>
+            </a>
+            <a href="{% url 'front:delivery_management' %}" class="spec-nav-link next">
+                <span class="nav-label">次の記事</span>
+                <span class="nav-title">配送管理機能</span>
+            </a>
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+
+<script>
+function navigateToFAQ(elementId) {
+    // FAQページへ遷移
+    window.location.href = "{% url 'front:help' %}#" + elementId;
+    
+    // ローカルストレージに対象のIDを保存
+    localStorage.setItem('scrollToElement', elementId);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">権限管理機能の使い方</h1>
+
+    <!-- メイン動画セクション -->
+    <!-- <div class="spec-video-section">
+        <img src="https://via.placeholder.com/800x450" alt="機能説明動画" class="placeholder-video">
+        <div class="play-button">
+            <span class="material-icons">play_circle</span>
+        </div>
+    </div> -->
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>権限管理機能の概要</h2>
+        <p>権限管理機能では、管理アカウントの追加と既存アカウントの権限変更を行うことができます。各権限レベルによって実行できる操作が異なります。</p>
+    </div>
+
+    <!-- 権限表 -->
+    <div class="spec-permissions">
+        <h2>管理アカウントの追加</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>追加できる権限</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                        <th>管理スタッフ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>アーティストの追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフの追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者の追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフの追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="spec-permissions">
+        <h2>権限の変更</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>変更可能な権限</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                        <th>管理スタッフ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>アーティスト → スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>アーティスト → 管理者</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>アーティスト → 管理スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフ → アーティスト</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフ → 管理者</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフ → 管理スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者 → アーティスト</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者 → スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者 → 管理スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフ → アーティスト</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフ → スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフ → 管理者</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="permission-note">○：利用可能　×：利用不可</p>
+    </div>
+
+    <!-- 機能説明セクション -->
+    <div class="spec-steps">
+        <h2>権限管理の操作方法</h2>
+        <div class="step-item">
+            <h3 data-step="1">管理アカウントの追加</h3>
+            <ol class="step-instructions">
+                <li>Moreの「アカウント管理」を選択</li>
+                <li>画面右下の「➕」ボタンをタップ</li>
+                <li>追加するアカウントの情報を入力</li>
+                <li>「アカウント追加」をタップ</li>
+                <li>入力したメールアドレスに認証メールが送信されます。</li>
+                <li>認証メールのリンクをタップして認証を完了します。</li>
+                <p class="note-text">リンクの有効期限は6時間ですので、6時間以内に認証まで完了させてください。</p>
+            </ol>
+            <div class="note-group">
+                <h4 class="note-heading">「アーティスト検索に含める」について</h4>
+                <p class="note-text-plain">アーティスト検索に含めると、2shotやライブを開催できるユーザーとして選択可能になります。</p>
+            </div>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_22.png' %}" alt="アカウント追加の説明画像" class="step-image">
+            </div>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="2">権限の変更</h3>
+            <ol class="step-instructions">
+                <li>Moreの「アカウント管理」を選択</li>
+                <li>対象のアカウントの権限表示部分をタップ</li>
+                <li>変更したい権限を選択</li>
+                <li>「変更する」をタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_32.png' %}" alt="権限変更の説明画像" class="step-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- 権限管理のヒント -->
+    <div class="spec-tips">
+        <h3>権限管理のヒント</h3>
+        <ul>
+            <li>アーティストアカウントを追加する際は、2shot・ライブ配信を行うユーザーかどうかを考慮してアーティスト検索への表示設定を行いましょう。</li>
+            <li>スタッフアカウントは、日常的な運営管理を担当するメンバーに付与することをお勧めします。</li>
+            <li>管理者権限は、重要な意思決定や権限管理が必要なメンバーにのみ付与するようにしましょう。</li>
+            <li>管理スタッフ権限は、システム全体の管理や特別な権限が必要な場合にのみ付与してください。</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+            <a href="{% url 'front:delivery_management' %}" class="spec-nav-link prev">
+                <span class="nav-label">前の記事</span>
+                <span class="nav-title">配送管理機能</span>
+            </a>
+            <a href="{% url 'front:account_management' %}" class="spec-nav-link next">
+                <span class="nav-label">次の記事</span>
+                <span class="nav-title">アカウント管理機能</span>
+            </a>
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+{% endblock %}

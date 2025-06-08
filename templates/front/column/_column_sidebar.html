@@ -1,0 +1,71 @@
+<div id="sidebar" class="l4u-sidebar">
+  {# ■ カテゴリー一覧 #}
+  <section class="widget widget-categories">
+    <h3 class="widget-title">カテゴリー</h3>
+    <ul>
+      {% for category in categories %}
+        <li>
+          <a href="{% url 'front:column_category' slug=category.slug %}">{{ category.name }}</a>
+        </li>
+      {% empty %}
+        <li class="not-found-txt">カテゴリーはまだありません</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  {# ■ 人気記事 #}
+  <section class="widget widget-popular">
+    <h3 class="widget-title">人気の記事</h3>
+    <ul class="popular-list">
+      {% for popular_article in popular_articles_overall %}
+        <li class="sidebar-article">
+          <a href="{% url 'front:column_detail' slug=popular_article.slug %}" class="sidebar-article-link">
+            <div class="img-with-label">
+              <img src="{{ popular_article.thumbnail_image.name }}" alt="{{ popular_article.title }}" class="popular-img-with-label" />
+            </div>
+            <span class="title">{{ popular_article.title }}</span>
+          </a>
+        </li>
+      {% empty %}
+        <li class="not-found-txt">人気記事はまだありません</li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section class="widget widget-popular">
+    <h3 class="widget-title">最新の記事</h3>
+    <ul class="popular-list">
+      {% for latest_article in latest_articles %}
+        <li>
+          <a href="{% url 'front:column_detail' slug=latest_article.slug %}">
+            <img src="{{ latest_article.thumbnail_image.name }}" alt="{{ latest_article.title }}" />
+            <span class="title">{{ latest_article.title }}</span>
+          </a>
+        </li>
+      {% empty %}
+        <li class="not-found-txt">最新記事はまだありません</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  {# ■ タグ一覧 #}
+  <section id="fan-tags" class="widget widget-tag">
+    <h3 class="widget-title">
+      タグで探す<br />
+      <span class="box-under-txt">ファンのみんなが気になるテーマをピックアップ！</span>
+    </h3>
+    <div class="side-widget-inner">
+      <ul class="tag">
+        {% for tag in all_tags %}
+          <li>
+            <a href="{% url 'front:column_tag' slug=tag.slug %}">
+                <span class="material-symbols-filled">sell</span>
+              {{ tag.name }}
+            </a>
+          </li>
+        {% empty %}
+          <li>タグなし</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>

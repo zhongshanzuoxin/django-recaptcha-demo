@@ -1,0 +1,567 @@
+{% extends 'front/_base.html' %}
+
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">権限について</h1>
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>権限の概要</h2>
+        <p>アプリ内の権限は、アーティスト、スタッフ、管理者、管理スタッフの4種類があります。各権限によって利用できる機能が異なります。</p>
+    </div>
+
+    <!-- 権限の詳細 -->
+    <div class="spec-section">
+        <h2>権限の詳細</h2>
+
+        <div class="step-item">
+            <h3 data-step="1">共通の権限</h3>
+            <p>全ての管理アカウントが利用できる機能です。</p>
+            <ul class="note-text-plain">
+                <li>ライブの登録、編集、削除</li>
+                <li>タイムラインの登録、編集、削除</li>
+                <li>コレクションの登録、編集、削除</li>
+                <li>ユーザーのミュート、制限</li>
+            </ul>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="2">スタッフの権限</h3>
+            <p>共通の権限に加えて、以下の機能が利用できます。</p>
+            <ul class="note-text-plain">
+                <li>全ての商品管理</li>
+                <li>ルームの管理</li>
+                <li>ルームのコメント削除</li>
+                <li>アーティストアカウントの追加</li>
+            </ul>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="3">管理者の権限</h3>
+            <p>スタッフの権限に加えて、以下の機能が利用できます。</p>
+            <ul class="note-text-plain">
+                <li>収益情報の管理と設定</li>
+                <li>システムカラーの設定</li>
+                <li>カレンダーの設定</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 制限事項 -->
+    <div class="spec-section">
+        <h2>制限事項</h2>
+
+        <div class="step-item">
+            <h3 data-step="1">アーティストの制限</h3>
+            <ul class="note-text-plain">
+                <li>2shot以外の商品登録、編集、削除はできません</li>
+                <li>ルームの登録、編集、削除はできません</li>
+                <li>ルームのコメント削除はできません</li>
+            </ul>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="2">スタッフの制限</h3>
+            <ul class="note-text-plain">
+                <li>管理者アカウントを作成、設定できません</li>
+                <li>管理スタッフアカウントを作成、設定できません</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 詳細な権限一覧 -->
+    <div class="spec-permissions-detail">
+        <h2>詳細な権限一覧</h2>
+        <p class="permissions-detail-note">
+            ○：できる　　△：自分が作成・実施したものだけできる　　×：できない
+        </p>
+
+        <div class="permissions-detail-wrapper">
+            <table class="permissions-detail-table">
+                <thead>
+                    <tr>
+                        <th>カテゴリ</th>
+                        <th>機能</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                        <th>管理スタッフ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 商品（グッズ） -->
+                    <tr>
+                        <td rowspan="4">商品（グッズ）</td>
+                        <td class="feature-name">新規登録</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>編集</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>配送管理</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- 商品（デジコン） -->
+                    <tr>
+                        <td rowspan="4">商品（デジコン）</td>
+                        <td class="feature-name">新規登録</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>編集</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>配送管理</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- 商品（2shot） -->
+                    <tr>
+                        <td rowspan="4">商品（2shot）</td>
+                        <td class="feature-name">新規登録</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>編集</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>削除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>2shotの開始</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- タイムライン -->
+                    <tr>
+                        <td rowspan="3">タイムライン</td>
+                        <td class="feature-name">新規登録</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>編集</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>削除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- コレクション -->
+                    <tr>
+                        <td rowspan="3">コレクション</td>
+                        <td class="feature-name">新規登録</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>編集</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>削除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- コミュニティ -->
+                    <tr>
+                        <td rowspan="3">コミュニティ</td>
+                        <td class="feature-name">新規作成</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>編集</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- ライブ -->
+                    <tr>
+                        <td rowspan="5">ライブ</td>
+                        <td class="feature-name">新規登録</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>編集</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>削除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>ライブの開始</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>招待コードの発行</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- 第三者のコメント・メッセージの削除 -->
+                    <tr>
+                        <td rowspan="1">第三者のコメント・メッセージの削除</td>
+                        <td class="feature-name">コメント・メッセージの削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- ミュート -->
+                    <tr>
+                        <td rowspan="2">ミュート</td>
+                        <td class="feature-name">ミュート</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>ミュートの解除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="partial">△</span></td>
+                    </tr>
+
+                    <!-- ユーザーの制限 -->
+                    <tr>
+                        <td rowspan="2">ユーザーの制限</td>
+                        <td class="feature-name">ユーザーの制限</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>ユーザーの制限解除</td>
+                        <td><span class="partial">△</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- アカウント管理系 -->
+                    <tr>
+                        <td rowspan="6">アカウント管理</td>
+                        <td class="feature-name">関係者アカウントの削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>関係者アカウントの復旧</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>アーティストの追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフの追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者の追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフの追加</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- 権限の変更 -->
+                    <tr>
+                        <td rowspan="12">権限の変更</td>
+                        <td class="feature-name">アーティスト→スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>アーティスト→管理者</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>アーティスト→管理スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフ→アーティスト</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフ→管理者</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>スタッフ→管理スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者→アーティスト</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者→スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理者→管理スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフ→アーティスト</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフ→スタッフ</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>管理スタッフ→管理者</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- 収益系 -->
+                    <tr>
+                        <td>収益系</td>
+                        <td class="feature-name">収益情報の管理（確認）</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- 問い合わせチャット -->
+                    <tr>
+                        <td rowspan="3">問い合わせチャット</td>
+                        <td class="feature-name">問い合わせへの回答</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>新規問い合わせ時のメール通知</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>問い合わせのステータス変更</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+
+                    <!-- その他 -->
+                    <tr>
+                        <td rowspan="4">その他</td>
+                        <td class="feature-name">アプリカラーの設定</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>カレンダーURLの設定</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>定期メッセージの設定</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>CMSへのログイン</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 権限管理のヒント -->
+    <div class="spec-tips">
+        <h3>権限についての注意点</h3>
+        <ul class="note-text-plain">
+            <li>各権限は階層構造になっており、上位の権限は下位の権限の機能をすべて利用できます。</li>
+            <li>制限事項は各権限レベルで固定されており、個別に変更することはできません。</li>
+            <li>権限の変更は、適切な権限を持つアカウントのみが実行できます。</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+            <a href="{% url 'front:account_management' %}" class="spec-nav-link prev">
+                <span class="nav-label">前の記事</span>
+                <span class="nav-title">アカウント管理機能</span>
+            </a>
+            <a href="{% url 'front:timeline' %}" class="spec-nav-link next">
+                <span class="nav-label">次の記事</span>
+                <span class="nav-title">タイムライン機能</span>
+            </a>
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">アカウント管理機能の使い方</h1>
+
+    <!-- メイン動画セクション -->
+    <!-- <div class="spec-video-section">
+        <img src="https://via.placeholder.com/800x450" alt="機能説明動画" class="placeholder-video">
+        <div class="play-button">
+            <span class="material-icons">play_circle</span>
+        </div>
+    </div> -->
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>アカウント管理機能の概要</h2>
+        <p>アカウント管理機能では、管理アカウントの削除と復旧を行うことができます。アカウントの削除・復旧は管理者または管理スタッフのみが実行可能です。</p>
+    </div>
+
+    <!-- 権限表 -->
+    <div class="spec-permissions">
+        <h2>アカウント管理の権限</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                        <th>管理スタッフ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>アカウントの削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>アカウントの復旧</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="permission-note">○：利用可能　×：利用不可</p>
+    </div>
+
+    <!-- 機能説明セクション -->
+    <div class="spec-steps">
+        <h2>アカウント管理の操作方法</h2>
+        <div class="step-item">
+            <h3 data-step="1">アカウントの削除</h3>
+            <ol class="step-instructions">
+                <li>Moreの「アカウント管理」を選択</li>
+                <li>「アクティブアカウント」を展開</li>
+                <li>削除したいアカウントの「削除」ボタンをタップ</li>
+                <li>確認画面で「削除する」をタップ</li>
+            </ol>
+            <div class="note-group">
+                <h4 class="note-heading">アカウント削除時の注意点</h4>
+                <p class="note-text">削除したアカウントは一時的に利用停止状態となり、復旧が可能です。</p>
+            </div>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_23.png' %}" alt="アカウント削除の説明画像" class="step-image">
+            </div>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="2">アカウントの復旧</h3>
+            <ol class="step-instructions">
+                <li>Moreの「アカウント管理」を選択</li>
+                <li>「削除済みアカウント」を展開</li>
+                <li>復旧したいアカウントの「復旧」ボタンをタップ</li>
+                <li>確認画面で「復旧する」をタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_24.png' %}" alt="アカウント復旧の説明画像" class="step-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- アカウント管理のヒント -->
+    <div class="spec-tips">
+        <h3>アカウント管理のヒント</h3>
+        <ul class="note-text-plain">
+            <li>アカウントを削除する前に、本当に削除が必要かどうかを確認しましょう。</li>
+            <li>誤って削除してしまった場合は、すぐに復旧することができます。</li>
+            <li>長期間使用していないアカウントは、セキュリティのため削除を検討しましょう。</li>
+            <li>アカウントの削除・復旧は、必ず権限を持つ管理者間で情報を共有してから実行しましょう。</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+            <a href="{% url 'front:permission_management' %}" class="spec-nav-link prev">
+                <span class="nav-label">前の記事</span>
+                <span class="nav-title">権限管理機能</span>
+            </a>
+            <a href="{% url 'front:permissions_overview' %}" class="spec-nav-link next">
+                <span class="nav-label">次の記事</span>
+                <span class="nav-title">権限について</span>
+            </a>
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+{% endblock %}

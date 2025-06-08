@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7fafc;
+        }
+        .content {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        .field:last-child {
+            margin-bottom: 0;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+        }
+        .field-value {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .message-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .field-value + .field-value {
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="section-title">アプリ申請者情報</div>
+        <div class="field">
+            <div class="field-label">お名前・法人名</div>
+            <div class="field-value">{{ name }}</div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">連絡用メールアドレス</div>
+            <div class="field-value">{{ email }}</div>
+        </div>
+        
+        {% if website_url %}
+        <div class="field">
+            <div class="field-label">公式サイト URL</div>
+            <div class="field-value">{{ website_url }}</div>
+        </div>
+        {% endif %}
+
+        <div class="section-title">SNSアカウント情報</div>
+
+        {% if x_account %}
+        <div class="field">
+            <div class="field-label">X（旧Twitter）</div>
+            <div class="field-value">{{ x_account }}</div>
+        </div>
+        {% endif %}
+
+        {% if instagram %}
+        <div class="field">
+            <div class="field-label">Instagram</div>
+            <div class="field-value">{{ instagram }}</div>
+        </div>
+        {% endif %}
+
+        {% if youtube %}
+        <div class="field">
+            <div class="field-label">YouTube</div>
+            <div class="field-value">{{ youtube }}</div>
+        </div>
+        {% endif %}
+
+        {% if tiktok %}
+        <div class="field">
+            <div class="field-label">TikTok</div>
+            <div class="field-value">{{ tiktok }}</div>
+        </div>
+        {% endif %}
+
+        {% if other_sns %}
+        <div class="field">
+            <div class="field-label">その他のSNS</div>
+            {% for sns in other_sns %}
+            <div class="field-value">{{ sns.name }}: {{ sns.url }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if followers_count %}
+        <div class="field">
+            <div class="field-label">総フォロワー数</div>
+            <div class="field-value">{{ followers_count }}人</div>
+        </div>
+        {% endif %}
+
+        {% if remarks %}
+        <div class="field">
+            <div class="field-label">備考</div>
+            <div class="field-value message-content">{{ remarks }}</div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

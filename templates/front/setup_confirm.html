@@ -1,0 +1,474 @@
+{% extends 'front/_base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="confirm-step-indicator {% if is_submitted %}hidden{% endif %}">
+        <div class="confirm-step {% if current_step == 1 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 1</div>
+            <div class="confirm-step-label">アプリ設定情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 2 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 2</div>
+            <div class="confirm-step-label">口座情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 3 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 3</div>
+            <div class="confirm-step-label">特定商取引法の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 4 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 4</div>
+            <div class="confirm-step-label">確認</div>
+        </div>
+    </div>
+
+    <h1 class="confirm-title">
+        {% if is_submitted %}
+        申請が完了しました
+        {% else %}
+        入力内容の確認
+        {% endif %}
+    </h1>
+    <p class="confirm-description">
+        {% if is_submitted %}
+        内容を確認の上、7営業日以内にアプリストアへ審査を提出いたします。<br>
+        申請内容に不備があった場合は、メールにてご連絡いたします。
+        {% else %}
+        入力内容をご確認ください。<br>
+        問題がなければ「登録する」ボタンを押してください。
+        {% endif %}
+    </p>    
+
+    <div class="confirm-container">
+        <div class="confirm-section">
+            <div class="confirm-header">
+                <h2>アプリ設定</h2>
+                {% if not is_submitted %}
+                <a href="{% url 'front:app_settings' %}?email={{ applicant.email|urlencode }}&uuid={{ applicant.verify_token }}" 
+                   class="edit-button">
+                    編集する
+                </a>
+                {% endif %}
+            </div>
+            <div class="confirm-content">
+                <div class="confirm-item">
+                    <div class="confirm-label">アプリ名</div>
+                    <div class="confirm-value">{{ applicant.app_name }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">月額有料会員プランの追加</div>
+                    <div class="confirm-value">
+                        <div>{% if applicant.subscription_enabled %}有効{% else %}無効{% endif %}</div>
+                        {% if applicant.subscription_enabled %}
+                        <div class="subscription-changes">
+                            <div class="subscription-change-item">
+                                <div class="subscription-price-label">月額</div>
+                                <div class="subscription-price-separator">/</div>
+                                <div class="subscription-price-value">¥{{ applicant.subscription_price|stringformat:"d" }}</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">初期のアプリカラー</div>
+                    <div class="confirm-value">{{ color_name }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">アプリアイコン画像</div>
+                    <div class="confirm-value">
+                        {% if app_icon_url %}
+                        <div class="confirm-image">
+                            <div class="confirm-image-preview icon" style="background-image: url('{{ app_icon_url }}');"></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">ロゴ画像</div>
+                    <div class="confirm-value">
+                        {% if app_logo_url %}
+                        <div class="confirm-image">
+                            <div class="confirm-image-preview logo" style="background-image: url('{{ app_logo_url }}');"></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">コンテンツ呼称変更</div>
+                    <div class="confirm-value">
+                        <div>{% if applicant.naming_enabled %}有効{% else %}無効{% endif %}</div>
+                        {% if applicant.naming_enabled %}
+                        <div class="naming-changes">
+                            {% if applicant.home_header %}<div class="naming-change-item">
+                                <div class="change-before">Home</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.home_header }}</div>
+                            </div>{% endif %}
+                            {% if applicant.shop_header %}<div class="naming-change-item">
+                                <div class="change-before">Shop</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.shop_header }}</div>
+                            </div>{% endif %}
+                            {% if applicant.timeline_header %}<div class="naming-change-item">
+                                <div class="change-before">Time Line</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.timeline_header }}</div>
+                            </div>{% endif %}
+                            {% if applicant.chat_header %}<div class="naming-change-item">
+                                <div class="change-before">Chat</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.chat_header }}</div>
+                            </div>{% endif %}
+                            {% if applicant.more_header %}<div class="naming-change-item">
+                                <div class="change-before">more</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.more_header }}</div>
+                            </div>{% endif %}
+                            {% if applicant.collection %}<div class="naming-change-item">
+                                <div class="change-before">Collection</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.collection }}</div>
+                            </div>{% endif %}
+                            {% if applicant.pickup %}<div class="naming-change-item">
+                                <div class="change-before">Pickup</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.pickup }}</div>
+                            </div>{% endif %}
+                            {% if applicant.goods %}<div class="naming-change-item">
+                                <div class="change-before">グッズ</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.goods }}</div>
+                            </div>{% endif %}
+                            {% if applicant.products %}<div class="naming-change-item">
+                                <div class="change-before">商品</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.products }}</div>
+                            </div>{% endif %}
+                            {% if applicant.twoshot %}<div class="naming-change-item">
+                                <div class="change-before">2shot</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.twoshot }}</div>
+                            </div>{% endif %}
+                            {% if applicant.live %}<div class="naming-change-item">
+                                <div class="change-before">ライブ</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.live }}</div>
+                            </div>{% endif %}
+                            {% if applicant.room %}<div class="naming-change-item">
+                                <div class="change-before">Room</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.room }}</div>
+                            </div>{% endif %}
+                            {% if applicant.dm_long %}<div class="naming-change-item">
+                                <div class="change-before">DM</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.dm_long }}</div>
+                            </div>{% endif %}
+                            {% if applicant.artist_name %}<div class="naming-change-item">
+                                <div class="change-before">アーティストネームの呼称</div>
+                                <div class="change-arrow">→</div>
+                                <div class="change-after">{{ applicant.artist_name }}</div>
+                            </div>{% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="confirm-section">
+            <div class="confirm-header">
+                <h2>口座情報</h2>
+                {% if not is_submitted %}
+                <a href="{% url 'front:bank_account_setup' %}?email={{ applicant.email|urlencode }}&uuid={{ applicant.verify_token }}" 
+                   class="edit-button">
+                    編集する
+                </a>
+                {% endif %}
+            </div>
+            <div class="confirm-content">
+                <div class="confirm-item">
+                    <div class="confirm-label">銀行名</div>
+                    <div class="confirm-value">{{ applicant.bank_name }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">支店名</div>
+                    <div class="confirm-value">{{ applicant.branch_name }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">支店コード</div>
+                    <div class="confirm-value">{{ applicant.branch_code }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">口座種別</div>
+                    <div class="confirm-value">{{ applicant.get_bank_account_type_display }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">口座番号</div>
+                    <div class="confirm-value">{{ applicant.bank_account_number }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">口座名義</div>
+                    <div class="confirm-value">{{ applicant.bank_account_holder }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 特定商取引法の情報を追加 -->
+        <div class="confirm-section">
+            <div class="confirm-header">
+                <h2>特定商取引法に基づく表記</h2>
+                <a href="{% url 'front:specified_commercial_transaction_setup' %}?email={{ applicant.email|urlencode }}&uuid={{ applicant.verify_token }}" 
+                   class="edit-button">
+                    編集する
+                </a>
+            </div>
+            <div class="confirm-content">
+                <div class="confirm-item">
+                    <div class="confirm-label">販売事業者名</div>
+                    <div class="confirm-value {% if not applicant.seller_name %}empty-value{% endif %}">
+                        {{ applicant.seller_name|default:"未入力です" }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">運営統括責任者名</div>
+                    <div class="confirm-value {% if not applicant.manager_name %}empty-value{% endif %}">
+                        {{ applicant.manager_name|default:"未入力です" }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">所在地</div>
+                    <div class="confirm-value {% if not applicant.seller_address %}empty-value{% endif %}">
+                        {{ applicant.seller_address|default:"未入力です" }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">電話番号</div>
+                    <div class="confirm-value {% if not applicant.seller_phone_number %}empty-value{% endif %}">
+                        {{ applicant.seller_phone_number|default:"未入力です" }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">メールアドレス</div>
+                    <div class="confirm-value {% if not applicant.seller_email %}empty-value{% endif %}">
+                        {{ applicant.seller_email|default:"未入力です" }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">商品の販売価格</div>
+                    <div class="confirm-value {% if not applicant.price_info %}empty-value{% endif %}">
+                        {{ applicant.price_info|default:"未入力です"|linebreaksbr }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">商品代金以外の必要料金</div>
+                    <div class="confirm-value {% if not applicant.additional_fees %}empty-value{% endif %}">
+                        {{ applicant.additional_fees|default:"未入力です"|linebreaksbr }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">支払い方法</div>
+                    <div class="confirm-value {% if not applicant.allowed_payment %}empty-value{% endif %}">
+                        {{ applicant.allowed_payment|default:"未入力です"|linebreaksbr }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">商品の引渡方法</div>
+                    <div class="confirm-value {% if not applicant.delivery_method %}empty-value{% endif %}">
+                        {{ applicant.delivery_method|default:"未入力です"|linebreaksbr }}
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">返品・不良品対応</div>
+                    <div class="confirm-value {% if not applicant.return_policy %}empty-value{% endif %}">
+                        {{ applicant.return_policy|default:"未入力です"|linebreaksbr }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if not is_submitted %}
+        <div class="submit-container">
+            <button type="button" class="submit-button" onclick="showConfirmModal()">
+                登録する
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- 確認モーダル -->
+<div id="confirmModal" class="final-confirm-modal" role="dialog" aria-labelledby="confirmModalTitle" aria-hidden="true">
+    <div class="final-confirm-modal-content">
+        <h2 id="confirmModalTitle">登録の確認</h2>
+        <p class="final-confirm-warning-text">※ 一度登録すると、内容の変更はできません。</p>
+        <p>登録内容を十分にご確認の上、問題がなければ「確定する」ボタンを押してください。</p>
+        <div class="final-confirm-modal-actions">
+            <button type="button" class="final-confirm-cancel-button" onclick="hideConfirmModal()">キャンセル</button>
+            <button type="button" class="final-confirm-submit-button" onclick="confirmRegistration()">確定する</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .final-confirm-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+    
+    .final-confirm-modal.show {
+        display: block;
+        opacity: 1;
+    }
+    
+    .final-confirm-modal-content {
+        position: relative;
+        background-color: #ffffff;
+        margin: 15% auto;
+        padding: 2rem;
+        width: 90%;
+        max-width: 480px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: scale(0.9);
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .final-confirm-modal.show .final-confirm-modal-content {
+        transform: scale(1);
+    }
+    
+    .final-confirm-modal-content h2 {
+        margin: 0 0 1rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2D3748;
+    }
+    
+    .final-confirm-modal-content p {
+        color: #4A5568;
+        line-height: 1.5;
+    }
+
+    .final-confirm-modal-content p.final-confirm-warning-text {
+        color: #E53E3E;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
+    
+    .final-confirm-modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .final-confirm-cancel-button,
+    .final-confirm-submit-button {
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    
+    .final-confirm-cancel-button {
+        background-color: #E2E8F0;
+        color: #4A5568;
+    }
+    
+    .final-confirm-submit-button {
+        background-color: #2B6CB0;
+        color: #ffffff;
+    }
+    
+    .final-confirm-cancel-button:hover {
+        background-color: #CBD5E0;
+        transform: translateY(-1px);
+    }
+    
+    .final-confirm-submit-button:hover {
+        background-color: #2C5282;
+        transform: translateY(-1px);
+    }
+    
+    .final-confirm-cancel-button:active,
+    .final-confirm-submit-button:active {
+        transform: translateY(0);
+    }
+</style>
+
+<script>
+    function showConfirmModal() {
+        const modal = document.getElementById('confirmModal');
+        modal.style.display = 'block';
+        setTimeout(() => modal.classList.add('show'), 10);
+    }
+    
+    function hideConfirmModal() {
+        const modal = document.getElementById('confirmModal');
+        modal.classList.remove('show');
+        setTimeout(() => modal.style.display = 'none', 200);
+    }
+    
+    // モーダルの外側をクリックした時に閉じる
+    window.onclick = function(event) {
+        const modal = document.getElementById('confirmModal');
+        if (event.target === modal) {
+            hideConfirmModal();
+        }
+    }
+    
+    function confirmRegistration() {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = window.location.pathname;
+    
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = getCookie('csrftoken');
+        form.appendChild(csrfInput);
+    
+        const emailInput = document.createElement('input');
+        emailInput.type = 'hidden';
+        emailInput.name = 'email';
+        emailInput.value = '{{ applicant.email }}';
+        form.appendChild(emailInput);
+    
+        const uuidInput = document.createElement('input');
+        uuidInput.type = 'hidden';
+        uuidInput.name = 'uuid';
+        uuidInput.value = '{{ applicant.verify_token }}';
+        form.appendChild(uuidInput);
+    
+        document.body.appendChild(form);
+        form.submit();
+    }
+    
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+{% endblock %}

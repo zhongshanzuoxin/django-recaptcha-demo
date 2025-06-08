@@ -1,0 +1,327 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">ショップ機能の使い方(デジタル)</h1>
+
+    <!-- メイン動画セクション -->
+    <div class="spec-video-section">
+        <!-- サムネイル表示部分 -->
+        <div class="video-thumbnail-container" onclick="openVideoModal()">
+            <img class="video-thumbnail" src="{% static 'front/img/top/functional_specs/digital_goods_shop.png' %}" alt="デジタルコンテンツ機能の説明動画サムネイル">
+            <div class="play-overlay">
+                <i class="material-icons">play_arrow</i>
+            </div>
+        </div>
+
+        <!-- ビデオモーダル -->
+        <div class="video-modal" id="videoModal">
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+            <div class="modal-content">
+                <video controls class="modal-video" id="modalVideo">
+                    <source src="{% static 'front/video/functional_specs/digital_goods_shop.mp4' %}" type="video/mp4">
+                    お使いのブラウザは動画の再生に対応していません。
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>ショップの機能概要</h2>
+        <p>ショップの機能を使えば、あなたのファンに向けて直接商品を販売することができます。オリジナルグッズなどのアイテムを簡単に出品・管理できます。</p>
+    </div>
+
+    <!-- 権限表 -->
+    <div class="spec-permissions">
+        <h2>権限と利用可能な機能</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>商品の新規作成</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>商品の編集</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>商品の削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="permission-note">○：利用可能　×：利用不可</p>
+    </div>
+
+    <!-- 商品の作成方法セクション -->
+    <div class="spec-steps">
+        <h2>デジタルコンテンツ商品の作成方法</h2>
+        
+        <div class="step-item">
+            <h3 data-step="1">新規商品の追加</h3>
+            <h4>方法1: Shop画面から</h4>
+            <ol class="step-instructions">
+                <li>画面下部のフッターにある「Shop」をタップ</li>
+                <li>商品一覧画面の右下にある「➕」ボタンをタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_19.png' %}" alt="フッターから商品を追加する説明画像" class="step-image">
+            </div>
+            <h4>方法2: ホーム画面から</h4>
+            <ol class="step-instructions">
+                <li>ホーム画面の「Shop」セクションを見つける</li>
+                <li>セクション内の「➕」ボタンをタップ</li>
+            </ol>
+            <p class="note-text">ホーム画面の「Shop」セクションは、Shopに公開中の商品が登録されている場合にのみ表示されます。</p>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_20.png' %}" alt="ホーム画面から商品を追加する説明画像" class="step-image">
+            </div>
+            <h4>方法3: More画面から</h4>
+            <ol class="step-instructions">
+                <li>More画面の「コンテンツ」をタップ</li>
+                <li>コンテンツの「Shop」をタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_03.png' %}" alt="More画面から商品を追加する説明画像" class="step-image">
+            </div>
+        </div>
+        
+
+        <div class="step-item">
+            <h3 data-step="2">商品情報の入力</h3>
+            <p>必要情報を入力します。</p>
+            <p>アプリの入力欄に「＊」がついている項目は必須項目です。</p>
+
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    一覧表示用画像
+                </div>
+                <div class="accordion-content js-details-content">
+                    一覧画面などに表示するための画像を設定することができます。<br/>
+                    GIFなどは設定できません。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    商品画像
+                </div>
+                <div class="accordion-content js-details-content">
+                    商品の画像や動画を選択していただけます。<br/>
+                    一度の投稿・保存で以下の制限をかけさせていただいております。<br/>
+                    &nbsp;1. 一度の投稿・保存で合計500MBまで<br/>
+                    &nbsp;2. 一度の投稿・保存で合計10個まで<br/><br/>
+
+                    大きいサイズのメディアを投稿したい場合は、圧縮して小さくしていただくか、一度作成してから編集時に追加していただきますようお願いいたします。<br/>
+                    10個以上のメディアを登録したい場合は、一度作成してから編集画面での追加をお願いいたします。<br/><br/>
+                    
+                    編集時も一度に送ることができるメディアの数は10個までとなります。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    商品名
+                </div>
+                <div class="accordion-content js-details-content">
+                    商品名を入力することができます。<br/>
+                    255文字までの入力が可能ですが、長い名前は省略して表示される場合がございますのでご注意ください。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    商品説明
+                </div>
+                <div class="accordion-content js-details-content">
+                    出品する商品についての説明を入力することができます。<br/>
+                    1,000文字まで入力可能です。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売範囲
+                </div>
+                <div class="accordion-content js-details-content">
+                    販売範囲では、どのファンの方に向けて商品を出品するかを選択することができます。<br/>
+                    3種類の販売範囲が存在します。<br/>
+                    &nbsp;1. 全体向け<br/>
+                    &nbsp;2. 有料会員向け<br/>
+                    &nbsp;3. 個人向け<br/><br/>
+
+                    1の全体向けでは、会員登録しているファンの方全員が商品を購入できます。<br/>
+                    ゲストの方は商品を見ることはできても、購入することはできません。<br/>
+                    2の有料会員向けでは、サブスクリプションに登録しているファンの方が商品を購入できます。<br/>
+                    3の個人向けでは、選択した特定のファンの方のみが商品を購入できます。<br/><br/>
+
+                    <div class="edit-point">※販売開始後には変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売コンテンツ選択
+                </div>
+                <div class="accordion-content js-details-content">
+                    販売するコンテンツを選択します。。<br/>
+                    選択肢に出てくるコンテンツは、個人向けに販売しているコンテンツのみです。<br/><br/>
+
+                    デジタルコンテンツとして販売したいコレクションやライブがある場合、公開範囲を個人向けで作成し、詳細な設定（公開ユーザーの選択）は行わずにそれぞれのコンテンツを作成してください。<br/><br/>
+
+                    <div class="edit-point">※販売開始後には変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売価格（コイン）
+                </div>
+                <div class="accordion-content js-details-content">
+                    何コインで商品を出品するかを設定することができます。<br/>
+                    1コイン = 1円です。<br/>
+                    ファンの方はコインを購入して、購入したコインでこちらの商品を購入します。<br/><br/>
+
+                    コインは100コイン刻みでのみ設定可能となります。<br/><br/>
+
+                    <div class="edit-point">※編集では変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売開始日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    商品の販売開始日時を設定することができます。<br/>
+                    過去の日付では設定できません。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売終了日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    販売を終了する日時を設定することができます。<br/>
+                    こちらに設定した日時を過ぎますと、ファンの方含め全てのユーザーの画面にこの商品が表示されなくなります。<br/>
+                    こちらの項目は設定しないことも可能です。<br/>
+                    設定しなかった場合、無期限に購入が可能となります。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    プッシュ通知
+                </div>
+                <div class="accordion-content js-details-content">
+                    プッシュ通知設定では、商品の販売が開始された際にファンの方に通知を送るかどうかを選択することができます。<br/>
+                    ONにすると通知が送られ、OFFにすると通知は送られません。<br/><br/>
+
+                    <div class="edit-point">※編集では変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    ピン留め
+                </div>
+                <div class="accordion-content js-details-content">
+                    ピン留めでは、特定の商品を固定することができます。<br/>
+                    ピン留めをONにすると固定、OFFにすると固定しません。<br/><br/>
+
+                    商品が表示される箇所はHome画面とShop画面ですが、この2箇所で固定されます。<br/>
+                    基本、販売開始した順に表示されますが、固定された商品は販売開始日時関係なく一番初めに表示されるようになります。<br/><br/>
+
+                    ピン留め設定をONにできるのは、1つの商品のみです。<br/>
+                    ある商品でピン留めをONにした後、別の商品でピン留めをONにすると、最初にONにしていた商品は自動的にピン留めが解除されます<br/>
+                    グッズ、2shot、デジタルコンテンツ合わせて、その中で1つの商品に適用されます。<br/>
+                    ご注意ください。
+                </div>
+            </div>
+            {% comment %} <div class="note-group">
+                <h4 class="note-heading">一覧表示用画像</h4>
+                <p class="note-text-plain">商品一覧に表示されるサムネイル画像です。商品の特徴がわかりやすい画像を設定してください。</p>
+                <p class="note-text">1商品につき1枚まで登録できます。</p>
+            </div>
+            
+            <div class="note-group">
+                <h4 class="note-heading">商品画像</h4>
+                <p class="note-text-plain">商品詳細に表示される画像・動画です。商品の魅力が伝わる内容を設定しましょう。</p>
+                <p class="note-text">一度に10枚まで登録できます。</p>
+                <p class="note-text">1商品に対して制限なく登録できます。</p>
+            </div>
+
+            <div class="info-box">
+                <h4>登録後の変更について</h4>
+                <p>以下の項目は商品登録後に変更できませんのでご注意ください。</p>
+                <ul>
+                    <li>商品の価格</li>
+                    <li>販売範囲</li>
+                </ul>
+                <p>登録前に内容を十分にご確認ください。</p>
+            </div>
+
+            <div class="info-box">
+                <h4>購入制限について</h4>
+                <p>購入制限を設定することで、より多くのファンに購入機会を提供できます。以下のような場合に特に効果的です。</p>
+                <ul>
+                    <li>限定商品の販売時：特定のファンによる大量購入を防ぎ、多くのファンが購入できるようにします</li>
+                    <li>人気商品の再販時：前回売り切れで購入できなかったファンにも購入機会を提供できます</li>
+                    <li>新商品のテスト販売時：初期の需要を正確に把握するために、購入数を制限します</li>
+                </ul>
+                <p>購入制限は、一人当たりの購入可能数を指定することで設定できます。適切な数値を設定し、公平な販売機会を確保しましょう。</p>
+            </div>
+
+            <div class="info-box">
+                <h4>公開設定について</h4>
+                <p>商品の公開設定は、販売開始日時と販売終了日時で管理します</p>
+                <ul>
+                    <li>販売開始日時：商品の販売を開始する日時を設定します。即時公開や予約公開が可能です。</li>
+                    <li>販売終了日時：商品の販売を終了する日時を設定します。設定しない場合は無期限に販売されます。</li>
+                </ul>
+                <p>公開設定を活用することで、商品のタイミングを戦略的に管理できます。例えば、イベントに合わせた商品の販売や、限定期間の特別セールなどを簡単に設定できます。</p>
+            </div> {% endcomment %}
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="3">確認と登録</h3>
+            <p>入力内容を確認し、「登録する」をタップして商品を登録します。</p>
+        </div>
+    </div>
+
+    <!-- 販売管理のヒント -->
+    <div class="spec-tips">
+        <h3>デジタルコンテンツ販売のヒント</h3>
+        <ul>
+            <li>特別なイベントなどのライブを販売してみましょう。</li>
+            <li>特別なイベントの裏側などのコレクションを販売してみましょう。</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+            <a href="{% url 'front:live' %}" class="spec-nav-link prev">
+                <span class="nav-label">前の記事</span>
+                <span class="nav-title">ライブ機能</span>
+            </a>
+            <a href="{% url 'front:2shot_shop' %}" class="spec-nav-link next">
+                <span class="nav-label">次の記事</span>
+                <span class="nav-title">ショップ機能（2shot）</span>
+            </a>
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+
+{% endblock %}

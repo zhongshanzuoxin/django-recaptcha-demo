@@ -1,0 +1,826 @@
+body {
+    font-family: "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "Noto Sans Japanese", Verdana, "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    line-height: 32px;
+}
+h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+
+h2 {
+    position: relative;
+    padding: 15px 15px 15px 15px;
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    color: white;
+    font-size: 23px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+/* h2 {
+    padding: 18px 10px 10px 0px;
+    font-size: 25px;
+    margin-bottom: 1.5em;
+    position: relative;
+    font-weight: 800;
+  } */
+
+/* h2::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 49%;
+    transform: translateX(-50%);
+    width: 98%;
+    height: 2px;
+    background-color: #6366F1;
+} */
+
+
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0.5em 0.5em;
+    color: #494949;
+    border-left: solid 3px #6366F1;
+    margin-bottom: 24px;
+    border-radius: 3px;
+  }
+  
+h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+
+.entry-content h3 {
+  background: #eceff4;
+}
+
+p {
+    margin-bottom: 0px;
+    padding-bottom: 2em;
+    font-size: 16px;
+}
+
+nav ol, nav ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1240px;
+    width: auto;
+    margin: 0 auto;
+}
+.content-area {
+    width: 100%;
+    margin-bottom: 64px;
+    display: flex;
+}
+.content-area h2:not(:first-of-type) {
+    margin-top: 40px;
+  }
+
+
+  .entry-content-text ul {
+    padding: 20px 20px 20px 50px;
+    position: relative;
+    background: #fafafa;
+    border-radius: 4px;
+  }
+  
+  .entry-content-text ul li {
+    position: relative;
+    line-height: 1.5;
+    padding: 0.5em 0;
+    list-style-type: none !important;
+  }
+  
+  /* 見出しとしての1階層目のli::before（黒丸マーカー） */
+  .entry-content-text > ul > li::before {
+    content: "\25CF";
+    display: inline-block;
+    margin-left: -16px;  /* li padding + 適正位置補正 */
+    margin-right: 8px;
+    color: rgb(43, 43, 43);
+    font-size: 10px;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  
+  /* 子ul内のliにはマーカーを表示しない */
+  .entry-content-text li ul li::before {
+    content: none;
+  }
+  
+  /* ネストされたulのレイアウト */
+  .entry-content-text li ul {
+    margin: 0 0 0 1em;
+    padding: 0;
+  }
+  
+  /* （任意）入れ子ulそのものに矢印を表示 */
+  .entry-content-text li ul li::before {
+    content: "→";
+    position: relative;
+    left: -8px;
+    color: rgb(43, 43, 43);
+    font-size: 12px;
+  }
+  .entry-content-text ol ul {
+    background: initial !important;
+  }
+
+  .entry-content-text code {
+    font-size: initial;
+    color: #ff0000;
+    word-wrap: break-word;
+    font-weight: bold;
+  }
+
+/* =============================
+   PC表示向け：テーブルスタイル
+============================= */
+.entry-content-text table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .entry-content-text table th,
+  .entry-content-text table td {
+    padding: 10px;
+    border: solid 1px #ccc;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  .entry-content-text table th {
+    background: #6366F1;
+    color: #fff;
+  }
+  
+  /* =============================
+     モバイル表示（640px以下）
+  ============================= */
+  @media screen and (max-width: 640px) {
+    /* ヘッダー非表示 */
+    .entry-content-text table thead {
+      display: none;
+    }
+  
+    /* ブロック化による縦並び表示 */
+    .entry-content-text table table,
+    .entry-content-text table tbody,
+    .entry-content-text table tr,
+    .entry-content-text table td {
+      display: block;
+      width: 100%;
+    }
+  
+    /* 各行の最初のセルにヘッダー風装飾 */
+    .entry-content-text table td:first-child {
+      background: #6366F1;
+      color: #fff;
+      font-weight: bold;
+    }
+  
+    /* 最後の行に下線補完 */
+    .entry-content-text table tr:last-child {
+      border-bottom: solid 1px #ccc;
+    }
+  }
+
+  /* 親olにのみ番号装飾を適用 */
+.entry-content-text > ol {
+    counter-reset: number;
+    list-style-type: none !important;
+    padding: 20px 20px 20px 50px;
+    background: #f1f4ff;
+    border: solid 2px #6366F1;
+  }
+  
+  /* 親ol > li に番号バッジをつける */
+  .entry-content-text > ol > li {
+    position: relative;
+    counter-increment: number;
+    padding: 0.5em 0;
+  }
+  
+  .entry-content-text > ol > li::before {
+    content: counter(number);
+    position: relative;
+    left: -15px;
+    top: 10px;
+    transform: translateY(-50%);
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    line-height: 24px;
+    background: #6366F1;
+    color: white;
+    font-family: 'Avenir', 'Arial Black', 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 50%;
+    text-align: center;
+  }
+  
+  /* ネストされたolはスタイル変更しない（ブラウザ標準の番号表示） */
+  .entry-content-text ol ol {
+    list-style-type: decimal;
+    padding-left: 2em;
+  }
+  
+
+/* パンクズりすと */
+.xeory-breadcrumbs-list {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding-left: 0;
+}
+.xeory-breadcrumbs-item {
+    display: inline;
+}
+.xeory-breadcrumbs-item:after {
+    content: '>';
+    margin: 0 4px;
+}
+.xeory-breadcrumbs-item:last-child:after {
+    content: '';
+    margin: 0;
+  }
+
+/* サムネイル */
+.entry-thumbnail {
+    margin-bottom: 2em;
+}
+.entry-thumbnail img {
+    width: 100%;
+    object-fit: contain;
+}
+
+/* 目次 */
+
+.table-of-contents {
+    margin-bottom: 42px;
+    padding: 1em 1em 1em 2em;
+    border: 1px solid #999;
+    background-color: #f7f7f7;
+    color: #333333;
+}
+
+.table-of-contents div {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.table-of-contents div::before {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 5px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 4H21V6H8V4ZM3 3.5H6V6.5H3V3.5ZM3 10.5H6V13.5H3V10.5ZM3 17.5H6V20.5H3V17.5ZM8 11H21V13H8V11ZM8 18H21V20H8V18Z' fill='%23333'%3E%3C/path%3E%3C/svg%3E");
+    content: '';
+}
+
+.table-of-contents label::after {
+    margin-left: 5px;
+    font-size: .8em;
+    color: #166c9d;
+    content: "[開く]";
+    cursor: pointer;
+}
+
+.table-of-contents:has(:checked) label::after {
+    content: "[閉じる]";
+}
+
+.table-of-contents input {
+    display: none;
+}
+
+.table-of-contents ol {
+    list-style-type: disc;
+    margin: 0;
+    padding: 0 1.2em;
+    overflow: hidden;
+}
+
+.table-of-contents > ol {
+    height: 0;
+}
+
+.table-of-contents:has(:checked) > ol {
+    height: auto;
+}
+
+.table-of-contents ol ol {
+    margin-top: 5px;
+}
+
+.table-of-contents li {
+    padding: 5px 0;
+}
+
+.table-of-contents a {
+    color: #166c9d;
+}
+
+/* サイドバー */
+.l4u-sidebar {
+    min-width: 300px;
+    width: 300px;
+    margin-left: 38px;
+}
+
+.l4u-sidebar .widget_categories h3 {
+    border-bottom: 3px solid #dedede;
+    padding: 18px 0;
+}
+.l4u-sidebar h3 {
+    padding: 22px;
+    text-align: center;
+    color: var(--color-border);
+    font-size: 20px;
+    letter-spacing: 3.64px;
+    border: solid 1.5px var(--color-border);
+}
+
+.widget-title {
+    margin-bottom: -1px;
+    font-size: 16px;
+}
+.widget ul {
+    list-style: none;
+    padding: 0;
+    border: solid 1.5px var(--color-border);
+}
+.widget ul li a {
+    font-size: 14px;
+    display: block;
+    padding: 12px 20px;
+    border-bottom: 1px solid #dedede;
+    border-top: none;
+    color: #494949;
+    text-decoration: none;
+}
+
+.widget.widget-popular ul li a {
+    display: flex;
+}
+.widget-popular span {
+    line-height: 20px;
+}
+.widget-popular img {
+    width: 112px;
+    margin-right: 14px;
+    object-fit: contain;
+}
+
+.widget.widget-tag h3 {
+    
+}
+.widget.widget-tag .box-under-txt {
+    font-size: 12px;
+    display: block;
+    margin-top: 10px;
+    font-weight: 400;
+}
+.widget.widget-tag .side-widget-inner{
+    border: solid 1.5px var(--color-border);
+}
+.widget.widget-tag ul {
+    padding: 16px 12px 0;
+    border: none;
+}
+
+.widget.widget-tag .side-widget-inner li {
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  margin-right: 2px;
+  margin-bottom: 6px;
+}
+
+.widget.widget-tag a {
+  display: block;
+  padding: 2px 10px;
+  font-size: 13px;
+  border: solid 1px #9999999e
+}
+.material-symbols-outlined {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+  
+  blockquote {
+    position: relative;
+    margin: 0 auto 2em;
+    padding: 68px 32px 4px 32px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.6;
+    border: solid 2px #6366F1;
+
+  }
+  
+  blockquote::before {
+    content: "check";
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-size: 20px;
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    color: white;              /* アイコン色（中のチェック） */
+    background-color: #6366F1; /* 丸の背景色 */
+    width: 28px;               /* 丸の幅 */
+    height: 28px;              /* 丸の高さ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;        /* 丸くする */
+    box-shadow: 0 0 2px rgba(0,0,0,0.1); /* お好みで影など */
+  }
+
+  blockquote::after {
+    content: "Check";
+    position: absolute;
+    top: 29px;
+    left: 64px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #6366F1;
+  }
+  
+
+  /* l4uへのバナー */
+
+.banner-link-wrap {
+  margin: 2em 0;
+  border: solid 4px #6366EE;
+  padding: 20px;
+  background: #f8f9fa;
+  border-image: linear-gradient(122deg, #3bade3 0%, #576fe6 8%, #9844b7 101%, #ff357f 100%) 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+.banner-link-wrap .box-title {
+  text-align: center;
+  color: #4c4ff0;
+  font-weight: 700;
+  font-size: 22px;
+  margin: 0 auto 18px;
+  line-height: 1.4;
+}
+.banner-link-wrap p {
+    padding: 15px 20px;
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.banner-link-wrap .img-wrap{
+  display: block;
+  width: 40%;
+  margin: 0;
+}
+.banner-link-wrap .cta-txt {
+  width: 60%;
+}
+
+.banner-link-wrap img{
+  width: 100%;
+}
+.banner-link-wrap .box-content {
+  display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 auto 24px;
+}
+
+
+.banner-link-wrap .button {
+    margin-top: 20px;
+}
+.banner-link-wrap .button a {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 9999px;
+  max-width: 500px;
+  padding: 11px 13px;
+  font-family: "Noto Sans Japanese";
+  color: #fff;
+  line-height: 1.8;
+  text-decoration: none;
+  font-weight: 500;
+  background: linear-gradient(59deg, #3bade3 0%, #576fe6 15%, #9844b7 42%, #ff357f 100%);
+  background-size: 200% auto;
+  transition: all 0.3s ease-out;
+  font-size: 20px;
+}
+.banner-link-wrap .button a:hover {
+    color: #fff;
+    background-position: 99% 50%;
+    transform: scale(1.05);
+    /*ボックスの影*/  
+    box-shadow: 0 15px 15px rgba(87,111,230,0.4);
+}
+.banner-link-wrap .button a:after {
+    content: '';
+    width: 13px;
+    height: 13px;
+    border-top: 3px solid #fff;
+    border-right: 3px solid #fff;
+    transform: rotate(45deg) translateY(-50%);
+    position: absolute;
+    top: 50%;
+    right: 29px;
+    border-radius: 1px;
+    transition: 0.3s ease-in-out;
+}
+
+.article-hr {
+    color: #000;
+    margin: 0 0 17px 0;
+}
+.publish_date {
+    text-align: end;
+    font-size: 12px;
+    padding-bottom: 0;
+}
+
+
+.categories-discription {
+  font-size: 14px;
+  font-weight: 400;
+  color: #494949;
+  font-style: italic;
+  margin-top: 12px;
+}
+.categories-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 27px;
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-weight: 600;
+    border: solid 1.5px var(--color-border);
+}
+
+.categories-title::before,
+.categories-title::after {
+  content: '';
+  width: 70px;
+  height: 4px;
+  background-color: #5c63f6;
+}
+
+.categories-title::before {
+  margin-right: 20px;
+}
+
+.categories-title::after {
+  margin-left: 20px;
+}
+
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 0px 16px 0px;
+}
+
+.card-container.single-card {
+  justify-content: flex-start;
+}
+
+.post-card {
+  flex: 1 1 calc(50% - 1.5rem);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  max-width: 50%;
+  margin: 0px 8px 12px 8px;
+}
+.card-container:has(> .post-card:only-child) { justify-content: flex-start; }
+
+
+.post-card .entry-header {
+  position: relative;
+}
+
+.post-card .entry-thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.post-card .cat {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgb(0 0 0 / 29%);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.post-card .entry-content {
+  padding: 16px;
+}
+.post-card .entry-content p {
+  padding-bottom: 16px;
+  font-size: 14px;
+}
+
+.post-card .entry-title {
+  font-size: 18px;
+  margin: 10px 0 16px 0;
+  padding: 0;
+  background: none;
+}
+
+.post-card .entry-title a {
+  text-decoration: none;
+  color: #333;
+}
+.post-card .entry-thumbnail {
+  margin-bottom: 0;
+}
+
+.post-card .cont-str {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.post-card .entry-meta {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #888;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.post-card .entry-meta .more a {
+  background-color: #5c63f6;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+
+@media (max-width: 768px) {
+  .post-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+@media (max-width: 768px){
+
+  /* 1) ドロップダウンを縦リストとして展開しやすく */
+  .nav-links .dropdown {
+    position: static;         /* relative/absolute を無効化 */
+  }
+
+  /* 2) モバイル時はメニューを「折りたたみ」から表示に */
+  .nav-links .dropdown-menu {
+    position: static;         /* 親の flow 内に置く */
+    display: none;            /* 初期は非表示 */
+    padding: 0 0 0 16px;      /* インデントだけ追加 */
+  }
+
+  /* 3) JS で付く .open ／ .hover で表示する */
+  .nav-links .dropdown.open .dropdown-menu,
+  .nav-links .dropdown-menu.hover {
+    display: block;
+  }
+
+  /* optional: 項目ごとの余白調整 */
+  .nav-links .dropdown-item{
+    padding: 8px 0;
+  }
+}
+/* 768px 未満 (= タブレット縦・スマホ) ではサイドバーを隠す */
+@media (max-width: 769px) {
+  .l4u-sidebar  {
+    display: none;
+  }
+}
+
+.material-symbols-filled {
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+
+.pagination {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.pagination ul {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.pagination li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination li.active {
+  font-weight: bold;
+  background-color: #eee;
+}
+
+.pagination li.disabled {
+  color: #aaa;
+}
+
+.transparent-label {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: rgb(241 187 25 / 85%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 11px 16px;
+  border-radius: 3px;
+  z-index: 10;
+  backdrop-filter: blur(2px);
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+}
+
+
+.img-with-label {
+  position: relative;
+  display: inline-block;
+}
+
+.img-with-label img {
+  display: block;
+  width: 112px;
+}
+
+/* このラベルは img に“重なって”見える */
+.img-with-label::before {
+  content: "人気の記事";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background: rgb(241 187 25 / 97%);
+  color: #fff;
+  font-size: 6px;
+  padding: 5px 6px;
+  border-radius: 2px;
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1;
+}

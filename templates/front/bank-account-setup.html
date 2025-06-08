@@ -1,0 +1,340 @@
+{% extends 'front/_base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="confirm-step-indicator {% if is_submitted %}hidden{% endif %}">
+        <div class="confirm-step {% if current_step == 1 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 1</div>
+            <div class="confirm-step-label">アプリ設定情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 2 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 2</div>
+            <div class="confirm-step-label">口座情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 3 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 3</div>
+            <div class="confirm-step-label">特定商取引法の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 4 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 4</div>
+            <div class="confirm-step-label">確認</div>
+        </div>
+    </div>
+
+    <h1 class="bank-account-title">口座情報の入力</h1>
+    <div class="bank-account-container">
+        <p class="bank-account-description">収益の振込先となる口座情報を入力してください。</p>
+        
+        <form method="post" class="bank-account-form" novalidate>
+            {% csrf_token %}
+            
+            <div class="bank-form-field">
+                <label>
+                    金融機関名<span class="required">*</span>
+                </label>
+                {{ form.bank_name }}
+                {% if form.bank_name.errors %}
+                <div class="error-message">
+                    {% for error in form.bank_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="bank-branch-group">
+                <div class="bank-form-field">
+                    <label>
+                        支店名<span class="required">*</span>
+                    </label>
+                    {{ form.branch_name }}
+                    {% if form.branch_name.errors %}
+                    <div class="error-message">
+                        {% for error in form.branch_name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="bank-form-field">
+                    <label>
+                        支店コード<span class="required">*</span>
+                    </label>
+                    {{ form.branch_code }}
+                    <small class="form-text text-muted">半角数字3桁を入力してください</small>
+                    {% if form.branch_code.errors %}
+                    <div class="error-message">
+                        {% for error in form.branch_code.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="bank-form-field">
+                <label>
+                    口座種別<span class="required">*</span>
+                </label>
+                {{ form.bank_account_type }}
+                {% if form.bank_account_type.errors %}
+                <div class="error-message">
+                    {% for error in form.bank_account_type.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="bank-form-field">
+                <label>
+                    口座番号<span class="required">*</span>
+                </label>
+                {{ form.bank_account_number }}
+                <small class="form-text text-muted">半角数字7桁を入力してください</small>
+                {% if form.bank_account_number.errors %}
+                <div class="error-message">
+                    {% for error in form.bank_account_number.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="bank-form-field">
+                <label>
+                    口座名義（カタカナ）<span class="required">*</span>
+                </label>
+                {{ form.bank_account_holder }}
+                <small class="form-text text-muted">カタカナで入力してください</small>
+                {% if form.bank_account_holder.errors %}
+                <div class="error-message">
+                    {% for error in form.bank_account_holder.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit-button">
+                    次へ
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const form = document.querySelector('.bank-account-form');
+    const submitBtn = document.querySelector('.submit-button');
+    
+    // フィールドのバリデーション状態を追跡
+    const fieldValidationState = {};
+    
+    window.validateForm = function() {
+        const isValid = validateRequiredFields();
+        submitBtn.disabled = !isValid;
+    };
+
+    // 必須フィールドのバリデーション
+    function validateRequiredFields() {
+        const bankName = form.querySelector('input[name="bank_name"]');
+        const branchName = form.querySelector('input[name="branch_name"]');
+        const branchCode = form.querySelector('input[name="branch_code"]');
+        const bankAccountType = form.querySelector('select[name="bank_account_type"]');
+        const bankAccountNumber = form.querySelector('input[name="bank_account_number"]');
+        const bankAccountHolder = form.querySelector('input[name="bank_account_holder"]');
+
+        // 全ての必須フィールドが入力されているかチェック
+        if (!bankName.value.trim()) return false;
+        if (!branchName.value.trim()) return false;
+        if (!branchCode.value.trim()) return false;
+        if (!bankAccountType.value) return false;
+        if (!bankAccountNumber.value.trim()) return false;
+        if (!bankAccountHolder.value.trim()) return false;
+
+        // 各フィールドの個別バリデーション結果を確認
+        if (fieldValidationState['branch_code'] === false) return false;
+        if (fieldValidationState['bank_account_number'] === false) return false;
+        if (fieldValidationState['bank_account_holder'] === false) return false;
+
+        return true;
+    }
+
+    // 特定のフィールドのバリデーション
+    function validateField(field) {
+        const name = field.getAttribute('name');
+        const value = field.value.trim();
+        
+        // 値が空の場合はバリデーションをスキップ
+        if (!value) {
+            return { valid: true };
+        }
+        
+        // フィールド別のバリデーション
+        switch(name) {
+            case 'branch_code':
+                const branchCodePattern = /^\d{3}$/;
+                if (!branchCodePattern.test(value)) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '3桁の半角数字で入力してください'
+                    };
+                }
+                break;
+            case 'bank_account_number':
+                const bankAccountNumberPattern = /^\d{7}$/;
+                if (!bankAccountNumberPattern.test(value)) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '7桁の半角数字で入力してください'
+                    };
+                }
+                break;
+            case 'bank_account_holder':
+                const bankAccountHolderPattern = /^[ァ-ヶー\s]+$/;
+                if (!bankAccountHolderPattern.test(value)) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '口座名義はカタカナで入力してください'
+                    };
+                }
+                break;
+        }
+        
+        // バリデーション成功
+        fieldValidationState[name] = true;
+        return { valid: true };
+    }
+
+    // エラーメッセージを表示
+    function showErrorMessage(field, message) {
+        const fieldContainer = field.closest('.bank-form-field');
+        if (!fieldContainer) return;
+        
+        // 既存のエラーメッセージを削除
+        hideErrorMessage(field);
+        
+        // エラーメッセージ要素を作成
+        const errorElement = document.createElement('div');
+        errorElement.className = 'js-error';
+        errorElement.textContent = message;
+        
+        // フィールドの後に挿入
+        field.parentNode.insertBefore(errorElement, field.nextSibling);
+    }
+    
+    // エラーメッセージを非表示
+    function hideErrorMessage(field) {
+        const fieldContainer = field.closest('.bank-form-field');
+        if (!fieldContainer) return;
+        
+        const errorElement = fieldContainer.querySelector('.js-error');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+
+    // イベントリスナーの設定
+    function setupEventListeners() {
+        // 入力フィールドの変更を監視
+        form.addEventListener('input', validateForm);
+        
+        // フォーカス時のイベント
+        const formFields = form.querySelectorAll('input, select');
+        formFields.forEach(field => {
+            field.addEventListener('focus', function() {
+                // エラーメッセージがあれば非表示にする
+                hideErrorMessage(this);
+            });
+        });
+        
+        // 支店コードのバリデーション
+        const branchCode = form.querySelector('input[name="branch_code"]');
+        branchCode.addEventListener('input', function(e) {
+            // 数字以外の入力を削除
+            this.value = this.value.replace(/[^\d]/g, '');
+            // 3桁までに制限
+            if (this.value.length > 3) {
+                this.value = this.value.slice(0, 3);
+            }
+            
+            // バリデーション実行
+            const validation = validateField(this);
+            if (!validation.valid) {
+                showErrorMessage(this, validation.message);
+            } else {
+                hideErrorMessage(this);
+            }
+            
+            // フォームの全体的な検証を実行
+            validateForm();
+        });
+
+        // 口座番号のバリデーション
+        const bankAccountNumber = form.querySelector('input[name="bank_account_number"]');
+        bankAccountNumber.addEventListener('input', function(e) {
+            // 数字以外の入力を削除
+            this.value = this.value.replace(/[^\d]/g, '');
+            // 7桁までに制限
+            if (this.value.length > 7) {
+                this.value = this.value.slice(0, 7);
+            }
+            
+            // バリデーション実行
+            const validation = validateField(this);
+            if (!validation.valid) {
+                showErrorMessage(this, validation.message);
+            } else {
+                hideErrorMessage(this);
+            }
+            
+            // フォームの全体的な検証を実行
+            validateForm();
+        });
+        
+        // 口座名義のバリデーション
+        const bankAccountHolder = form.querySelector('input[name="bank_account_holder"]');
+        bankAccountHolder.addEventListener('input', function(e) {
+            // バリデーション実行
+            const validation = validateField(this);
+            if (!validation.valid) {
+                showErrorMessage(this, validation.message);
+            } else {
+                hideErrorMessage(this);
+            }
+            
+            // フォームの全体的な検証を実行
+            validateForm();
+        });
+    }
+    
+    // 初期化
+    function initialize() {
+        setupEventListeners();
+        validateForm();
+        
+        // スタイルを追加
+        const style = document.createElement('style');
+        style.textContent = `
+            .js-error {
+                margin-bottom: 0;
+                margin-top: 5px;
+                font-size: 14px;
+                color: #dc3545;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    initialize();
+});
+</script>
+{% endblock %}

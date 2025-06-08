@@ -1,0 +1,60 @@
+<header class="main-header">
+    <div class="container">
+        <nav class="navbar">
+            <!-- ロゴ部分 -->
+            <div class="logo">
+                <a href="/">
+                    <img src="/static/front/img/l4ulogo.png" alt="AccelFan Logo">
+                </a>
+            </div>
+
+            <!-- モバイル用メニューボタン -->
+            <button class="mobile-menu-btn">
+                <span class="menu-icon"></span>
+            </button>
+
+            <!-- ナビゲーションメニュー -->
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#" class="nav-link">
+                        機能
+                        <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'front:timeline' %}" class="dropdown-item">タイムライン</a>
+                        <a href="{% url 'front:collection' %}" class="dropdown-item">コレクション</a>
+                        <a href="{% url 'front:room' %}" class="dropdown-item">ルーム</a>
+                        <a href="{% url 'front:live' %}" class="dropdown-item">ライブ</a>
+                        <a href="{% url 'front:goods_shop' %}" class="dropdown-item">ショップ（グッズ）</a>
+                        <a href="{% url 'front:digital_goods_shop' %}" class="dropdown-item">ショップ（デジタル）</a>
+                        <a href="{% url 'front:2shot_shop' %}" class="dropdown-item">ショップ（2shot）</a>
+                        <a href="{% url 'front:dm' %}" class="dropdown-item">DM</a>
+                        <a href="{% url 'front:2shot' %}" class="dropdown-item">2shot</a>
+                        <a href="{% url 'front:moderation' %}" class="dropdown-item">ミュート・ユーザー制限</a>
+                        <a href="{% url 'front:delivery_management' %}" class="dropdown-item">配送管理</a>
+                        <a href="{% url 'front:permission_management' %}" class="dropdown-item">権限管理</a>
+                        <a href="{% url 'front:account_management' %}" class="dropdown-item">アカウント管理</a>
+                        <a href="{% url 'front:permissions_overview' %}" class="dropdown-item">権限について</a>
+                    </div>
+                </li>
+                <li class="dropdown article-cat-dropdown">
+                    <a href="#" class="nav-link">
+                    記事カテゴリー
+                    <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown-menu article-cat-menu">
+                    {% for category in categories %}
+                        <a href="/column/category/{{ category.slug }}" class="dropdown-item">{{ category.name }}</a>
+                    {% empty %}
+                        <span class="dropdown-item disabled">カテゴリー準備中</span>
+                    {% endfor %}
+                    </div>
+                </li>
+                <li><a href="{% url 'front:help' %}" class="nav-link">FAQ</a></li>
+                <li><a href="{% url 'front:contact' %}" class="nav-link">お問い合わせ</a></li>
+                <li><a href="{% url 'front:app_request' %}" class="nav-link cta-button">アプリ開設</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+

@@ -1,0 +1,623 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="naming-guide-container">
+    <!-- タイトルセクション -->
+    <h1 class="naming-guide-title">コンテンツ呼称設定について</h1>
+
+    <!-- 機能概要 -->
+    <div class="naming-guide-overview">
+        <div class="guide-points">
+            <div class="guide-point">
+                <h3>変更可能な箇所</h3>
+                <p>アプリ内の各種機能の名称をカスタマイズできます。画像内の<span class="highlight">赤枠で囲まれた部分</span>が変更可能な箇所です。</p>
+            </div>
+            <div class="guide-point">
+                <h3>設定方法</h3>
+                <p>変更したい項目のみ入力してください。未入力の項目は初期設定の名称のままとなります。</p>
+            </div>
+            <div class="guide-point">
+                <h3>表示について</h3>
+                <p>項目によってはヘッダーとフッターで表示が異なる箇所があります。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 各機能の説明 -->
+    <div class="naming-sections">
+        <div class="naming-section">
+            <h3>Home</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>Home画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/home/home_01.png' %}" alt="Home01">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>Collection</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>Home画面</li>
+                        <li>コレクション作成・編集画面</li>
+                        <li>コレクション一覧画面</li>
+                        <li>コンテンツ作成画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/collection/collection_01.png' %}" alt="コレクション01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/collection/collection_02.png' %}" alt="コレクション02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/collection/collection_03.png' %}" alt="コレクション03">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/collection/collection_04.png' %}" alt="コレクション04">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/collection/collection_05.png' %}" alt="コレクション05">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>Pick Up</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>Home画面</li>
+                        <li>ピックアップ一覧画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/pickup/pickup_01.png' %}" alt="ピックアップ01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/pickup/pickup_02.png' %}" alt="ピックアップ02">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>Shop</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>Home画面</li>
+                        <li>Shop一覧画面</li>
+                        <li>Shop詳細画面</li>
+                        <li>アカウント情報画面</li>
+                        <li>コンテンツ作成画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/shop/shop_01.png' %}" alt="Shop01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/shop/shop_02.png' %}" alt="Shop02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/shop/shop_03.png' %}" alt="Shop03">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/shop/shop_04.png' %}" alt="Shop04">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/shop/shop_05.png' %}" alt="Shop05">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>グッズ</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>グッズ作成・編集画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/goods/goods_01.png' %}" alt="グッズ01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/goods/goods_02.png' %}" alt="グッズ02">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>2shot</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>Home画面</li>
+                        <li>ピックアップ一覧画面</li>
+                        <li>2shot詳細画面</li>
+                        <li>2shot作成・編集画面</li>
+                        <li>More画面</li>
+                        <li>スケジュール一覧画面</li>
+                        <li>スケジュール詳細画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_01.png' %}" alt="2shot01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_08.png' %}" alt="2shot08">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_02.png' %}" alt="2shot02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_04.png' %}" alt="2shot04">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_03.png' %}" alt="2shot03">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_07.png' %}" alt="2shot07">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_06.png' %}" alt="2shot06">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/2shot/2shot_05.png' %}" alt="2shot05">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>商品</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>2shot作成・編集画面</li>
+                        <li>グッズ作成・編集画面</li>
+                        <li>ライブ招待コード発行画面</li>
+                        <li>購入完了画面</li>
+                        <li>お問い合わせ画面</li>
+                        <li>ショップ詳細画面</li>
+                        <li>配送管理画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/product/product_01.png' %}" alt="product01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/product/product_02.png' %}" alt="product02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/product/product_03.png' %}" alt="product03">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/product/product_04.png' %}" alt="product04">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/product/product_05.png' %}" alt="product05">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/product/product_06.png' %}" alt="product06">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/product/product_07.png' %}" alt="product07">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>Time line</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>Home画面</li>
+                        <li>タイムライン一覧画面</li>
+                        <li>タイムライン詳細画面</li>
+                        <li>タイムライン作成・編集画面</li>
+                        <li>コンテンツ作成画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/timeline/timeline_01.png' %}" alt="timeline01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/timeline/timeline_02.png' %}" alt="timeline02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/timeline/timeline_03.png' %}" alt="timeline03">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/timeline/timeline_04.png' %}" alt="timeline04">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/timeline/timeline_05.png' %}" alt="timeline05">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>Chat</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>チャット画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/chat/chat_01.png' %}" alt="chat01">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>Room</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>チャット画面</li>
+                        <li>ルーム一覧画面</li>
+                        <li>ルーム作成・編集画面</li>
+                        <li>コンテンツ作成画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/room/room_01.png' %}" alt="room01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/room/room_02.png' %}" alt="room02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/room/room_03.png' %}" alt="room03">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/room/room_04.png' %}" alt="room04">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/room/room_05.png' %}" alt="room05">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>DM</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>チャット画面</li>
+                        <li>コメント長押し時のボタン</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/dm/dm_01.png' %}" alt="dm01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/dm/dm_02.png' %}" alt="dm02">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>More</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>More画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/more/more_01.png' %}" alt="more01">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>ライブ</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>Home画面</li>
+                        <li>ピックアップ一覧画面</li>
+                        <li>More画面</li>
+                        <li>スケジュール一覧画面</li>
+                        <li>スケジュール詳細画面</li>
+                        <li>スケジュール登録・変更画面</li>
+                        <li>ライブ詳細画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_01.png' %}" alt="live01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_02.png' %}" alt="live02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_03.png' %}" alt="live03">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_04.png' %}" alt="live04">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_05.png' %}" alt="live05">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_06.png' %}" alt="live06">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_07.png' %}" alt="live07">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/live/live_08.png' %}" alt="live08">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="naming-section">
+            <h3>アーティスト</h3>
+            <div class="naming-section-content">
+                <div class="naming-description">
+                    <ul>
+                        <li>管理アカウント一覧画面</li>
+                        <li>管理アカウント詳細画面</li>
+                        <li>管理アカウント作成画面</li>
+                    </ul>
+                </div>
+                <div class="naming-images">
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/artist/artist_01.png' %}" alt="artist01">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/artist/artist_02.png' %}" alt="artist02">
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="{% static 'front/img/content_naming_guide/artist/artist_03.png' %}" alt="artist03">
+                    </div>
+                    <div class="image-navigation">
+                        <button class="nav-arrow prev">&#10094;</button>
+                        <button class="nav-arrow next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('.naming-section');
+
+    sections.forEach(section => {
+        const images = section.querySelectorAll('.image-wrapper');
+        const navigation = section.querySelector('.image-navigation');
+        const prevBtn = section.querySelector('.nav-arrow.prev');
+        const nextBtn = section.querySelector('.nav-arrow.next');
+        let currentIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let hasInteracted = false;
+
+        // スワイプヒントの追加（複数画像がある場合のみ）
+        if (images.length > 1) {
+            const swipeHint = document.createElement('div');
+            swipeHint.className = 'swipe-hint';
+            swipeHint.innerHTML = `
+                <div class="swipe-icon-wrapper">
+                    <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-static">
+                    <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-moving">
+                </div>
+                <span>横スクロール可能です</span>
+            `;
+            section.querySelector('.naming-images').appendChild(swipeHint);
+        }
+
+        // スワイプヒントを非表示にする関数
+        function hideSwipeHint() {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                const hint = section.querySelector('.swipe-hint');
+                if (hint) {
+                    hint.classList.add('hide');
+                    setTimeout(() => {
+                        hint.style.display = 'none';
+                    }, 300);
+                }
+            }
+        }
+
+        // スワイプ機能
+        const imagesContainer = section.querySelector('.naming-images');
+        if (imagesContainer && images.length > 1) {
+            imagesContainer.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
+
+            imagesContainer.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].clientX;
+                const diff = touchEndX - touchStartX;
+                
+                // タップの場合（スワイプ距離が小さい場合）
+                if (Math.abs(diff) <= 50) {
+                    hideSwipeHint();
+                } else {
+                    handleSwipe();
+                }
+            });
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchEndX - touchStartX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                hideSwipeHint(); // スワイプ時にヒントを非表示
+                if (diff > 0) {
+                    // 右スワイプ - 前の画像
+                    images[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    images[currentIndex].classList.add('active');
+                    updateIndicators();
+                } else {
+                    // 左スワイプ - 次の画像
+                    images[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].classList.add('active');
+                    updateIndicators();
+                }
+            }
+        }
+
+        // インジケーターの作成と追加
+        if (images.length > 0) {
+            const indicatorsContainer = document.createElement('div');
+            indicatorsContainer.className = 'image-indicators';
+            
+            for (let i = 0; i < images.length; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator';
+                if (i === 0) indicator.classList.add('active');
+                
+                indicator.addEventListener('click', () => {
+                    hideSwipeHint(); // インジケータークリック時にヒントを非表示
+                    images[currentIndex].classList.remove('active');
+                    currentIndex = i;
+                    images[currentIndex].classList.add('active');
+                    updateIndicators();
+                });
+                
+                indicatorsContainer.appendChild(indicator);
+            }
+
+            section.querySelector('.naming-images').appendChild(indicatorsContainer);
+        }
+
+        // インジケーターの更新関数
+        function updateIndicators() {
+            const indicators = section.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                if (index === currentIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        // 最初の画像を表示
+        if (images.length > 0) {
+            images[0].classList.add('active');
+        }
+
+        // 画像が1枚以下の場合はナビゲーションとインジケーターを非表示
+        if (images.length <= 1) {
+            if (navigation) navigation.style.display = 'none';
+            const indicators = section.querySelector('.image-indicators');
+            if (indicators) indicators.style.display = 'none';
+        }
+
+        // 矢印ボタンのイベントリスナー
+        if (prevBtn && nextBtn && images.length > 1) {
+            prevBtn.addEventListener('click', () => {
+                hideSwipeHint(); // 矢印クリック時にヒントを非表示
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                images[currentIndex].classList.add('active');
+                updateIndicators();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                hideSwipeHint(); // 矢印クリック時にヒントを非表示
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+                updateIndicators();
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

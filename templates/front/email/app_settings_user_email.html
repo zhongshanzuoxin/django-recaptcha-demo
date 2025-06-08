@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7fafc;
+        }
+        .content {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .message {
+            margin-bottom: 30px;
+        }
+        .settings-details {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        .settings-details h2 {
+            color: #2d3748;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+        .field-value {
+            color: #2d3748;
+        }
+        .next-steps {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .next-steps h2 {
+            color: #2d3748;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .next-steps ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        .next-steps li {
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="message">
+            <p>{{ service_name }}のアプリ設定内容を受け付けました。</p>
+        </div>
+
+        <div class="settings-details">
+            <h2>設定内容</h2>
+            <div class="field">
+                <div class="field-label">アプリ名</div>
+                <div class="field-value">{{ app_name }}</div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">月額有料会員プラン</div>
+                <div class="field-value">
+                    {% if subscription_enabled == 'enabled' %}
+                        有効（{{ subscription_price }}円）
+                    {% else %}
+                        無効
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">アプリカラー</div>
+                <div class="field-value">{{ app_color }}</div>
+            </div>
+
+            {% if naming_enabled == 'enabled' %}
+            <div class="field">
+                <div class="field-label">コンテンツ呼称設定</div>
+                {% for key, value in naming_fields.items %}
+                    {% if value %}
+                    <div class="field-value" style="margin-bottom: 5px;">{{ key|title }}: {{ value }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="field">
+                <div class="field-label">コンテンツ呼称設定</div>
+                <div class="field-value">デフォルト設定を使用</div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="next-steps">
+            <h2>次のステップ</h2>
+            <ul>
+                <li>内容を確認の上、7営業日以内にアプリストアへ審査を提出いたします。</li>
+                <li>アプリストアの審査には2~6週間程度かかります。</li>
+                <li>申請内容に不備があった場合は、メールにてご連絡いたします。</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

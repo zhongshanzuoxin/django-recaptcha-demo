@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7fafc;
+        }
+        .content {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        .field:last-child {
+            margin-bottom: 0;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+        }
+        .field-value {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .message-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .field-value + .field-value {
+            margin-top: 8px;
+        }
+        .empty-value {
+            color: #a0aec0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="section-title">アプリ設定情報</div>
+        
+        <div class="field">
+            <div class="field-label">アプリ名</div>
+            <div class="field-value">{{ app_name }}</div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">月額有料プラン</div>
+            <div class="field-value">
+                {% if subscription_enabled == 'enabled' %}
+                    月額：{{ subscription_price }}円
+                {% else %}
+                    無効
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">アプリカラー</div>
+            <div class="field-value">{{ app_color }}</div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">アプリアイコン</div>
+            <div class="field-value">
+                {% if has_app_icon %}
+                    <img src="cid:app_icon" alt="アプリアイコン" style="max-width: 200px; height: auto;">
+                {% else %}
+                    <span class="empty-value">未アップロード</span>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">ロゴ画像</div>
+            <div class="field-value">
+                {% if has_app_logo %}
+                    <img src="cid:app_logo" alt="ロゴ画像" style="max-width: 200px; height: auto;">
+                {% else %}
+                    <span class="empty-value">未アップロード</span>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">コンテンツ呼称設定</div>
+            {% if naming_enabled == 'enabled' %}
+                {% for key, value in naming_fields.items %}
+                    {% if value %}
+                    <div class="field-value">{{ key }}: {{ value }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class="field-value">デフォルト設定を使用</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Django
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+# Docker
+docker/mysql/data/
+docker/.env
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# セキュリティ関連
+*.pem
+*.key
+secrets/
+
+# 静的ファイル（管理画面など）
+static/admin/
+static/django_ckeditor_5/
+static/dist/

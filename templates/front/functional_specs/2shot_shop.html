@@ -1,0 +1,385 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">ショップ機能の使い方(2shot)</h1>
+
+    <!-- メイン動画セクション -->
+    <div class="spec-video-section">
+        <!-- サムネイル表示部分 -->
+        <div class="video-thumbnail-container" onclick="openVideoModal()">
+            <img class="video-thumbnail" src="{% static 'front/img/top/functional_specs/2shot_shop.png' %}" alt="ショップ機能の説明動画サムネイル">
+            <div class="play-overlay">
+                <i class="material-icons">play_arrow</i>
+            </div>
+        </div>
+
+        <!-- ビデオモーダル -->
+        <div class="video-modal" id="videoModal">
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+            <div class="modal-content">
+                <video controls class="modal-video" id="modalVideo">
+                    <source src="{% static 'front/video/functional_specs/2shot_shop.mp4' %}" type="video/mp4">
+                    お使いのブラウザは動画の再生に対応していません。
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>ショップの機能概要</h2>
+        <p>ショップの機能を使えば、あなたのファンに向けて直接商品を販売することができます。オリジナルグッズなどのアイテムを簡単に出品・管理できます。</p>
+    </div>
+
+    <!-- 権限表 -->
+    <div class="spec-permissions">
+        <h2>権限と利用可能な機能</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>商品の新規作成</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>商品の編集</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>商品の削除</td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>他者が作成した商品の編集・削除</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="permission-note">○：利用可能　×：利用不可</p>
+    </div>
+
+    <!-- 商品の作成方法セクション -->
+    <div class="spec-steps">
+        <h2>2shot商品の作成方法</h2>
+        
+        <div class="step-item">
+            <h3 data-step="1">新規商品の追加</h3>
+            <h4>方法1: フッターから</h4>
+            <ol class="step-instructions">
+                <li>画面下部のフッターにある「Shop」をタップ</li>
+                <li>商品一覧画面の右下にある「➕」ボタンをタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_19.png' %}" alt="フッターから商品を追加する説明画像" class="step-image">
+            </div>
+            <h4>方法2: ホーム画面から</h4>
+            <ol class="step-instructions">
+                <li>ホーム画面の「Shop」セクションを見つける</li>
+                <li>セクション内の「➕」ボタンをタップ</li>
+            </ol>
+            <p class="note-text">ホーム画面の「Shop」セクションは、Shopに公開中の商品が登録されている場合にのみ表示されます。</p>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_20.png' %}" alt="ホーム画面から商品を追加する説明画像" class="step-image">
+            </div>
+            <h4>方法3: More画面から</h4>
+            <ol class="step-instructions">
+                <li>More画面の「コンテンツ」をタップ</li>
+                <li>コンテンツの「Shop」をタップ</li>
+            </ol>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_03.png' %}" alt="More画面から商品を追加する説明画像" class="step-image">
+            </div>
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="2">商品情報の入力</h3>
+            <p>必要情報を入力します。</p>
+            <p>アプリの入力欄に「＊」がついている項目は必須項目です。</p>
+
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    商品画像
+                </div>
+                <div class="accordion-content js-details-content">
+                    一覧画面などに表示するための画像を設定することができます。<br/>
+                    GIFなどは設定できません。<br/>
+                    こちらに設定した画像が商品の画像としても登録されます。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    商品名
+                </div>
+                <div class="accordion-content js-details-content">
+                    商品名を入力することができます。<br/>
+                    255文字までの入力が可能ですが、長い名前は省略して表示される場合がございますのでご注意ください。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    商品説明
+                </div>
+                <div class="accordion-content js-details-content">
+                    出品する商品についての説明を入力することができます。<br/>
+                    1,000文字まで入力可能です。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売価格（コイン）
+                </div>
+                <div class="accordion-content js-details-content">
+                    何コインで商品を出品するかを設定することができます。<br/>
+                    1コイン = 1円です。<br/>
+                    ファンの方はコインを購入して、購入したコインでこちらの商品を購入します。<br/><br/>
+
+                    コインは100コイン刻みでのみ設定可能となります。<br/><br/>
+
+                    <div class="edit-point">※編集では変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    1人あたりの2shot時間（分）
+                </div>
+                <div class="accordion-content js-details-content">
+                    1人の人と何分間2shotを行うかを設定することができます。<br/>
+                    1分刻みで設定することができますが、最小1分〜最大120分までの範囲で設定してください。<br/><br/>
+
+                    <div class="edit-point">※編集では変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    2shot開始日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    2shotを開始する日時を設定することができます。<br/>
+                    過去の日付では設定できません。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    2shot終了日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    2shotを終了する日時を設定することができます。<br/>
+                    2shot開始日時〜2shot終了日時までが2shot開催期間となります。<br/>
+                    この期間を1人あたりの2shot時間で分けて販売します。<br/><br/>
+
+                    開催可能期間は1人あたりの2shot時間が何分かによって変わります。<br/>
+                    ・1人あたりの2shot時間が「1分 〜 5分未満」の場合<br/>
+                    &nbsp;&nbsp;2shot開始日時~終了日時が6時間以内である必要があります。<br/>
+                    ・1人あたりの2shot時間が「5分 〜 30分未満」の場合<br/>
+                    &nbsp;&nbsp;2shot開始日時~終了日時が18時間以内である必要があります。<br/>
+                    ・1人あたりの2shot時間が「30分 〜 120分未満」の場合<br/>
+                    &nbsp;&nbsp;2shot開始日時~終了日時が72時間以内である必要があります。<br/>
+                    ・1人あたりの2shot時間が「120分以上」の場合<br/>
+                    &nbsp;&nbsp;120分以上の2sho商品は作成できません。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売開始日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    商品の販売開始日時を設定することができます。<br/>
+                    過去の日付では設定できません。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売終了日時
+                </div>
+                <div class="accordion-content js-details-content">
+                    販売を終了する日時を設定することができます。<br/>
+                    こちらに設定した日時を過ぎますと、ファンの方含め全てのユーザーの画面にこの商品が表示されなくなります。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    販売範囲
+                </div>
+                <div class="accordion-content js-details-content">
+                    販売範囲では、どのファンの方に向けて商品を出品するかを選択することができます。<br/>
+                    3種類の販売範囲が存在します。<br/>
+                    &nbsp;1. 全体向け<br/>
+                    &nbsp;2. 有料会員向け<br/>
+                    &nbsp;3. 個人向け<br/><br/>
+
+                    1の全体向けでは、会員登録しているファンの方全員が商品を購入できます。<br/>
+                    ゲストの方は商品を見ることはできても、購入することはできません。<br/>
+                    2の有料会員向けでは、サブスクリプションに登録しているファンの方が商品を購入できます。<br/>
+                    3の個人向けでは、選択した特定のファンの方のみが商品を購入できます。<br/><br/>
+
+                    <div class="edit-point">※販売開始後には変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    2shot開催ユーザー
+                </div>
+                <div class="accordion-content js-details-content">
+                    2shotを実施するアーティストの方を選択します。<br/>
+                    選択肢に表示されるのは「アーティスト検索に含める」設定がONになっている方のみです。<br/><br/>
+
+                    <div class="edit-point">※編集では変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    スクリーンショットの許可
+                </div>
+                <div class="accordion-content js-details-content">
+                    こちらの項目では、「2shot中に」スクリーンショットできないように設定することができます。<br/>
+                    設定をONにすると、スクリーンショットを撮ることができ、OFFにすると撮ることができません。<br/><br/>
+
+                    ONにした場合、スクリーンショットを撮ると黒い画像に置き換わります。<br/>
+                    また、画面録画も同様に黒い画面が録画されます。
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    プッシュ通知
+                </div>
+                <div class="accordion-content js-details-content">
+                    プッシュ通知設定では、商品の販売が開始された際にファンの方に通知を送るかどうかを選択していただけます。<br/>
+                    ONにすると通知が送られ、OFFにすると通知は送られません。<br/><br/>
+
+                    <div class="edit-point">※編集では変更できない項目です。</div>
+                </div>
+            </div>
+            <div class="accordion js-details">
+                <div class="accordion-header js-details-summary">
+                    ピン留め
+                </div>
+                <div class="accordion-content js-details-content">
+                    ピン留めでは、特定の商品を固定することができます。<br/>
+                    ピン留めをONにすると固定、OFFにすると固定しません。<br/><br/>
+
+                    商品が表示される箇所はHome画面とShop画面ですが、この2箇所で固定されます。<br/>
+                    基本、販売開始した順に表示されますが、固定された商品は販売開始日時関係なく一番初めに表示されるようになります。<br/><br/>
+
+                    ピン留め設定をONにできるのは、1つの商品のみです。<br/>
+                    ある商品でピン留めをONにした後、別の商品でピン留めをONにすると、最初にONにしていた商品は自動的にピン留めが解除されます。<br/>
+                    グッズ、2shot、デジタルコンテンツ合わせて、その中で1つの商品に適用されます。<br/>
+                    ご注意ください。
+                </div>
+            </div>
+            {% comment %} <div class="note-group">
+                <h4 class="note-heading">商品画像</h4>
+                <p class="note-text-plain">商品の一覧に表示される画像です。</p>
+                <p class="note-text">設定しない場合プロフィール画像が表示されます</p>
+            </div>
+
+            <div class="note-group">
+                <h4 class="note-heading">商品名</h4>
+                <p class="note-text-plain">2shotのタイトルとして表示されます。</p>
+            </div>
+
+            <div class="info-box">
+                <h4>登録後の変更について</h4>
+                <p>以下の項目は商品登録後に変更できませんのでご注意ください。</p>
+                <ul>
+                    <li>販売価格</li>
+                    <li>一人あたりの2shot時間</li>
+                    <li>販売範囲</li>
+                    <li>2shot開催ユーザー</li>
+                </ul>
+                <p>登録前に内容を十分にご確認ください。</p>
+            </div>
+
+            <div class="info-box">
+                <h4>1人あたりの2shot時間について</h4>
+                <p>「1人あたりの2shot時間(分)」は、2shot券1枚で提供する基本の交流時間です</p>
+                <ul>
+                    <li>例えば、5分に設定すると、1枚の2shot券で最低5分間の1対1のセッションが提供されます。</li>
+                    <li>ファンが複数枚購入した場合、その枚数に応じて交流時間が延長されます。例えば：</li>
+                    <ul>
+                        <li>1枚購入： 5分間のセッション</li>
+                        <li>2枚購入： 0分間のセッション</li>
+                        <li>3枚購入： 15分間のセッション</li>
+                    </ul>
+                </ul>
+                <p>適切な時間提供により、多くのファンに機会を提供しつつ、特定のファンにはより長い交流時間を提供できます。</p>
+            </div>
+
+            <div class="info-box">
+                <h4>販売開始日時と2shot開始日時について</h4>
+                <p>2shot券の販売と実際の2shotイベントのタイミングを適切に設定することが重要です</p>
+                <ul>
+                    <li>販売開始日時： 2shot券の販売を開始する日時を設定します。ファンが購入を開始できる時間です</li>
+                    <li>2shot開始日時： 実際に2shotセッションを開始する日時を設定します。必ず販売開始日時より後の日時に設定してください</li>
+                </ul>
+                <p>例えば、7月1日10:00から2shot券の販売を開始し、7月15日14:00から実際の2shotセッション開始する場合</p>
+                <ul>
+                    <li>販売開始日時： 2024-07-01 10:00</li>
+                    <li>2shot開始日時： 2024-07-15 14:00</li>
+                </ul>
+                <p>この設定により、ファンは2週間前から2shot券を購入でき、準備の時間を確保できます。</p>
+            </div>
+
+            <div class="info-box">
+                <h4>2shot開催ユーザーについて</h4>
+                <p>2shot開催ユーザーの選択について、以下の点に注意してください</p>
+                <ul>
+                    <li>選択肢として表示されるのは、アーティスト検索に含まれているユーザーのみです</li>
+                    <li>2shot開催ユーザーを選択できるのは管理者・スタッフのみです</li>
+                    <li>2shot開催ユーザーは商品登録後に変更できません</li>
+                </ul>
+                <p>適切なユーザーが選択できない場合は、管理者にアーティスト検索の設定を依頼してください。</p>
+            </div> {% endcomment %}
+        </div>
+
+        <div class="step-item">
+            <h3 data-step="3">確認と登録</h3>
+            <p>入力内容を確認し、「登録する」をタップして商品を登録します。</p>
+        </div>
+    </div>
+
+    <!-- 2shot券販売のヒント -->
+    <div class="spec-tips">
+        <h3>2shot券販売のヒント</h3>
+        <ul>
+            <li>ファンの需要に合わせて適切な回数と時間帯を設定しましょう。</li>
+            <li>2shotの内容を事前に告知し、ファンの期待を高めましょう。</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+            <a href="{% url 'front:goods_shop' %}" class="spec-nav-link prev">
+                <span class="nav-label">前の記事</span>
+                <span class="nav-title">ショップ機能（グッズ）</span>
+            </a>
+            <a href="{% url 'front:dm' %}" class="spec-nav-link next">
+                <span class="nav-label">次の記事</span>
+                <span class="nav-title">DM機能</span>
+            </a>
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+
+{% endblock %}

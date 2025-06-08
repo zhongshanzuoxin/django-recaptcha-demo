@@ -1,0 +1,123 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1 class="contact-title">お問い合わせ</h1>
+    <div class="contact-container">
+        <form method="post" class="contact-form" novalidate>
+            {% csrf_token %}
+            
+            <div class="form-field">
+                <label>お名前<span class="required">*</span></label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-field">
+                <label>連絡用メールアドレス<span class="required">*</span></label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-field">
+                <label>お問い合わせカテゴリ<span class="required">*</span></label>
+                {{ form.category }}
+                {% if form.category.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.category.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-field">
+                <label>お問い合わせ内容<span class="required">*</span></label>
+                {{ form.message }}
+                <div class="char-count">
+                    <span id="messageLength">0</span>/1000文字
+                </div>
+                {% if form.message.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.message.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="privacy-notice">
+                ※お問い合わせいただいた内容は、弊社の掲げる個人情報保護方針に沿って管理し、
+                お客様の同意なく第三者に開示・提供することはありません。
+                詳細につきましては
+                <a href="/privacy" target="_blank">
+                    プライバシーポリシー
+                </a>
+                をご参照ください。
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit-button" id="submitBtn" disabled>
+                    送信
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const messageField = document.querySelector('#{{ form.message.id_for_label }}');
+    const messageLength = document.querySelector('#messageLength');
+    const submitBtn = document.querySelector('#submitBtn');
+    const form = document.querySelector('form');
+    const maxLength = 1000;
+
+    function updateSubmitButton() {
+        const allFields = form.querySelectorAll('input, textarea');
+        let isValid = true;
+        
+        allFields.forEach(field => {
+            if (!field.value) {
+                isValid = false;
+            }
+        });
+
+        if (messageField.value.length > maxLength) {
+            isValid = false;
+        }
+
+        submitBtn.disabled = !isValid;
+    }
+
+    function updateCharCount() {
+        const length = messageField.value.length;
+        messageLength.textContent = length;
+        
+        if (length > maxLength) {
+            messageLength.classList.add('count-error');
+        } else {
+            messageLength.classList.remove('count-error');
+        }
+        
+        updateSubmitButton();
+    }
+
+    messageField.addEventListener('input', updateCharCount);
+    form.addEventListener('input', updateSubmitButton);
+});
+</script>
+{% endblock %}

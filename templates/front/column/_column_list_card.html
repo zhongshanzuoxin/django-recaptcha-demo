@@ -1,0 +1,47 @@
+<div class="card-container card-container{% if page_obj.object_list|length|divisibleby:2 == False %} single-card{% endif %}">
+    {# --- 共通「人気記事」先頭表示 --- #}
+    {% for article in popular_articles %}
+      <article class="post-card popular ">
+        <header class="entry-header">
+          <figure class="entry-thumbnail">
+            <span class="transparent-label">人気の記事</span>
+            <a href="{% url 'front:column_detail' slug=article.slug %}">
+              <img src="{{ article.thumbnail_image }}" />
+            </a>
+          </figure>
+        </header>
+        <div class="entry-content">
+          <h2 class="entry-title">
+            <a href="{% url 'front:column_detail' slug=article.slug %}">{{ article.title }}</a>
+          </h2>
+          <p>{{ article.lead_text|striptags|truncatechars:100 }}</p>
+          <ul class="entry-meta">
+            <li class="date">{{ article.publish_date }}</li>
+            <li class="more"><a href="{% url 'front:column_detail' slug=article.slug %}">続きを読む</a></li>
+          </ul>
+        </div>
+      </article>
+    {% endfor %}
+    {% for article in page_obj.object_list %}
+      <article class="post-card">
+        <header class="entry-header">
+          <figure class="entry-thumbnail">
+            <a href="{% url 'front:column_detail' slug=article.slug %}"><img src="{{ article.thumbnail_image }}" /></a>
+            {% comment %} <p class="cat">{{ article.category.name }}</p> {% endcomment %}
+          </figure>
+        </header>
+        <div class="entry-content">
+          <h2 class="entry-title"><a href="{% url 'front:column_detail' slug=article.slug %}">{{ article.title }}</a></h2>
+          <p>
+          {{ article.lead_text|striptags|truncatechars:100 }}
+          </p>
+          <ul class="entry-meta">
+            <li class="date">{{ article.publish_date }}</li>
+            <li class="more">
+              <a href="{% url 'front:column_detail' slug=article.slug %}">続きを読む</a>
+            </li>
+          </ul>
+        </div>
+      </article>
+    {% endfor %}
+</div>

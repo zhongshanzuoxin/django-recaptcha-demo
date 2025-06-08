@@ -1,0 +1,141 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="functional-spec-container">
+    <!-- タイトルセクション -->
+    <h1 class="spec-title">配送管理機能の使い方</h1>
+
+    <!-- メイン動画セクション -->
+    <!-- <div class="spec-video-section">
+        <img src="https://via.placeholder.com/800x450" alt="機能説明動画" class="placeholder-video">
+        <div class="play-button">
+            <span class="material-icons">play_circle</span>
+        </div>
+    </div> -->
+
+    <!-- 機能概要 -->
+    <div class="spec-overview">
+        <h2>配送管理機能の概要</h2>
+        <p>配送管理機能では、ショップのグッズで配送商品として設定された商品の配送状況を管理することができます。配送状況の更新や配送先情報の確認などが可能です。</p>
+    </div>
+
+    <!-- 権限表 -->
+    <div class="spec-permissions">
+        <h2>配送管理の権限</h2>
+        <div class="permission-table-wrapper">
+            <table class="permission-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>アーティスト</th>
+                        <th>スタッフ</th>
+                        <th>管理者</th>
+                        <th>管理スタッフ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>配送情報の確認</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                    <tr>
+                        <td>配送状況の更新</td>
+                        <td><span class="unavailable">×</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                        <td><span class="available">○</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 機能説明セクション -->
+    <div class="spec-steps">
+        <h2>配送管理の操作方法</h2>
+        <div class="step-item">
+            <h3 data-step="1">配送状況の確認・更新</h3>
+            <ol class="step-instructions">
+                <li>Moreの「配送管理」を選択</li>
+                <li>対象の注文の「詳細」をタップ</li>
+                <li>必要に応じて「配送状況を更新する」をタップ</li>
+            </ol>
+            <div class="note-group">
+                <h4 class="note-heading">配送状況の種類</h4>
+                <ul class="note-text-plain">
+                    <li>未発送</li>
+                    <li>発送済み</li>
+                </ul>
+            </div>
+            <div class="note-group">
+                <h4 class="note-heading">購入者情報の確認</h4>
+                <ul class="note-text-plain">
+                    <li>UID</li>
+                    <li>メールアドレス</li>
+                    <li>ニックネーム</li>
+                </ul>
+            </div>
+            <div class="note-group">
+                <h4 class="note-heading">配送先情報の確認</h4>
+                <ul class="note-text-plain">
+                    <li>配送先の氏名</li>
+                    <li>配送先の郵便番号</li>
+                    <li>配送先の住所</li>
+                    <li>配送先の電話番号</li>
+                </ul>
+            </div>
+
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_29.png' %}" alt="配送状況の確認・更新の説明画像" class="step-image">
+            </div>
+
+            <div class="info-box">
+                <h4>配送状況の通知について</h4>
+                <p>配送状況を更新した後、購入者への通知は以下の流れで行われます：</p>
+                <ul>
+                    <li>配送状況の更新後、「購入者にメールで通知する」ボタンが表示されます</li>
+                    <li>このボタンをタップすることで、購入者にメールで通知が送信されます</li>
+                    <li>購入者は注文確認画面でいつでも配送状況を確認できますが、メール通知は手動で送信する必要があります</li>
+                </ul>
+                <p class="note-text">購入者への確実な情報伝達のため、配送状況を更新した際は必ずメール通知を行うことをお勧めします。</p>
+            </div>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_30.png' %}" alt="配送状況の確認・更新の説明画像" class="step-image">
+            </div>
+            <div class="step-image-container">
+                <img src="{% static 'front/img/functional_specs/specs_31.png' %}" alt="配送状況の確認・更新の説明画像" class="step-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- 配送管理のヒント -->
+    <div class="spec-tips">
+        <h3>配送管理のヒント</h3>
+        <ul class="note-text-plain">
+            <li>配送管理が必要なのは、ショップのグッズで配送商品として設定された商品のみです。</li>
+            <li>発送後は配送状況を更新し、ユーザーが最新の状況を確認できるようにしましょう。</li>
+            <li>配送先情報には個人情報が含まれるため、取り扱いには十分注意してください。</li>
+        </ul>
+    </div>
+
+    <!-- 機能説明ナビゲーション -->
+    <div class="spec-navigation">
+        <!-- 前後の記事リンク -->
+        <div class="spec-nav-links">
+            <a href="{% url 'front:moderation' %}" class="spec-nav-link prev">
+                <span class="nav-label">前の記事</span>
+                <span class="nav-title">モデレーション機能</span>
+            </a>
+            <a href="{% url 'front:permission_management' %}" class="spec-nav-link next">
+                <span class="nav-label">次の記事</span>
+                <span class="nav-title">権限管理機能</span>
+            </a>
+        </div>
+        {% include 'front/functional_specs/_spec_list.html' %}
+    </div>
+</div>
+{% endblock %}

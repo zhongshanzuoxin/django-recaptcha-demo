@@ -1,0 +1,26 @@
+{% extends 'front/_base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="complete-title">申請が完了しました</h1>
+        
+    <div class="complete-message">
+        <p>ご入力いただいた情報を確認の上、順次ご連絡いたします</p>
+    </div>
+    <div class="complete-container">
+        <div class="next-steps">
+            <h2>次のステップ</h2>
+            <ul>
+                <li>ご登録いただいたメールアドレスに確認メールをお送りしました。メールが届いているかご確認ください。</li>
+                <li>申請内容の確認には通常7営業日ほどお時間をいただいております。</li>
+                <li>追加情報が必要な場合は、ご登録いただいたメールアドレスにご連絡いたします。</li>
+                <li>申請が承認されましたら、アプリの設定や公開に関する詳細な手順をお送りいたします。</li>
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <a href="{% url 'front:top' %}" class="back-to-top">トップページに戻る</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

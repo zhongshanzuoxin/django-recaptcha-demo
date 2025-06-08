@@ -1,0 +1,1035 @@
+{% extends 'front/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="confirm-step-indicator {% if is_submitted %}hidden{% endif %}">
+        <div class="confirm-step {% if current_step == 1 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 1</div>
+            <div class="confirm-step-label">アプリ設定情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 2 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 2</div>
+            <div class="confirm-step-label">口座情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 3 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 3</div>
+            <div class="confirm-step-label">特定商取引法の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 4 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 4</div>
+            <div class="confirm-step-label">確認</div>
+        </div>
+    </div>
+
+    <h1 class="settings-title">アプリ設定情報の入力</h1>
+    <p class="settings-description">アプリの開設に必要な設定情報を入力してください。</p>
+
+    <div class="settings-container">
+        <form method="post" class="settings-form" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>希望するアプリ名<span class="required">*</span></label>
+                {{ form.app_name }}
+            </div>
+
+            <div class="form-group">
+                <label>月額有料会員プランの追加</label>
+                <div class="subscription-options">
+                    {{ form.subscription_enabled }}
+                </div>
+            </div>
+
+            <div class="form-group subscription-price" id="subscriptionPriceField" style="display: none;">
+                <label>月額有料会員の金額<span class="required">*</span></label>
+                <div class="price-input-wrapper">
+                    <div class="price-input-group">
+                        {{ form.subscription_price }}
+                        <span class="price-unit">円</span>
+                    </div>
+                    <small class="form-text text-muted">※申請した金額から変更することはできません</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                
+                <div class="color-setting">
+                    <label>初期のアプリカラー<span class="required">*</span></label>
+                    <div class="color-select-group">
+                        {{ form.app_color }}
+                        <button type="button" class="btn-preview">カラープレビュー一覧</button>
+                    </div>
+                    <small class="form-text text-muted">※カラーは後からアプリ内で変更できます</small>
+                </div>
+
+                <div class="image-setting">
+                    <label>
+                        アプリアイコン画像
+                        <span class="required">*</span>
+                        <button type="button" class="usage-info-button">
+                            <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
+                            <span>使用箇所を確認</span>
+                        </button>
+                    </label>
+                    <div class="image-upload-container">
+                        <div class="preview-area-icon" id="iconPreview" 
+                            {% if app_icon_url %}
+                                style="background-image: url('{{ app_icon_url }}'); background-size: contain; background-position: center;"
+                            {% endif %}>
+                            <span class="no-image-text" {% if app_icon_url %}style="display: none;"{% endif %}>選択されていません</span>
+                            <button type="button" class="btn-delete-image" {% if not app_icon_url %}style="display: none;"{% endif %} onclick="clearImage('{{ form.app_icon.id_for_label }}', 'iconPreview')">×</button>
+                        </div>
+                        <div class="upload-info">
+                            <button type="button" class="btn-upload" onclick="document.getElementById('{{ form.app_icon.id_for_label }}').click()">
+                                画像を選択
+                            </button>
+                            {{ form.app_icon }}
+                            <div class="file-info">
+                                <p>ファイル形式：JPG, JPEG</p>
+                                <p>指定サイズ：512 × 512px</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="image-setting">
+                    <label>
+                        ロゴ画像
+                        <span class="required">*</span>
+                        <button type="button" class="usage-info-button">
+                            <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
+                            <span>使用箇所を確認</span>
+                        </button>
+                    </label>
+                    <div class="image-upload-container">
+                        <div class="preview-area-logo" id="logoPreview" 
+                            {% if app_logo_url %}
+                                style="background-image: url('{{ app_logo_url }}'); background-size: contain; background-position: center;"
+                            {% endif %}>
+                            <span class="no-image-text" {% if app_logo_url %}style="display: none;"{% endif %}>選択されていません</span>
+                            <button type="button" class="btn-delete-image" {% if not app_logo_url %}style="display: none;"{% endif %} onclick="clearImage('{{ form.app_logo.id_for_label }}', 'logoPreview')">×</button>
+                        </div>
+                        <div class="upload-info">
+                            <button type="button" class="btn-upload" onclick="document.getElementById('{{ form.app_logo.id_for_label }}').click()">
+                                画像を選択
+                            </button>
+                            {{ form.app_logo }}
+                            <div class="file-info">
+                                <p>ファイル形式：PNG</p>
+                                <p>指定サイズ：500 × 1024px</p>
+                                <p>※背景が透過された画像を使用してください</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    コンテンツの呼称変更の希望
+                    <a href="{% url 'front:content_naming_guide' %}" class="info-link" target="_blank" rel="noopener noreferrer">
+                        <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
+                        <span>詳しい説明を見る</span>
+                    </a>
+                </label>
+                <div class="naming-options">
+                    {{ form.naming_enabled }}
+                </div>
+            </div>
+
+            <div class="form-group naming-fields" id="namingFields" style="display: none;">
+                <div class="naming-list">
+                    <div class="naming-item">
+                        <label>Home</label>
+                        {{ form.home }}
+                    </div>
+                    <div class="naming-item">
+                        <label>Shop</label>
+                        {{ form.shop }}
+                    </div>
+                    <div class="naming-item">
+                        <label>Time Line</label>
+                        {{ form.timeline }}
+                    </div>
+                    <div class="naming-item">
+                        <label>Chat</label>
+                        {{ form.chat }}
+                    </div>
+                    <div class="naming-item">
+                        <label>More</label>
+                        {{ form.more }}
+                    </div>
+                    <div class="naming-item">
+                        <label>Collection</label>
+                        {{ form.collection }}
+                    </div>
+                    <div class="naming-item">
+                        <label>Pick Up</label>
+                        {{ form.pickup }}
+                    </div>
+                    <div class="naming-item">
+                        <label>グッズ</label>
+                        {{ form.goods }}
+                    </div>
+                    <div class="naming-item">
+                        <label>商品</label>
+                        {{ form.products }}
+                    </div>
+                    <div class="naming-item">
+                        <label>2shot</label>
+                        {{ form.twoshot }}
+                    </div>
+                    <div class="naming-item">
+                        <label>ライブ</label>
+                        {{ form.live }}
+                    </div>
+                    <div class="naming-item">
+                        <label>Room</label>
+                        {{ form.room }}
+                    </div>
+                    <div class="naming-item">
+                        <label>DM</label>
+                        {{ form.dm }}
+                    </div>
+                    <div class="naming-item">
+                        <label>アーティストネームの呼称</label>
+                        {{ form.artist_name }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit-button">
+                    次へ
+                </button>   
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- アプリアイコンのモーダル -->
+<div id="iconUsageModal" class="usage-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>アプリアイコン画像の使用箇所</h3>
+            <button type="button" class="modal-close">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="usage-item">
+                <div class="usage-image square-image">
+                    <img src="{% static 'front/img/app_settings_02.png' %}" alt="ホーム画面の表示例" class="usage-preview-image">
+                </div>
+                <div class="usage-description">
+                    <h4>スマートフォンのホーム画面</h4>
+                    <p>スマートフォンのホーム画面に表示されるアプリのアイコンとして使用されます。</p>
+                </div>
+            </div>
+            <div class="usage-item">
+                <div class="usage-image square-image">
+                    <img src="{% static 'front/img/app_settings_01.png' %}" alt="アプリストアでの表示例" class="usage-preview-image">
+                </div>
+                <div class="usage-description">
+                    <h4>アプリストアでの表示</h4>
+                    <p>App StoreやGoogle Playでアプリ掲載する際のアイコンとして使用されます。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ロゴ画像のモーダル -->
+<div id="logoUsageModal" class="usage-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>ロゴ画像の使用箇所</h3>
+            <button type="button" class="modal-close">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="usage-item">
+                <div class="usage-image rectangle-image">
+                    <img src="{% static 'front/img/app_settings_03.png' %}" alt="スプラッシュ画面の表示例" class="usage-preview-image">
+                </div>
+                <div class="usage-description">
+                    <h4>スプラッシュ画面</h4>
+                    <p>アプリ起動時に表示されるスプラッシュ画面に使用されます。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- カラープレビューのモーダル -->
+<div id="colorPreviewModal" class="color-preview-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>カラープレビュー</h3>
+            <button type="button" class="modal-close">×</button>
+        </div>
+        <div class="color-variation-buttons">
+            <button class="color-button active" data-color="Color_01">サンド</button>
+            <button class="color-button" data-color="Color_02">サンセット</button>
+            <button class="color-button" data-color="Color_03">オーシャン</button>
+            <button class="color-button" data-color="Color_04">フォレスト</button>
+            <button class="color-button" data-color="Color_05">ナイト</button>
+        </div>
+        <div class="modal-body">
+            <div class="color-preview-container">
+                <div class="color-preview-slider">
+                    <!-- 初期画像は空にして、JavaScriptで動的に追加 -->
+                </div>
+                <button class="slider-arrow prev" aria-label="前の画像">&#10094;</button>
+                <button class="slider-arrow next" aria-label="次の画像">&#10095;</button>
+                <div class="slider-dots"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // フォーム要素の取得
+    const form = document.querySelector('.settings-form');
+    const submitBtn = document.querySelector('.submit-button');
+    const subscriptionRadios = document.querySelectorAll('input[name="subscription_enabled"]');
+    const priceField = document.getElementById('subscriptionPriceField');
+    const subscriptionPrice = document.querySelector('input[name="subscription_price"]');
+    const namingRadios = document.querySelectorAll('input[name="naming_enabled"]');
+    const namingFields = document.getElementById('namingFields');
+    
+    // フィールドのバリデーション状態を追跡
+    const fieldValidationState = {};
+
+    // validateForm関数をグローバルスコープで利用できるようにする
+    window.validateForm = function() {
+        const isRequiredFieldsValid = validateRequiredFields();
+        const isSubscriptionValid = validateSubscription();
+        submitBtn.disabled = !(isRequiredFieldsValid && isSubscriptionValid);
+    };
+
+    // 必須フィールドのバリデーション
+    function validateRequiredFields() {
+        const appName = form.querySelector('input[name="app_name"]');
+        const appColor = form.querySelector('select[name="app_color"]');
+        const appIcon = form.querySelector('input[name="app_icon"]');
+        const appLogo = form.querySelector('input[name="app_logo"]');
+        const iconPreview = document.getElementById('iconPreview');
+        const logoPreview = document.getElementById('logoPreview');
+
+        if (!appName.value.trim()) return false;
+        if (!appColor.value) return false;
+
+        // アイコン画像のチェック
+        // フォームに新しい画像が選択されているか、または既存の画像がプレビューに表示されている場合はOK
+        const hasIconFile = appIcon.files.length > 0;
+        const hasExistingIcon = iconPreview.style.backgroundImage && 
+                               iconPreview.style.backgroundImage !== 'none';
+        if (!hasIconFile && !hasExistingIcon) return false;
+
+        // ロゴ画像のチェック
+        // フォームに新しい画像が選択されているか、または既存の画像がプレビューに表示されている場合はOK
+        const hasLogoFile = appLogo.files.length > 0;
+        const hasExistingLogo = logoPreview.style.backgroundImage && 
+                               logoPreview.style.backgroundImage !== 'none';
+        if (!hasLogoFile && !hasExistingLogo) return false;
+
+        // 各フィールドの個別バリデーション結果を確認
+        if (fieldValidationState['app_name'] === false) return false;
+
+        return true;
+    }
+
+    // サブスクリプション関連のバリデーション
+    function validateSubscription() {
+        const subscriptionEnabled = document.querySelector('input[name="subscription_enabled"]:checked');
+        
+        if (!subscriptionEnabled) return false;
+
+        if (subscriptionEnabled.value === 'enabled') {
+            const price = parseInt(subscriptionPrice.value);
+            if (!price || price < 100 || price > 100000) return false;
+            
+            // サブスクリプション価格のバリデーション状態を確認
+            if (fieldValidationState['subscription_price'] === false) return false;
+        }
+
+        return true;
+    }
+    
+    // 特定のフィールドのバリデーション
+    function validateField(field) {
+        const name = field.getAttribute('name');
+        const value = field.value.trim();
+        
+        // フィールド別のバリデーション
+        switch(name) {
+            case 'app_name':
+                if (value.length > 50) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: 'アプリ名は50文字以内で入力してください'
+                    };
+                }
+                break;
+            case 'subscription_price':
+                const price = parseInt(value);
+                if (isNaN(price) || price < 100 || price > 100000) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '月額料金は100円から100,000円の間で入力してください'
+                    };
+                }
+                // 10円単位かどうかをチェック
+                if (price % 10 !== 0) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '月額料金は10円単位で入力してください'
+                    };
+                }
+                break;
+            // 呼称変更フィールドのバリデーション
+            case 'home':
+            case 'shop':
+            case 'timeline':
+            case 'chat':
+            case 'more':
+            case 'collection':
+            case 'pickup':
+            case 'goods':
+            case 'products':
+            case 'twoshot':
+            case 'live':
+            case 'room':
+            case 'dm':
+            case 'artist_name':
+                if (value.length > 20) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '20文字以内で入力してください'
+                    };
+                }
+                break;
+        }
+        
+        // バリデーション成功
+        fieldValidationState[name] = true;
+        return { valid: true };
+    }
+
+    // 表示制御関数
+    function togglePriceField() {
+        const selectedValue = document.querySelector('input[name="subscription_enabled"]:checked').value;
+        priceField.style.display = selectedValue === 'enabled' ? 'block' : 'none';
+    }
+
+    function toggleNamingFields() {
+        const selectedValue = document.querySelector('input[name="naming_enabled"]:checked').value;
+        namingFields.style.display = selectedValue === 'enabled' ? 'block' : 'none';
+    }
+
+    // 画像プレビュー機能
+    function handleImagePreview(input, previewId, options = {}) {
+        const preview = document.getElementById(previewId);
+        const noImageText = preview.querySelector('.no-image-text');
+        const deleteButton = preview.querySelector('.btn-delete-image');
+        
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (!options.allowedTypes.includes(file.type.toLowerCase())) {
+                    alert(options.errorMessage);
+                    input.value = '';
+                    validateForm();
+                    return;
+                }
+
+                const img = new Image();
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                };
+
+                img.onload = function() {
+                    if (this.width !== options.dimensions.width || this.height !== options.dimensions.height) {
+                        alert(`画像サイズは${options.dimensions.width}×${options.dimensions.height}ピクセルである必要があります`);
+                        input.value = '';
+                        validateForm();
+                        return;
+                    }
+                    preview.style.backgroundImage = `url(${img.src})`;
+                    preview.style.backgroundSize = 'contain';
+                    preview.style.backgroundPosition = 'center';
+                    if (noImageText) noImageText.style.display = 'none';
+                    if (deleteButton) deleteButton.style.display = 'block';
+                    validateForm();
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // 画像クリア機能
+    window.clearImage = function(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const noImageText = preview.querySelector('.no-image-text');
+        const deleteButton = preview.querySelector('.btn-delete-image');
+
+        input.value = '';
+        preview.style.backgroundImage = 'none';
+        if (noImageText) noImageText.style.display = 'block';
+        if (deleteButton) deleteButton.style.display = 'none';
+        validateForm();  // 画像を削除した後にフォームを再検証
+    };
+
+    // エラーメッセージを表示
+    function showErrorMessage(field, message) {
+        const fieldName = field.getAttribute('name');
+        
+        // 画像フィールドの場合
+        if (fieldName === 'app_icon' || fieldName === 'app_logo') {
+            const container = field.closest('.image-upload-container');
+            if (!container) return;
+            
+            // 既存のエラーメッセージを削除
+            hideErrorMessage(field);
+            
+            // エラーメッセージ要素を作成
+            const errorElement = document.createElement('div');
+            errorElement.className = 'js-error';
+            errorElement.textContent = message;
+            
+            // アップロード情報の後に挿入
+            const uploadInfo = container.querySelector('.upload-info');
+            if (uploadInfo) {
+                uploadInfo.appendChild(errorElement);
+            }
+            return;
+        }
+        
+        // 月額料金フィールドのバリデーションメッセージ処理
+        if (fieldName === 'subscription_price') {
+            const priceInputWrapper = field.closest('.price-input-wrapper');
+            if (priceInputWrapper) {
+                // 既存のエラーメッセージを削除
+                hideErrorMessage(field);
+                
+                // エラーメッセージ要素を作成
+                const errorElement = document.createElement('div');
+                errorElement.className = 'js-error';
+                errorElement.textContent = message;
+                
+                // 説明文の後に挿入
+                const smallText = priceInputWrapper.querySelector('.form-text');
+                if (smallText) {
+                    priceInputWrapper.insertBefore(errorElement, smallText.nextSibling);
+                } else {
+                    priceInputWrapper.appendChild(errorElement);
+                }
+                return;
+            }
+        }
+        
+        // 通常フィールドの場合
+        let container;
+        
+        // 呼称変更フィールドの場合
+        if (namingFields.contains(field)) {
+            container = field.closest('.naming-item');
+        } else {
+            container = field.closest('.form-group');
+        }
+        
+        if (!container) return;
+        
+        // 既存のエラーメッセージを削除
+        hideErrorMessage(field);
+        
+        // エラーメッセージ要素を作成
+        const errorElement = document.createElement('div');
+        errorElement.className = 'js-error';
+        errorElement.textContent = message;
+        
+        // フィールドの後に挿入
+        field.parentNode.insertBefore(errorElement, field.nextSibling);
+    }
+    
+    // エラーメッセージを非表示
+    function hideErrorMessage(field) {
+        const fieldName = field.getAttribute('name');
+        
+        // 画像フィールドの場合
+        if (fieldName === 'app_icon' || fieldName === 'app_logo') {
+            const container = field.closest('.image-upload-container');
+            if (!container) return;
+            
+            const errorElement = container.querySelector('.js-error');
+            if (errorElement) {
+                errorElement.remove();
+            }
+            return;
+        }
+        
+        // 月額料金フィールドの特別処理
+        if (fieldName === 'subscription_price') {
+            const priceInputWrapper = field.closest('.price-input-wrapper');
+            if (priceInputWrapper) {
+                const errorElement = priceInputWrapper.querySelector('.js-error');
+                if (errorElement) {
+                    errorElement.remove();
+                }
+                return;
+            }
+        }
+        
+        // 通常フィールドの場合
+        let container;
+        
+        // 呼称変更フィールドの場合
+        if (namingFields.contains(field)) {
+            container = field.closest('.naming-item');
+        } else {
+            container = field.closest('.form-group');
+        }
+        
+        if (!container) return;
+        
+        const errorElement = container.querySelector('.js-error');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+
+    // イベントリスナーの設定
+    function setupEventListeners() {
+        form.addEventListener('input', validateForm);
+        
+        // フォーカスが外れたときのイベント
+        const formFields = form.querySelectorAll('input:not([type="file"]), select, textarea');
+        formFields.forEach(field => {
+            field.addEventListener('focus', function() {
+                // エラーメッセージがあれば非表示にする
+                hideErrorMessage(this);
+            });
+            
+            field.addEventListener('input', function() {
+                // 入力中にもバリデーションを実行し、フィールドの状態を更新
+                const validation = validateField(this);
+                // バリデーション結果に基づいてフォーム全体の検証を実行
+                validateForm();
+            });
+            
+            field.addEventListener('blur', function() {
+                // フォーカスが外れたときにバリデーション
+                const validation = validateField(this);
+                if (!validation.valid) {
+                    // バリデーションエラーの場合はエラーメッセージのみ表示
+                    showErrorMessage(this, validation.message);
+                }
+            });
+        });
+        
+        subscriptionRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                togglePriceField();
+                validateForm();
+            });
+        });
+
+        namingRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                toggleNamingFields();
+            });
+        });
+        
+        // 月額料金のバリデーション
+        const subscriptionPriceField = form.querySelector('input[name="subscription_price"]');
+        if (subscriptionPriceField) {
+            subscriptionPriceField.addEventListener('input', function(e) {
+                // 数字以外の入力を削除
+                this.value = this.value.replace(/[^\d]/g, '');
+            });
+        }
+        
+        // 画像プレビューの設定
+        handleImagePreview(
+            document.getElementById('{{ form.app_icon.id_for_label }}'), 
+            'iconPreview',
+            {
+                dimensions: { width: 512, height: 512 },
+                allowedTypes: ['image/jpeg', 'image/jpg'],
+                errorMessage: 'JPGまたはJPEG形式の画像を選択してください'
+            }
+        );
+        
+        handleImagePreview(
+            document.getElementById('{{ form.app_logo.id_for_label }}'), 
+            'logoPreview',
+            {
+                dimensions: { width: 500, height: 1024 },
+                allowedTypes: ['image/png'],
+                errorMessage: 'PNG形式の画像を選択してください'
+            }
+        );
+
+        // モーダル関連のイベントリスナー設定
+        setupModalEventListeners();
+    }
+
+    // モーダル関連のイベントリスナー
+    function setupModalEventListeners() {
+        document.querySelectorAll('.usage-info-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const modalId = this.closest('.image-setting').querySelector('label').textContent.includes('アプリアイコン') 
+                    ? 'iconUsageModal' 
+                    : 'logoUsageModal';
+                document.getElementById(modalId).classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        document.querySelectorAll('.modal-close').forEach(button => {
+            button.addEventListener('click', function() {
+                this.closest('.usage-modal').classList.remove('show');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.querySelectorAll('.usage-modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    }
+
+    // 初期化
+    function initialize() {
+        togglePriceField();
+        toggleNamingFields();
+        setupEventListeners();
+        validateForm();
+        // スタイルを追加
+        const style = document.createElement('style');
+        style.textContent = `
+            .js-error {
+                margin-bottom: 0;
+                margin-top: 5px;
+                font-size: 14px;
+                color: #dc3545;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    initialize();
+});
+
+// カラープレビューモーダルの制御
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('colorPreviewModal');
+    const previewBtn = document.querySelector('.btn-preview');
+    if (!modal || !previewBtn) return;
+
+    const closeBtn = modal.querySelector('.modal-close');
+    const slider = modal.querySelector('.color-preview-slider');
+    const colorButtons = modal.querySelectorAll('.color-button');
+    let currentSlide = 0;
+    let currentColor = 'Color_01';
+    // スワイプ対応のための変数
+    let touchStartX = 0;
+    let touchEndX = 0;
+    // ナビゲーションボタンの変数をグローバルに定義
+    let prevButton = null;
+    let nextButton = null;
+
+    // 画像の種類を定義
+    const imageTypes = ['home', 'login', 'more', 'room', 'shop', 'tl'];
+    const slidesPerColor = imageTypes.length;
+
+    // カラーごとの画像パスを管理
+    const colorImages = {
+        Color_01: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_0/' %}" + type + '.png'),
+        Color_02: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_1/' %}" + type + '.png'),
+        Color_03: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_2/' %}" + type + '.png'),
+        Color_04: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_3/' %}" + type + '.png'),
+        Color_05: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_4/' %}" + type + '.png'),
+    };
+
+    // スワイプヒントの追加
+    function addSwipeHint() {
+        const container = modal.querySelector('.color-preview-container');
+        const swipeHint = document.createElement('div');
+        swipeHint.className = 'swipe-hint';
+        swipeHint.innerHTML = `
+            <div class="swipe-icon-wrapper">
+                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-static">
+                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-moving">
+            </div>
+            <span>横スクロール可能です</span>
+        `;
+        container.appendChild(swipeHint);
+    }
+
+    // スワイプヒントを非表示にする関数
+    function hideSwipeHint() {
+        if (!modal) return;
+        const hint = modal.querySelector('.swipe-hint');
+        if (hint && !hint.classList.contains('hide')) {
+            hint.classList.add('hide');
+            setTimeout(() => {
+                hint.style.display = 'none';
+            }, 300);
+        }
+    }
+
+    // モーダルを開く処理を拡張
+    previewBtn.addEventListener('click', () => {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        updateSlides();
+        updateDots();
+        
+        // スワイプヒントの初期化
+        const existingHint = modal.querySelector('.swipe-hint');
+        if (existingHint) {
+            existingHint.remove();
+        }
+        addSwipeHint();
+
+        // 矢印ボタンクリック時にもヒントを非表示
+        prevButton = modal.querySelector('.prev');
+        nextButton = modal.querySelector('.next');
+        
+        if (prevButton) {
+            prevButton.onclick = function() {
+                if (modal) {
+                    hideSwipeHint();
+                    goToSlide((currentSlide - 1 + slidesPerColor) % slidesPerColor);
+                }
+            };
+        }
+        
+        if (nextButton) {
+            nextButton.onclick = function() {
+                if (modal) {
+                    hideSwipeHint();
+                    goToSlide((currentSlide + 1) % slidesPerColor);
+                }
+            };
+        }
+
+        // スワイプ対応のイベントリスナーをセットアップ
+        if (slider) {
+            slider.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+            });
+
+            slider.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+        }
+    });
+
+    // スワイプ処理関数
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            hideSwipeHint();  // スワイプ判定前にヒントを非表示
+            if (diff > 0) {
+                // 右スワイプ
+                goToSlide((currentSlide - 1 + slidesPerColor) % slidesPerColor);
+            } else {
+                // 左スワイプ
+                goToSlide((currentSlide + 1) % slidesPerColor);
+            }
+        }
+    }
+
+    // スライド移動
+    function goToSlide(index) {
+        if (!modal || !slider) return;
+        const slides = slider.querySelectorAll('.color-preview-slide');
+        const dots = modal.querySelectorAll('.dot');
+        
+        if (!slides.length || !dots.length) return;
+        
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.remove('active');
+        }
+        
+        if (dots[currentSlide]) {
+            dots[currentSlide].classList.remove('active');
+        }
+        
+        currentSlide = index;
+        
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.add('active');
+        }
+        
+        if (dots[currentSlide]) {
+            dots[currentSlide].classList.add('active');
+        }
+        
+        hideSwipeHint();
+    }
+
+    // カラーボタンクリック時にもヒントを非表示
+    if (colorButtons && colorButtons.length) {
+        colorButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                hideSwipeHint();
+                
+                // カラーボタンの制御ロジック
+                colorButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                currentColor = this.dataset.color;
+                currentSlide = 0;
+                updateSlides();
+                updateDots();
+    
+                // 選択されたボタンが見えるように自動スクロール
+                const buttonContainer = this.parentElement;
+                const containerWidth = buttonContainer.offsetWidth;
+                const buttonLeft = this.offsetLeft;
+                const buttonWidth = this.offsetWidth;
+                
+                // カラーボタンの配列内でのインデックスを取得
+                const index = Array.from(colorButtons).indexOf(this);
+    
+                // 次のボタンの存在を確認
+                const nextButton = colorButtons[index + 1];
+                
+                if (nextButton) {
+                    // 次のボタンまでの幅を考慮してスクロール位置を計算
+                    const nextButtonRight = nextButton.offsetLeft + nextButton.offsetWidth;
+                    
+                    // 現在のボタンと次のボタンが表示範囲に収まるようにスクロール
+                    if (nextButtonRight > buttonContainer.scrollLeft + containerWidth) {
+                        const scrollPosition = nextButtonRight - containerWidth + 20;
+                        buttonContainer.scrollTo({
+                            left: scrollPosition,
+                            behavior: 'smooth'
+                        });
+                    } else if (buttonLeft < buttonContainer.scrollLeft) {
+                        // 現在のボタンが左に隠れている場合
+                        const scrollPosition = buttonLeft - 20;
+                        buttonContainer.scrollTo({
+                            left: scrollPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    // 最後のボタンの場合は、そのボタンが完全に見えるようにスクロール
+                    const scrollPosition = buttonLeft - containerWidth + buttonWidth + 20;
+                    buttonContainer.scrollTo({
+                        left: Math.max(0, scrollPosition),
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+    // モーダルを閉じる
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    // モーダルの外側をクリックして閉じる
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            
+            // スライド関連オブジェクトへの参照を解除
+            if (prevButton) {
+                prevButton.onclick = null;
+                prevButton = null;
+            }
+            if (nextButton) {
+                nextButton.onclick = null;
+                nextButton = null;
+            }
+        }
+    }
+
+    // スライド更新
+    function updateSlides() {
+        slider.innerHTML = '';
+        const images = colorImages[currentColor];
+        images.forEach((src, index) => {
+            const slide = document.createElement('div');
+            slide.className = `color-preview-slide${index === currentSlide ? ' active' : ''}`;
+            slide.innerHTML = `<img src="${src}" alt="プレビュー${index + 1}" class="preview-image">`;
+            slider.appendChild(slide);
+        });
+    }
+
+    // ドット更新
+    function updateDots() {
+        const dotsContainer = modal.querySelector('.slider-dots');
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < slidesPerColor; i++) {
+            const dot = document.createElement('div');
+            dot.className = `dot${i === currentSlide ? ' active' : ''}`;
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    // カラーメニューのドラッグスクロール
+    const colorMenu = document.querySelector('.color-variation-buttons');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    if (colorMenu) {
+        colorMenu.addEventListener('mousedown', (e) => {
+            isDown = true;
+            colorMenu.style.cursor = 'grabbing';
+            startX = e.pageX - colorMenu.offsetLeft;
+            scrollLeft = colorMenu.scrollLeft;
+        });
+
+        colorMenu.addEventListener('mouseleave', () => {
+            isDown = false;
+            colorMenu.style.cursor = 'grab';
+        });
+
+        colorMenu.addEventListener('mouseup', () => {
+            isDown = false;
+            colorMenu.style.cursor = 'grab';
+        });
+
+        colorMenu.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - colorMenu.offsetLeft;
+            const walk = (x - startX) * 2; // スクロール速度の調整
+            colorMenu.scrollLeft = scrollLeft - walk;
+        });
+    }
+});
+</script>
+
+{% endblock %}
+

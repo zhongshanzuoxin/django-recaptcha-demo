@@ -1,0 +1,327 @@
+{% extends 'front/_base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="confirm-step-indicator {% if is_submitted %}hidden{% endif %}">
+        <div class="confirm-step {% if current_step == 1 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 1</div>
+            <div class="confirm-step-label">アプリ設定情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 2 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 2</div>
+            <div class="confirm-step-label">口座情報の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 3 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 3</div>
+            <div class="confirm-step-label">特定商取引法の入力</div>
+        </div>
+        <div class="confirm-step {% if current_step == 4 %}active{% endif %}">
+            <div class="confirm-step-number">STEP 4</div>
+            <div class="confirm-step-label">確認</div>
+        </div>
+    </div>
+
+    <h1 class="sct-title">特定商取引法に基づく表記の入力</h1>
+    <div class="sct-container">
+        <div class="sct-info-box">
+            <h3>特定商取引法について</h3>
+            <p>特定商取引法は、通信販売や訪問販売などの消費者トラブルが生じやすい取引について、事業者が守るべきルールと、消費者を守るためのルールを定めた法律です。</p>
+            <p>アプリ内でショップ機能を利用する場合、<strong>特定商取引法に基づく表記</strong>をユーザーに提示する必要があります。この情報はアプリ内の「特定商取引法に基づく表記」ページに表示されます。</p>
+        </div>
+        <form method="post" class="sct-form">
+            {% csrf_token %}
+            
+            <div class="sct-form-field">
+                <label>販売事業者名</label>
+                {{ form.seller_name }}
+                <small class="form-text text-muted">法人の場合は法人名を入力してください</small>
+                {% if form.seller_name.errors %}
+                <div class="error-message">
+                    {% for error in form.seller_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>運営統括責任者名</label>
+                {{ form.manager_name }}
+                {% if form.manager_name.errors %}
+                <div class="error-message">
+                    {% for error in form.manager_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>所在地</label>
+                {{ form.seller_address }}
+                {% if form.seller_address.errors %}
+                <div class="error-message">
+                    {% for error in form.seller_address.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>電話番号</label>
+                {{ form.seller_phone_number }}
+                <small class="form-text text-muted">ハイフン（-）を含めて入力してください</small>
+                {% if form.seller_phone_number.errors %}
+                <div class="error-message">
+                    {% for error in form.seller_phone_number.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>メールアドレス</label>
+                {{ form.seller_email }}
+                {% if form.seller_email.errors %}
+                <div class="error-message">
+                    {% for error in form.seller_email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>商品の販売価格</label>
+                {{ form.product_price }}
+                {% if form.product_price.errors %}
+                <div class="error-message">
+                    {% for error in form.product_price.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>商品代金以外の必要料金</label>
+                {{ form.additional_fees }}
+                <small class="form-text text-muted">送料、手数料等について記載してください</small>
+                {% if form.additional_fees.errors %}
+                <div class="error-message">
+                    {% for error in form.additional_fees.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>支払い方法</label>
+                {{ form.payment_method }}
+                {% if form.payment_method.errors %}
+                <div class="error-message">
+                    {% for error in form.payment_method.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>商品の引渡方法</label>
+                {{ form.delivery_method }}
+                {% if form.delivery_method.errors %}
+                <div class="error-message">
+                    {% for error in form.delivery_method.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="sct-form-field">
+                <label>返品・不良品対応</label>
+                {{ form.return_policy }}
+                {% if form.return_policy.errors %}
+                <div class="error-message">
+                    {% for error in form.return_policy.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit-button">
+                    次へ
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.sct-form');
+    const submitBtn = document.querySelector('.submit-button');
+    
+    // フィールドのバリデーション状態を追跡
+    const fieldValidationState = {};
+    
+    // 必須フィールドのバリデーション
+    function validateRequiredFields() {
+
+        // 各フィールドの個別バリデーション結果を確認
+        if (fieldValidationState['seller_phone_number'] === false) return false;
+        if (fieldValidationState['seller_email'] === false) return false;
+
+        return true;
+    }
+
+    // 特定のフィールドのバリデーション
+    function validateField(field) {
+        const name = field.getAttribute('name');
+        const value = field.value.trim();
+        
+        // 空の場合はバリデーションをスキップ（必須ではないため）
+        if (value === '') {
+            fieldValidationState[name] = true;
+            return { valid: true };
+        }
+        
+        // フィールド別のバリデーション
+        switch(name) {
+            case 'seller_phone_number':
+                // 数字とハイフンのみを許可
+                const phonePattern = /^[\d-]+$/;
+                if (!phonePattern.test(value)) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '電話番号は数字とハイフンのみで入力してください'
+                    };
+                }
+                
+                // ハイフンが2つ以上含まれているかチェック
+                const hyphens = (value.match(/-/g) || []).length;
+                if (hyphens < 2) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '正しい電話番号を入力してください'
+                    };
+                }
+                break;
+                
+            case 'seller_email':
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(value)) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '有効なメールアドレスを入力してください'
+                    };
+                }
+                break;
+        }
+        
+        // バリデーション成功
+        fieldValidationState[name] = true;
+        return { valid: true };
+    }
+
+    // イベントリスナーの設定
+    function setupEventListeners() {
+        // 入力フィールドの変更を監視
+        form.addEventListener('input', function() {
+            const isValid = validateRequiredFields();
+            submitBtn.disabled = !isValid;
+        });
+        
+        // フォーカスが外れたときのイベント
+        const formFields = form.querySelectorAll('input, textarea');
+        formFields.forEach(field => {
+            field.addEventListener('focus', function() {
+                // エラーメッセージがあれば非表示にする
+                hideErrorMessage(this);
+            });
+            
+            field.addEventListener('blur', function() {
+                // 空の場合はバリデーションをスキップ
+                if (this.value.trim() === '') {
+                    return;
+                }
+                
+                // フォーカスが外れたときにバリデーション
+                const validation = validateField(this);
+                if (!validation.valid) {
+                    // バリデーションエラーの場合はエラーメッセージのみ表示
+                    showErrorMessage(this, validation.message);
+                }
+            });
+        });
+        
+        // 電話番号のバリデーション
+        const phoneNumber = form.querySelector('input[name="seller_phone_number"]');
+        if (phoneNumber) {
+            phoneNumber.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^\d-]/g, '');
+            });
+        }
+    }
+    
+    // エラーメッセージを表示
+    function showErrorMessage(field, message) {
+        const fieldContainer = field.closest('.sct-form-field');
+        if (!fieldContainer) return;
+        
+        // 既存のエラーメッセージを削除
+        hideErrorMessage(field);
+        
+        // エラーメッセージ要素を作成
+        const errorElement = document.createElement('div');
+        errorElement.className = 'js-error';
+        errorElement.textContent = message;
+        
+        // フィールドの後に挿入
+        field.parentNode.insertBefore(errorElement, field.nextSibling);
+    }
+    
+    // エラーメッセージを非表示
+    function hideErrorMessage(field) {
+        const fieldContainer = field.closest('.sct-form-field');
+        if (!fieldContainer) return;
+        
+        const errorElement = fieldContainer.querySelector('.js-error');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+    
+    // 初期化
+    function initialize() {
+        setupEventListeners();
+        // validateRequiredFields();
+        // 保留: 必須ではないのでボタンは常に有効にする
+        submitBtn.disabled = false;
+        
+        // スタイルを追加
+        const style = document.createElement('style');
+        style.textContent = `
+            .js-error {
+                margin-bottom: 0;
+                margin-top: 5px;
+                font-size: 14px;
+                color: #dc3545;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    initialize();
+});
+</script>
+{% endblock %}
