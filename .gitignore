@@ -41,3 +41,7 @@ secrets/
 static/admin/
 static/django_ckeditor_5/
 static/dist/
+
+# ローカルドキュメント
+LOCAL_README.md
+*.local.md
