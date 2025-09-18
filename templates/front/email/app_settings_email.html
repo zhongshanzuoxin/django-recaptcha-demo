@@ -56,6 +56,19 @@
             color: #a0aec0;
             font-style: italic;
         }
+        .long-text {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .screenshot-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .screenshot-label {
+            font-weight: 600;
+            min-width: 20px;
+        }
     </style>
 </head>
 <body>
@@ -116,6 +129,43 @@
             {% else %}
                 <div class="field-value">デフォルト設定を使用</div>
             {% endif %}
+        </div>
+
+        <div class="section-title">ストア情報</div>
+        
+        <div class="field">
+            <div class="field-label">ストアに載せるアプリの概要（短文）</div>
+            <div class="field-value">{{ store_description_short }}</div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">ストアに載せるアプリの概要（詳細）</div>
+            <div class="field-value">
+                <div class="long-text message-content">{{ store_description_long }}</div>
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">スクリーンショット文言変更</div>
+            <div class="field-value">
+                {% if screenshot_text_enabled == 'enabled' %}
+                    {% for label, text in screenshot_texts.items %}
+                        {% if text %}
+                        <div class="screenshot-item">
+                            <span class="screenshot-label">{{ label }}:</span>
+                            <span>{{ text }}</span>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="field-value">変更しない</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="field-label">ストアの著作権表記</div>
+            <div class="field-value">{{ store_copyright }}</div>
         </div>
     </div>
 </body>

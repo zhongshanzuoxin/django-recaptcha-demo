@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
     initAfterLaunchAnimations();
     initRevenueCTAAnimation();
     initUnifiedCTAAnimation();
+    initColorPreviewModal();
+    initScreenshotPreviewModal();
+    initStoreLocationModal();
+    initTabFromHash();
+    initHashChangeListener();
+    setupNavDragScroll();
+    // tlGuideToggleAccordion();
+    tlGuideInitVideoModals();
 });
 
 // Topガイドスライダー
@@ -108,6 +116,285 @@ function initVideoModals() {
       }
     });
   });
+}
+
+
+function initTabFromHash() {
+    const hash = window.location.hash;
+    let tabToOpen = 'overview'; // デフォルトは概要タブ
+    
+    // ハッシュから対応するタブを判定
+    if (hash) {
+        const match = hash.match(/#tl-guide-(.+)-content/);
+        if (match && match[1]) {
+            tabToOpen = match[1];
+        }
+    }
+    
+    tlGuideShowContent(tabToOpen);
+}
+
+// ハッシュ変更時のイベントリスナー設定関数
+function initHashChangeListener() {
+    window.addEventListener('hashchange', function() {
+        const hash = window.location.hash;
+        if (hash) {
+            const match = hash.match(/#tl-guide-(.+)-content/);
+            if (match && match[1]) {
+                tlGuideShowContent(match[1]);
+            }
+        }
+    });
+}
+
+// タブ切り替え機能
+function tlGuideShowContent(contentType) {
+    // すべてのナビゲーションアイテムとコンテンツを非アクティブに
+    document.querySelectorAll('.tl-guide-nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    document.querySelectorAll('.tl-guide-content').forEach(content => {
+        content.classList.remove('active');
+    });
+
+    // 選択されたナビゲーションアイテムをアクティブに
+    const activeNavItem = document.querySelector(`.tl-guide-nav-item[onclick*="${contentType}"]`);
+    if (activeNavItem) {
+        activeNavItem.classList.add('active');
+        
+        // 次のタブが見えるように自動スクロール
+        autoScrollToShowNextTab(activeNavItem);
+    }
+    
+    // 選択されたコンテンツをアクティブに
+    const targetContent = document.getElementById('tl-guide-' + contentType + '-content');
+    if (targetContent) {
+        targetContent.classList.add('active');
+    }
+}
+
+// 次のタブが見えるようにスクロールする関数
+function autoScrollToShowNextTab(clickedTab) {
+    const nav = document.querySelector('.tl-guide-nav');
+    if (!nav || !clickedTab) return;
+    
+    // クリックされたタブのインデックスを取得
+    const allTabs = Array.from(nav.querySelectorAll('.tl-guide-nav-item'));
+    const clickedIndex = allTabs.indexOf(clickedTab);
+    
+    // 次のタブが存在する場合
+    if (clickedIndex >= 0 && clickedIndex < allTabs.length - 1) {
+        const nextTab = allTabs[clickedIndex + 1];
+        
+        // ナビゲーションコンテナの情報を取得
+        const navRect = nav.getBoundingClientRect();
+        const nextTabRect = nextTab.getBoundingClientRect();
+        
+        // 次のタブが完全に見えていない場合
+        if (nextTabRect.right > navRect.right) {
+            // 次のタブの右端が見えるようにスクロール
+            const scrollAmount = nextTabRect.right - navRect.right + 20; // 20pxの余白を追加
+            nav.scrollTo({
+                left: nav.scrollLeft + scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+        
+        // 特に2,3,4番目のタブの場合、5番目のタブまで見えるようにする
+        if (clickedIndex >= 1 && clickedIndex <= 3 && allTabs[4]) {
+            const fifthTab = allTabs[4];
+            const fifthTabRect = fifthTab.getBoundingClientRect();
+            
+            if (fifthTabRect.right > navRect.right) {
+                const scrollAmount = fifthTabRect.right - navRect.right + 20;
+                nav.scrollTo({
+                    left: nav.scrollLeft + scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+}
+
+// ナビゲーションのドラッグスクロール機能
+function setupNavDragScroll() {
+    const nav = document.querySelector('.tl-guide-nav');
+    if (!nav) return;
+    
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false;
+    
+    nav.addEventListener('mousedown', (e) => {
+        if (e.target.classList.contains('tl-guide-nav-item')) {
+            return;
+        }
+        
+        isDown = true;
+        nav.classList.add('dragging');
+        startX = e.pageX - nav.offsetLeft;
+        scrollLeft = nav.scrollLeft;
+        isDragging = false;
+    });
+    
+    document.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        
+        isDown = false;
+        nav.classList.remove('dragging');
+        isDragging = false;
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        
+        e.preventDefault();
+        const x = e.pageX - nav.offsetLeft;
+        const walk = (x - startX) * 2;
+        
+        if (Math.abs(walk) > 5) {
+            isDragging = true;
+        }
+        
+        nav.scrollLeft = scrollLeft - walk;
+    });
+    
+    // 各ボタンのイベント設定
+    const buttons = nav.querySelectorAll('.tl-guide-nav-item');
+    buttons.forEach(button => {
+        let buttonStartX;
+        let buttonIsDragging = false;
+        
+        const originalOnclick = button.onclick;
+        
+        button.addEventListener('mousedown', (e) => {
+            buttonStartX = e.pageX;
+            buttonIsDragging = false;
+            
+            // ナビゲーション全体のドラッグ設定
+            isDown = true;
+            nav.classList.add('dragging');
+            startX = e.pageX - nav.offsetLeft;
+            scrollLeft = nav.scrollLeft;
+            isDragging = false;
+        });
+        
+        button.addEventListener('mouseup', (e) => {
+            const moveDistance = Math.abs(e.pageX - buttonStartX);
+            
+            if (moveDistance < 5 && !buttonIsDragging) {
+                if (originalOnclick) {
+                    originalOnclick.call(button, e);
+                }
+            }
+        });
+        
+        button.addEventListener('mousemove', (e) => {
+            if (isDown && Math.abs(e.pageX - buttonStartX) > 5) {
+                buttonIsDragging = true;
+            }
+        });
+        
+        button.onclick = (e) => {
+            e.preventDefault();
+        };
+    });
+    
+    // タッチデバイス対応
+    let touchStartX;
+    let touchScrollLeft;
+    let touchStartTime;
+    let touchButtonStartX;
+    
+    nav.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].pageX - nav.offsetLeft;
+        touchScrollLeft = nav.scrollLeft;
+        touchStartTime = Date.now();
+        
+        if (e.target.classList.contains('tl-guide-nav-item')) {
+            touchButtonStartX = e.touches[0].pageX;
+        }
+    });
+    
+    nav.addEventListener('touchmove', (e) => {
+        if (!touchStartX) return;
+        
+        const x = e.touches[0].pageX - nav.offsetLeft;
+        const walk = (x - touchStartX) * 2;
+        nav.scrollLeft = touchScrollLeft - walk;
+    });
+    
+    nav.addEventListener('touchend', (e) => {
+        if (e.target.classList.contains('tl-guide-nav-item') && touchButtonStartX) {
+            const moveDistance = Math.abs(e.changedTouches[0].pageX - touchButtonStartX);
+            const timeDiff = Date.now() - touchStartTime;
+            
+            // タップとして処理
+            if (moveDistance < 10 && timeDiff < 300) {
+                e.target.click();
+            }
+        }
+        
+        touchStartX = null;
+        touchButtonStartX = null;
+    });
+}
+
+
+// アコーディオン開閉機能
+function tlGuideToggleAccordion(accordion) {
+    accordion.classList.toggle('open');
+}
+
+// ビデオモーダル関数
+function tlGuideInitVideoModals() {
+    // 各モーダルの設定を配列で定義
+    const modalConfigs = [
+        {
+            modalId: 'tlGuideVideoModal',
+            videoId: 'tlGuideModalVideo',
+            openFuncName: 'tlGuideOpenVideoModal',
+            closeFuncName: 'tlGuideCloseVideoModal'
+        }
+    ];
+    
+    // 各モーダルを初期化
+    modalConfigs.forEach(config => {
+        const modal = document.getElementById(config.modalId);
+        const video = document.getElementById(config.videoId);
+        
+        // 要素の存在に関わらず関数を定義
+        window[config.openFuncName] = function() {
+            const modalEl = document.getElementById(config.modalId);
+            const videoEl = document.getElementById(config.videoId);
+            if (modalEl && videoEl) {
+                modalEl.style.display = 'block';
+                videoEl.play();
+                document.body.style.overflow = 'hidden';
+            }
+        };
+        
+        window[config.closeFuncName] = function() {
+            const modalEl = document.getElementById(config.modalId);
+            const videoEl = document.getElementById(config.videoId);
+            if (modalEl && videoEl) {
+                modalEl.style.display = 'none';
+                videoEl.pause();
+                videoEl.currentTime = 0;
+                document.body.style.overflow = '';
+            }
+        };
+        
+        // モーダル外クリックで閉じる（要素が存在する場合のみ）
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    window[config.closeFuncName]();
+                }
+            });
+        }
+    });
 }
 
 
@@ -1071,6 +1358,9 @@ function initSetupFlowAlternate() {
         showSlide(currentSlide + 1);
     }
 
+    window.prevSlide = prevSlide;
+    window.nextSlide = nextSlide;
+
     // タッチスワイプ機能
     function initCarouselTouch() {
         let startX = 0;
@@ -1192,6 +1482,7 @@ function initSetupFlowAlternate() {
         const nextButton = document.querySelector('.carousel-next');
         
         if (prevButton) {
+            prevButton.removeEventListener('click', prevSlide);
             prevButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 prevSlide();
@@ -1199,6 +1490,7 @@ function initSetupFlowAlternate() {
         }
         
         if (nextButton) {
+            nextButton.removeEventListener('click', nextSlide);
             nextButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 nextSlide();
@@ -1794,3 +2086,572 @@ function initUnifiedCTAAnimation() {
     
     observer.observe(ctaLeft);
 }
+
+
+
+
+
+
+
+
+// カラープレビューモーダル
+function initColorPreviewModal() {
+    const modal = document.getElementById('colorPreviewModal');
+    const previewBtn = document.querySelector('.btn-preview');
+    
+    if (!modal || !previewBtn) return;
+    
+    if (!window.COLOR_PREVIEW_CONFIG || !window.COLOR_PREVIEW_CONFIG.paths) return;
+    
+    const closeBtn = modal.querySelector('.modal-close');
+    const slider = modal.querySelector('.color-preview-slider');
+    const colorButtons = modal.querySelectorAll('.color-button');
+    let currentSlide = 0;
+    let currentColor = 'Color_01';
+    
+    // スワイプ対応のための変数
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    // ナビゲーションボタンの変数をグローバルに定義
+    let prevButton = null;
+    let nextButton = null;
+    
+    // 画像の種類を定義
+    const imageTypes = ['home', 'login', 'more', 'room', 'shop', 'tl'];
+    const slidesPerColor = imageTypes.length;
+    
+    // グローバル変数から画像パスを生成
+    const colorImages = {};
+    const paths = window.COLOR_PREVIEW_CONFIG.paths;
+    
+    Object.keys(paths).forEach(color => {
+        colorImages[color] = imageTypes.map(type => paths[color] + type + '.png');
+    });
+    
+    // スワイプヒントの表示関数
+    function addSwipeHint() {
+        const container = modal.querySelector('.color-preview-container');
+        const swipeHint = document.createElement('div');
+        swipeHint.className = 'swipe-hint';
+        swipeHint.innerHTML = `
+            <div class="swipe-icon-wrapper">
+                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-static">
+                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-moving">
+            </div>
+            <span>横スクロール可能です</span>
+        `;
+        container.appendChild(swipeHint);
+    }
+    
+    // スワイプヒントを非表示にする関数
+    function hideSwipeHint() {
+        if (!modal) return;
+        const hint = modal.querySelector('.swipe-hint');
+        if (hint && !hint.classList.contains('hide')) {
+            hint.classList.add('hide');
+            setTimeout(() => {
+                hint.style.display = 'none';
+            }, 300);
+        }
+    }
+    
+    // モーダルを開く処理を拡張
+    previewBtn.addEventListener('click', () => {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        updateSlides();
+        updateDots();
+        
+        // スワイプヒントの初期化
+        const existingHint = modal.querySelector('.swipe-hint');
+        if (existingHint) {
+            existingHint.remove();
+        }
+        addSwipeHint();
+        
+        // 矢印ボタンクリック時にもヒントを非表示
+        prevButton = modal.querySelector('.prev');
+        nextButton = modal.querySelector('.next');
+        
+        if (prevButton) {
+            prevButton.onclick = function() {
+                if (modal) {
+                    hideSwipeHint();
+                    goToSlide((currentSlide - 1 + slidesPerColor) % slidesPerColor);
+                }
+            };
+        }
+        
+        if (nextButton) {
+            nextButton.onclick = function() {
+                if (modal) {
+                    hideSwipeHint();
+                    goToSlide((currentSlide + 1) % slidesPerColor);
+                }
+            };
+        }
+        
+        // スワイプ対応のイベントリスナーをセットアップ
+        if (slider) {
+            slider.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+            });
+            
+            slider.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+        }
+    });
+    
+    // スワイプ処理関数
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            hideSwipeHint(); // スワイプ判定前にヒントを非表示
+            if (diff > 0) {
+                // 右スワイプ
+                goToSlide((currentSlide - 1 + slidesPerColor) % slidesPerColor);
+            } else {
+                // 左スワイプ
+                goToSlide((currentSlide + 1) % slidesPerColor);
+            }
+        }
+    }
+    
+    // スライド移動
+    function goToSlide(index) {
+        if (!modal || !slider) return;
+        
+        const slides = slider.querySelectorAll('.color-preview-slide');
+        const dots = modal.querySelectorAll('.dot');
+        
+        if (!slides.length || !dots.length) return;
+        
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.remove('active');
+        }
+        if (dots[currentSlide]) {
+            dots[currentSlide].classList.remove('active');
+        }
+        
+        currentSlide = index;
+        
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.add('active');
+        }
+        if (dots[currentSlide]) {
+            dots[currentSlide].classList.add('active');
+        }
+        
+        hideSwipeHint();
+    }
+    
+    // カラーボタンクリック時にもヒントを非表示
+    if (colorButtons && colorButtons.length) {
+        colorButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                hideSwipeHint();
+                
+                // カラーボタンの制御ロジック
+                colorButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                currentColor = this.dataset.color;
+                currentSlide = 0;
+                updateSlides();
+                updateDots();
+                
+                // 選択されたボタンが見えるように自動スクロール
+                const buttonContainer = this.parentElement;
+                const containerWidth = buttonContainer.offsetWidth;
+                const buttonLeft = this.offsetLeft;
+                const buttonWidth = this.offsetWidth;
+                
+                // カラーボタンの配列内でのインデックスを取得
+                const index = Array.from(colorButtons).indexOf(this);
+                
+                const nextButton = colorButtons[index + 1];
+                
+                if (nextButton) {
+                    const nextButtonRight = nextButton.offsetLeft + nextButton.offsetWidth;
+                    
+                    // 現在のボタンと次のボタンが表示範囲に収まるようにスクロール
+                    if (nextButtonRight > buttonContainer.scrollLeft + containerWidth) {
+                        const scrollPosition = nextButtonRight - containerWidth + 20;
+                        buttonContainer.scrollTo({
+                            left: scrollPosition,
+                            behavior: 'smooth'
+                        });
+                    } else if (buttonLeft < buttonContainer.scrollLeft) {
+                        // 現在のボタンが左に隠れている場合
+                        const scrollPosition = buttonLeft - 20;
+                        buttonContainer.scrollTo({
+                            left: scrollPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    // 最後のボタンの場合は、そのボタンが完全に見えるようにスクロール
+                    const scrollPosition = buttonLeft - containerWidth + buttonWidth + 20;
+                    buttonContainer.scrollTo({
+                        left: Math.max(0, scrollPosition),
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    // モーダルを閉じる
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+    
+    // モーダルの外側をクリックして閉じる
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            
+            if (prevButton) {
+                prevButton.onclick = null;
+                prevButton = null;
+            }
+            if (nextButton) {
+                nextButton.onclick = null;
+                nextButton = null;
+            }
+        }
+    }
+    
+    // スライド更新
+    function updateSlides() {
+        slider.innerHTML = '';
+        const images = colorImages[currentColor];
+        images.forEach((src, index) => {
+            const slide = document.createElement('div');
+            slide.className = `color-preview-slide${index === currentSlide ? ' active' : ''}`;
+            slide.innerHTML = `<img src="${src}" alt="プレビュー${index + 1}" class="preview-image">`;
+            slider.appendChild(slide);
+        });
+    }
+    
+    // ドット更新
+    function updateDots() {
+        const dotsContainer = modal.querySelector('.slider-dots');
+        dotsContainer.innerHTML = '';
+        
+        for (let i = 0; i < slidesPerColor; i++) {
+            const dot = document.createElement('div');
+            dot.className = `dot${i === currentSlide ? ' active' : ''}`;
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+    
+    // カラーメニューのドラッグスクロール
+    const colorMenu = document.querySelector('.color-variation-buttons');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    
+    if (colorMenu) {
+        colorMenu.addEventListener('mousedown', (e) => {
+            isDown = true;
+            colorMenu.style.cursor = 'grabbing';
+            startX = e.pageX - colorMenu.offsetLeft;
+            scrollLeft = colorMenu.scrollLeft;
+        });
+        
+        colorMenu.addEventListener('mouseleave', () => {
+            isDown = false;
+            colorMenu.style.cursor = 'grab';
+        });
+        
+        colorMenu.addEventListener('mouseup', () => {
+            isDown = false;
+            colorMenu.style.cursor = 'grab';
+        });
+        
+        colorMenu.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - colorMenu.offsetLeft;
+            const walk = (x - startX) * 2; // スクロール速度の調整
+            colorMenu.scrollLeft = scrollLeft - walk;
+        });
+    }
+}
+
+
+
+
+
+
+
+
+// スクリーンショットプレビューモーダル
+function initScreenshotPreviewModal() {
+    const screenshotPreviewBtn = document.getElementById('screenshotTextPreviewBtn');
+    const screenshotModal = document.getElementById('screenshotPreviewModal');
+    
+    if (!screenshotModal || !screenshotPreviewBtn) return;
+    
+    if (!window.SCREENSHOT_PREVIEW_CONFIG || !window.SCREENSHOT_PREVIEW_CONFIG.images) return;
+    
+    // スライダーの状態管理
+    let currentScreenshotSlide = 0;
+    const screenshotImages = window.SCREENSHOT_PREVIEW_CONFIG.images;
+    
+    // スワイプヒントの表示関数
+    function addSwipeHint() {
+        // 768px以下の時のみ表示
+        if (window.innerWidth > 768) return;
+        
+        const container = screenshotModal.querySelector('.screenshot-preview-container');
+        const swipeHint = document.createElement('div');
+        swipeHint.className = 'swipe-hint';
+        swipeHint.innerHTML = `
+            <div class="swipe-icon-wrapper">
+                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-static">
+                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-moving">
+            </div>
+            <span>横スクロール可能です</span>
+        `;
+        container.appendChild(swipeHint);
+    }
+    
+    // スワイプヒントを非表示にする関数
+    function hideSwipeHint() {
+        if (!screenshotModal) return;
+        const hint = screenshotModal.querySelector('.swipe-hint');
+        if (hint && !hint.classList.contains('hide')) {
+            hint.classList.add('hide');
+            setTimeout(() => {
+                hint.style.display = 'none';
+            }, 300);
+        }
+    }
+    
+    // モーダルを開く
+    screenshotPreviewBtn.addEventListener('click', function() {
+        screenshotModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        updateScreenshotSlides();
+        updateScreenshotDots();
+        setupSliderControls();
+        
+        // スワイプヒントの初期化
+        const existingHint = screenshotModal.querySelector('.swipe-hint');
+        if (existingHint) {
+            existingHint.remove();
+        }
+        addSwipeHint();
+    });
+    
+    // モーダルを閉じる処理
+    function closeScreenshotModal() {
+        screenshotModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    // 閉じるボタンのイベント
+    const closeModalBtn = screenshotModal.querySelector('.modal-close');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeScreenshotModal);
+    }
+    
+    // モーダル外クリックで閉じる
+    screenshotModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeScreenshotModal();
+        }
+    });
+    
+    // スライド更新
+    function updateScreenshotSlides() {
+        const slider = screenshotModal.querySelector('.screenshot-preview-slider');
+        if (!slider) return;
+        
+        slider.innerHTML = '';
+        
+        screenshotImages.forEach((src, index) => {
+            const slide = document.createElement('div');
+            slide.className = `screenshot-preview-slide${index === currentScreenshotSlide ? ' active' : ''}`;
+            slide.innerHTML = `<img src="${src}" alt="スクリーンショット${index + 1}">`;
+            slider.appendChild(slide);
+        });
+    }
+    
+    // ドット更新
+    function updateScreenshotDots() {
+        const dotsContainer = screenshotModal.querySelector('.slider-dots');
+        if (!dotsContainer) return;
+        
+        dotsContainer.innerHTML = '';
+        
+        for (let i = 0; i < screenshotImages.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = `dot${i === currentScreenshotSlide ? ' active' : ''}`;
+            dot.addEventListener('click', () => {
+                hideSwipeHint();
+                goToScreenshotSlide(i);
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+    
+    // スライド移動
+    function goToScreenshotSlide(index) {
+        const slides = screenshotModal.querySelectorAll('.screenshot-preview-slide');
+        const dots = screenshotModal.querySelectorAll('.dot');
+        
+        if (slides[currentScreenshotSlide]) {
+            slides[currentScreenshotSlide].classList.remove('active');
+        }
+        if (dots[currentScreenshotSlide]) {
+            dots[currentScreenshotSlide].classList.remove('active');
+        }
+        
+        currentScreenshotSlide = index;
+        
+        if (slides[currentScreenshotSlide]) {
+            slides[currentScreenshotSlide].classList.add('active');
+        }
+        if (dots[currentScreenshotSlide]) {
+            dots[currentScreenshotSlide].classList.add('active');
+        }
+    }
+    
+    // スライダーコントロールの設定
+    function setupSliderControls() {
+        const prevButton = screenshotModal.querySelector('.prev');
+        const nextButton = screenshotModal.querySelector('.next');
+        
+        if (prevButton) {
+            prevButton.onclick = function() {
+                hideSwipeHint();
+                goToScreenshotSlide((currentScreenshotSlide - 1 + screenshotImages.length) % screenshotImages.length);
+            };
+        }
+        
+        if (nextButton) {
+            nextButton.onclick = function() {
+                hideSwipeHint();
+                goToScreenshotSlide((currentScreenshotSlide + 1) % screenshotImages.length);
+            };
+        }
+    }
+    
+    // タッチデバイス対応（スワイプ）
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const slider = screenshotModal.querySelector('.screenshot-preview-slider');
+    if (slider) {
+        slider.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+        });
+        
+        slider.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+    }
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            hideSwipeHint();
+            if (diff > 0) {
+                goToScreenshotSlide((currentScreenshotSlide - 1 + screenshotImages.length) % screenshotImages.length);
+            } else {
+                goToScreenshotSlide((currentScreenshotSlide + 1) % screenshotImages.length);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+// ストア表示箇所モーダル
+function initStoreLocationModal() {
+    const modal = document.getElementById('storeLocationModal');
+    const modalTitle = document.getElementById('storeLocationTitle');
+    const modalImage = document.getElementById('storeLocationImage');
+    const closeBtn = modal?.querySelector('.modal-close');
+    
+    if (!modal) return;
+    
+    if (!window.STORE_LOCATION_CONFIG || !window.STORE_LOCATION_CONFIG.images) return;
+    
+    // 画像パスの定義
+    const locationImages = window.STORE_LOCATION_CONFIG.images;
+    
+    // タイトルの定義
+    const modalTitles = {
+        'short-description': 'アプリ概要（短文）の表示箇所',
+        'long-description': 'アプリ概要（詳細）の表示箇所',
+        'copyright': '著作権表記の表示箇所'
+    };
+    
+    // ボタンのイベントリスナー設定
+    const buttons = document.querySelectorAll('[data-modal-type]');
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modalType = this.getAttribute('data-modal-type');
+            openLocationModal(modalType);
+        });
+    });
+    
+    // モーダルを開く
+    function openLocationModal(type) {
+        if (locationImages[type] && modalTitles[type]) {
+            modalImage.src = locationImages[type];
+            modalTitle.textContent = modalTitles[type];
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    // モーダルを閉じる
+    function closeLocationModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    // 閉じるボタンのイベント
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeLocationModal);
+    }
+    
+    // モーダル外クリックで閉じる
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeLocationModal();
+        }
+    });
+}
+
+
+
+
+
+
+
+
+

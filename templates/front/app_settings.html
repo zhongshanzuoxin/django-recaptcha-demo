@@ -28,12 +28,16 @@
     <p class="settings-description">アプリの開設に必要な設定情報を入力してください。</p>
 
     <div class="settings-container">
-        <form method="post" class="settings-form" enctype="multipart/form-data" novalidate>
+        <form method="post" class="settings-form" enctype="multipart/form-data" novalidate 
+        action="{% url 'front:app_settings' %}?email={{ request.GET.email|urlencode }}&uuid={{ request.GET.uuid }}{% if request.GET.from_confirm %}&from_confirm={{ request.GET.from_confirm }}{% endif %}">
             {% csrf_token %}
             
             <div class="form-group">
                 <label>希望するアプリ名<span class="required">*</span></label>
                 {{ form.app_name }}
+                <div class="character-count">
+                    <span class="current-count">0</span> / 30文字
+                </div>
             </div>
 
             <div class="form-group">
@@ -59,21 +63,25 @@
                 <div class="color-setting">
                     <label>初期のアプリカラー<span class="required">*</span></label>
                     <div class="color-select-group">
-                        {{ form.app_color }}
+                        <div class="custom-select-wrapper">
+                            {{ form.app_color }}
+                        </div>
                         <button type="button" class="btn-preview">カラープレビュー一覧</button>
                     </div>
                     <small class="form-text text-muted">※カラーは後からアプリ内で変更できます</small>
                 </div>
 
                 <div class="image-setting">
-                    <label>
-                        アプリアイコン画像
-                        <span class="required">*</span>
+                    <div class="form-label-with-button">
+                        <label>
+                            アプリアイコン画像
+                            <span class="required">*</span>
+                        </label>
                         <button type="button" class="usage-info-button">
                             <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
                             <span>使用箇所を確認</span>
                         </button>
-                    </label>
+                    </div>
                     <div class="image-upload-container">
                         <div class="preview-area-icon" id="iconPreview" 
                             {% if app_icon_url %}
@@ -96,14 +104,16 @@
                 </div>
 
                 <div class="image-setting">
-                    <label>
-                        ロゴ画像
-                        <span class="required">*</span>
+                    <div class="form-label-with-button">
+                        <label>
+                            ロゴ画像
+                            <span class="required">*</span>
+                        </label>
                         <button type="button" class="usage-info-button">
                             <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
                             <span>使用箇所を確認</span>
                         </button>
-                    </label>
+                    </div>
                     <div class="image-upload-container">
                         <div class="preview-area-logo" id="logoPreview" 
                             {% if app_logo_url %}
@@ -119,7 +129,7 @@
                             {{ form.app_logo }}
                             <div class="file-info">
                                 <p>ファイル形式：PNG</p>
-                                <p>指定サイズ：500 × 1024px</p>
+                                <p>指定サイズ：1024 × 500px</p>
                                 <p>※背景が透過された画像を使用してください</p>
                             </div>
                         </div>
@@ -145,58 +155,219 @@
                     <div class="naming-item">
                         <label>Home</label>
                         {{ form.home }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>Shop</label>
                         {{ form.shop }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>Time Line</label>
                         {{ form.timeline }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>Chat</label>
                         {{ form.chat }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>More</label>
                         {{ form.more }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>Collection</label>
                         {{ form.collection }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>Pick Up</label>
                         {{ form.pickup }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>グッズ</label>
                         {{ form.goods }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>商品</label>
                         {{ form.products }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>2shot</label>
                         {{ form.twoshot }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>ライブ</label>
                         {{ form.live }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>Room</label>
                         {{ form.room }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>DM</label>
                         {{ form.dm }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
                     </div>
                     <div class="naming-item">
                         <label>アーティストネームの呼称</label>
                         {{ form.artist_name }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ストア情報の追加フィールド -->
+            <div class="form-group">
+                <div class="form-label-with-button">
+                    <label>ストアに載せるアプリの概要（短文）<span class="required">*</span></label>
+                    <button type="button" class="screenshot-preview-button" data-modal-type="short-description">
+                        <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
+                        <span>表示箇所の確認</span>
+                    </button>
+                </div>
+                {{ form.store_description_short }}
+                <div class="form-text-wrapper">
+                    <small class="form-text text-muted">アプリストアの検索結果等に表示される短い説明文です</small>
+                    <div class="character-count">
+                        <span class="current-count">0</span> / 30文字
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-label-with-button">
+                    <label>ストアに載せるアプリの概要（詳細）<span class="required">*</span></label>
+                    <button type="button" class="screenshot-preview-button" data-modal-type="long-description">
+                        <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
+                        <span>表示箇所の確認</span>
+                    </button>
+                </div>
+                {{ form.store_description_long }}
+                <div class="form-text-wrapper">
+                    <small class="form-text text-muted">アプリストアの詳細ページに表示される説明文です</small>
+                    <div class="character-count">
+                        <span class="current-count">0</span> / 4000文字
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-label-with-button">
+                    <label>ストアに載せるスクリーンショット文言変更の希望</label>
+                    <button type="button" class="screenshot-preview-button" id="screenshotTextPreviewBtn">
+                        <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
+                        <span>表示箇所の確認</span>
+                    </button>
+                </div>
+                <div class="screenshot-options">
+                    {{ form.screenshot_text_change }}
+                </div>
+            </div>
+
+            <div class="form-group naming-fields" id="screenshotTextFields" style="display: none;">
+                <div class="naming-list">
+                    <div class="naming-item">
+                        <label>A</label>
+                        {{ form.screenshot_text_a }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
+                    </div>
+                    <div class="naming-item">
+                        <label>B</label>
+                        {{ form.screenshot_text_b }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
+                    </div>
+                    <div class="naming-item">
+                        <label>C</label>
+                        {{ form.screenshot_text_c }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 40文字
+                        </div>
+                    </div>
+                    <div class="naming-item">
+                        <label>D</label>
+                        {{ form.screenshot_text_d }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
+                    </div>
+                    <div class="naming-item">
+                        <label>E</label>
+                        {{ form.screenshot_text_e }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 40文字
+                        </div>
+                    </div>
+                    <div class="naming-item">
+                        <label>F</label>
+                        {{ form.screenshot_text_f }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 20文字
+                        </div>
+                    </div>
+                    <div class="naming-item">
+                        <label>G</label>
+                        {{ form.screenshot_text_g }}
+                        <div class="character-count">
+                            <span class="current-count">0</span> / 40文字
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-label-with-button">
+                    <label>ストアの著作権表記<span class="required">*</span></label>
+                    <button type="button" class="screenshot-preview-button" data-modal-type="copyright">
+                        <img src="{% static 'front/img/icon/info.svg' %}" alt="info" class="info-icon">
+                        <span>表示箇所の確認</span>
+                    </button>
+                </div>
+                {{ form.store_copyright }}
+                <div class="form-text-wrapper">
+                    <small class="form-text text-muted">アプリストアに表示される著作権表記です</small>
+                    <div class="character-count">
+                        <span class="current-count">0</span> / 50文字
                     </div>
                 </div>
             </div>
@@ -288,6 +459,47 @@
     </div>
 </div>
 
+
+<!-- スクリーンショットプレビューモーダル -->
+<div id="screenshotPreviewModal" class="screenshot-preview-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>スクリーンショット文言の表示箇所</h3>
+            <button type="button" class="modal-close">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="screenshot-preview-container">
+                <div class="screenshot-preview-slider">
+                    <!-- スライド画像はJavaScriptで動的に追加 -->
+                </div>
+                <button class="slider-arrow prev" aria-label="前の画像">&#10094;</button>
+                <button class="slider-arrow next" aria-label="次の画像">&#10095;</button>
+                <div class="slider-dots"></div>
+            </div>
+            <div class="screenshot-labels">
+                <p>各文言（A〜G）はスクリーンショット上の指定された位置に表示されます</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="storeLocationModal" class="store-location-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="storeLocationTitle">表示箇所の確認</h3>
+            <button type="button" class="modal-close">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="store-location-container">
+                <img id="storeLocationImage" src="" alt="表示箇所">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // フォーム要素の取得
@@ -299,14 +511,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const namingRadios = document.querySelectorAll('input[name="naming_enabled"]');
     const namingFields = document.getElementById('namingFields');
     
+    // ストア情報フィールドの要素
+    const storeDescriptionLong = document.querySelector('textarea[name="store_description_long"]');
+    const storeDescriptionShort = document.querySelector('input[name="store_description_short"]');
+    const screenshotRadios = document.querySelectorAll('input[name="screenshot_text_change"]');
+    const screenshotTextFields = document.getElementById('screenshotTextFields');
+    const storeCopyright = document.querySelector('input[name="store_copyright"]');
+    
     // フィールドのバリデーション状態を追跡
     const fieldValidationState = {};
 
-    // validateForm関数をグローバルスコープで利用できるようにする
     window.validateForm = function() {
         const isRequiredFieldsValid = validateRequiredFields();
         const isSubscriptionValid = validateSubscription();
-        submitBtn.disabled = !(isRequiredFieldsValid && isSubscriptionValid);
+        const isStoreFieldsValid = validateStoreFields();
+        
+        // すべてのバリデーションが通った場合のみボタンを有効化
+        submitBtn.disabled = !(isRequiredFieldsValid && isSubscriptionValid && isStoreFieldsValid);
     };
 
     // 必須フィールドのバリデーション
@@ -322,14 +543,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!appColor.value) return false;
 
         // アイコン画像のチェック
-        // フォームに新しい画像が選択されているか、または既存の画像がプレビューに表示されている場合はOK
         const hasIconFile = appIcon.files.length > 0;
         const hasExistingIcon = iconPreview.style.backgroundImage && 
                                iconPreview.style.backgroundImage !== 'none';
         if (!hasIconFile && !hasExistingIcon) return false;
 
         // ロゴ画像のチェック
-        // フォームに新しい画像が選択されているか、または既存の画像がプレビューに表示されている場合はOK
         const hasLogoFile = appLogo.files.length > 0;
         const hasExistingLogo = logoPreview.style.backgroundImage && 
                                logoPreview.style.backgroundImage !== 'none';
@@ -350,11 +569,35 @@ document.addEventListener('DOMContentLoaded', function() {
         if (subscriptionEnabled.value === 'enabled') {
             const price = parseInt(subscriptionPrice.value);
             if (!price || price < 100 || price > 100000) return false;
-            
-            // サブスクリプション価格のバリデーション状態を確認
             if (fieldValidationState['subscription_price'] === false) return false;
         }
 
+        return true;
+    }
+    
+    // ストアフィールドのバリデーション
+    function validateStoreFields() {
+        // 必須フィールドのチェック
+        if (!storeDescriptionShort?.value.trim()) return false;
+        if (!storeDescriptionLong?.value.trim()) return false;
+        if (!storeCopyright?.value.trim()) return false;
+        
+        // 各フィールドの個別バリデーション結果を確認
+        if (fieldValidationState['store_description_short'] === false) return false;
+        if (fieldValidationState['store_description_long'] === false) return false;
+        if (fieldValidationState['store_copyright'] === false) return false;
+        
+        // スクリーンショットテキストのバリデーション（有効時のみ）
+        const screenshotEnabled = document.querySelector('input[name="screenshot_text_change"]:checked');
+        if (screenshotEnabled && screenshotEnabled.value === 'enabled') {
+            const screenshotTextFields = ['screenshot_text_a', 'screenshot_text_b', 'screenshot_text_c', 
+                                         'screenshot_text_d', 'screenshot_text_e', 'screenshot_text_f', 
+                                         'screenshot_text_g'];
+            for (const fieldName of screenshotTextFields) {
+                if (fieldValidationState[fieldName] === false) return false;
+            }
+        }
+        
         return true;
     }
     
@@ -366,14 +609,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // フィールド別のバリデーション
         switch(name) {
             case 'app_name':
-                if (value.length > 50) {
+                if (value.length > 30) {
                     fieldValidationState[name] = false;
                     return {
                         valid: false,
-                        message: 'アプリ名は50文字以内で入力してください'
+                        message: 'アプリ名は30文字以内で入力してください'
                     };
                 }
                 break;
+                
             case 'subscription_price':
                 const price = parseInt(value);
                 if (isNaN(price) || price < 100 || price > 100000) {
@@ -383,7 +627,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         message: '月額料金は100円から100,000円の間で入力してください'
                     };
                 }
-                // 10円単位かどうかをチェック
                 if (price % 10 !== 0) {
                     fieldValidationState[name] = false;
                     return {
@@ -392,7 +635,76 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
                 }
                 break;
-            // 呼称変更フィールドのバリデーション
+                
+            case 'store_description_short':
+                if (!value) {
+                    fieldValidationState[name] = false;
+                    return { valid: true };
+                }
+                if (value.length > 30) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: 'アプリの概要（短文）は30文字以内で入力してください'
+                    };
+                }
+                break;
+                
+            case 'store_description_long':
+                if (!value) {
+                    fieldValidationState[name] = false;
+                    return { valid: true };
+                }
+                if (value.length > 4000) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: 'アプリの概要（詳細）は4000文字以内で入力してください'
+                    };
+                }
+                break;
+                
+            case 'store_copyright':
+                if (!value) {
+                    fieldValidationState[name] = false;
+                    return { valid: true };
+                }
+                if (value.length > 50) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '著作権表記は50文字以内で入力してください'
+                    };
+                }
+                break;
+                
+            // スクリーンショットテキストA〜G
+            case 'screenshot_text_a':
+            case 'screenshot_text_b':
+            case 'screenshot_text_d':
+            case 'screenshot_text_f':
+                if (value && value.length > 20) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '20文字以内で入力してください'
+                    };
+                }
+                break;
+
+            case 'screenshot_text_c':
+            case 'screenshot_text_e':
+            case 'screenshot_text_g':
+                if (value && value.length > 40) {
+                    fieldValidationState[name] = false;
+                    return {
+                        valid: false,
+                        message: '40文字以内で入力してください'
+                    };
+                }
+                break;
+                
+            // 呼称変更フィールド
             case 'home':
             case 'shop':
             case 'timeline':
@@ -422,6 +734,102 @@ document.addEventListener('DOMContentLoaded', function() {
         return { valid: true };
     }
 
+    // 文字数カウント機能（既存のstoreDescriptionLong用）
+    if (storeDescriptionLong) {
+        const characterCountDiv = storeDescriptionLong.parentElement.querySelector('.character-count');
+        const currentCountSpan = characterCountDiv.querySelector('.current-count');
+        
+        // 初期値の設定
+        updateCharacterCount();
+        
+        // 入力時の更新
+        storeDescriptionLong.addEventListener('input', updateCharacterCount);
+        
+        function updateCharacterCount() {
+            const currentLength = storeDescriptionLong.value.length;
+            currentCountSpan.textContent = currentLength;
+            
+            // 色の変更（エラーのみ）
+            characterCountDiv.classList.toggle('error', currentLength > 4000);
+        }
+    }
+
+    // 他のフィールドの文字数カウント設定
+    function setupAllCharacterCounts() {
+        // アプリ名（30文字）
+        const appNameField = form.querySelector('input[name="app_name"]');
+        if (appNameField) {
+            setupFieldCharacterCount(appNameField, 30);
+        }
+        
+        // ストア概要（短文）（30文字）
+        const storeShortField = form.querySelector('input[name="store_description_short"]');
+        if (storeShortField) {
+            setupFieldCharacterCount(storeShortField, 30);
+        }
+
+        // 呼称変更フィールド（各20文字）
+        const namingFields = [
+            'home', 'shop', 'timeline', 'chat', 'more',
+            'collection', 'pickup', 'goods', 'products',
+            'twoshot', 'live', 'room', 'dm', 'artist_name'
+        ];
+        namingFields.forEach(name => {
+            const field = form.querySelector(`input[name="${name}"]`);
+            if (field) {
+                setupFieldCharacterCount(field, 20);
+            }
+        });
+        
+        // スクリーンショットテキスト
+        const screenshotFields = [
+            { name: 'screenshot_text_a', max: 20 },
+            { name: 'screenshot_text_b', max: 20 },
+            { name: 'screenshot_text_c', max: 40 },
+            { name: 'screenshot_text_d', max: 20 },
+            { name: 'screenshot_text_e', max: 40 },
+            { name: 'screenshot_text_f', max: 20 },
+            { name: 'screenshot_text_g', max: 40 }
+        ];
+        
+        screenshotFields.forEach(({ name, max }) => {
+            const field = form.querySelector(`input[name="${name}"]`);
+            if (field) {
+                setupFieldCharacterCount(field, max);
+            }
+        });
+        
+        // 著作権表記（50文字）
+        const copyrightField = form.querySelector('input[name="store_copyright"]');
+        if (copyrightField) {
+            setupFieldCharacterCount(copyrightField, 50);
+        }
+    }
+
+    // 個別フィールドの文字数カウント設定
+    function setupFieldCharacterCount(field, maxLength) {
+        const characterCountDiv = field.parentElement.querySelector('.character-count');
+        if (!characterCountDiv) return;
+        
+        const currentCountSpan = characterCountDiv.querySelector('.current-count');
+        if (!currentCountSpan) return;
+        
+        // 更新関数
+        const updateCount = () => {
+            const currentLength = field.value.length;
+            currentCountSpan.textContent = currentLength;
+            
+            // エラー表示
+            characterCountDiv.classList.toggle('error', currentLength > maxLength);
+        };
+        
+        // 初期値の設定
+        updateCount();
+        
+        // 入力時の更新
+        field.addEventListener('input', updateCount);
+    }
+
     // 表示制御関数
     function togglePriceField() {
         const selectedValue = document.querySelector('input[name="subscription_enabled"]:checked').value;
@@ -431,6 +839,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleNamingFields() {
         const selectedValue = document.querySelector('input[name="naming_enabled"]:checked').value;
         namingFields.style.display = selectedValue === 'enabled' ? 'block' : 'none';
+    }
+    
+    function toggleScreenshotTextFields() {
+        const selectedValue = document.querySelector('input[name="screenshot_text_change"]:checked').value;
+        screenshotTextFields.style.display = selectedValue === 'enabled' ? 'block' : 'none';
+        validateForm();
     }
 
     // 画像プレビュー機能
@@ -487,7 +901,7 @@ document.addEventListener('DOMContentLoaded', function() {
         preview.style.backgroundImage = 'none';
         if (noImageText) noImageText.style.display = 'block';
         if (deleteButton) deleteButton.style.display = 'none';
-        validateForm();  // 画像を削除した後にフォームを再検証
+        validateForm();
     };
 
     // エラーメッセージを表示
@@ -499,15 +913,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const container = field.closest('.image-upload-container');
             if (!container) return;
             
-            // 既存のエラーメッセージを削除
             hideErrorMessage(field);
             
-            // エラーメッセージ要素を作成
             const errorElement = document.createElement('div');
             errorElement.className = 'js-error';
             errorElement.textContent = message;
             
-            // アップロード情報の後に挿入
             const uploadInfo = container.querySelector('.upload-info');
             if (uploadInfo) {
                 uploadInfo.appendChild(errorElement);
@@ -515,19 +926,16 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // 月額料金フィールドのバリデーションメッセージ処理
+        // 月額料金フィールドの処理
         if (fieldName === 'subscription_price') {
             const priceInputWrapper = field.closest('.price-input-wrapper');
             if (priceInputWrapper) {
-                // 既存のエラーメッセージを削除
                 hideErrorMessage(field);
                 
-                // エラーメッセージ要素を作成
                 const errorElement = document.createElement('div');
                 errorElement.className = 'js-error';
                 errorElement.textContent = message;
                 
-                // 説明文の後に挿入
                 const smallText = priceInputWrapper.querySelector('.form-text');
                 if (smallText) {
                     priceInputWrapper.insertBefore(errorElement, smallText.nextSibling);
@@ -541,8 +949,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 通常フィールドの場合
         let container;
         
-        // 呼称変更フィールドの場合
-        if (namingFields.contains(field)) {
+        if (namingFields.contains(field) || screenshotTextFields.contains(field)) {
             container = field.closest('.naming-item');
         } else {
             container = field.closest('.form-group');
@@ -550,15 +957,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!container) return;
         
-        // 既存のエラーメッセージを削除
         hideErrorMessage(field);
         
-        // エラーメッセージ要素を作成
         const errorElement = document.createElement('div');
         errorElement.className = 'js-error';
         errorElement.textContent = message;
         
-        // フィールドの後に挿入
         field.parentNode.insertBefore(errorElement, field.nextSibling);
     }
     
@@ -578,7 +982,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // 月額料金フィールドの特別処理
+        // 月額料金フィールドの処理
         if (fieldName === 'subscription_price') {
             const priceInputWrapper = field.closest('.price-input-wrapper');
             if (priceInputWrapper) {
@@ -593,8 +997,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 通常フィールドの場合
         let container;
         
-        // 呼称変更フィールドの場合
-        if (namingFields.contains(field)) {
+        if (namingFields.contains(field) || screenshotTextFields.contains(field)) {
             container = field.closest('.naming-item');
         } else {
             container = field.closest('.form-group');
@@ -612,31 +1015,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupEventListeners() {
         form.addEventListener('input', validateForm);
         
-        // フォーカスが外れたときのイベント
-        const formFields = form.querySelectorAll('input:not([type="file"]), select, textarea');
-        formFields.forEach(field => {
+        // すべてのフォームフィールドに対してイベントリスナーを設定
+        const allFormFields = form.querySelectorAll('input:not([type="file"]), select, textarea');
+        allFormFields.forEach(field => {
             field.addEventListener('focus', function() {
-                // エラーメッセージがあれば非表示にする
                 hideErrorMessage(this);
             });
             
             field.addEventListener('input', function() {
-                // 入力中にもバリデーションを実行し、フィールドの状態を更新
                 const validation = validateField(this);
-                // バリデーション結果に基づいてフォーム全体の検証を実行
                 validateForm();
             });
             
             field.addEventListener('blur', function() {
-                // フォーカスが外れたときにバリデーション
                 const validation = validateField(this);
                 if (!validation.valid) {
-                    // バリデーションエラーの場合はエラーメッセージのみ表示
                     showErrorMessage(this, validation.message);
                 }
             });
         });
         
+        // ラジオボタンのイベントリスナー
         subscriptionRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 togglePriceField();
@@ -647,38 +1046,48 @@ document.addEventListener('DOMContentLoaded', function() {
         namingRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 toggleNamingFields();
+                validateForm();
             });
         });
         
+        screenshotRadios.forEach(radio => {
+            radio.addEventListener('change', toggleScreenshotTextFields);
+        });
+        
         // 月額料金のバリデーション
-        const subscriptionPriceField = form.querySelector('input[name="subscription_price"]');
-        if (subscriptionPriceField) {
-            subscriptionPriceField.addEventListener('input', function(e) {
-                // 数字以外の入力を削除
+        if (subscriptionPrice) {
+            subscriptionPrice.addEventListener('input', function(e) {
                 this.value = this.value.replace(/[^\d]/g, '');
             });
         }
         
         // 画像プレビューの設定
-        handleImagePreview(
-            document.getElementById('{{ form.app_icon.id_for_label }}'), 
-            'iconPreview',
-            {
-                dimensions: { width: 512, height: 512 },
-                allowedTypes: ['image/jpeg', 'image/jpg'],
-                errorMessage: 'JPGまたはJPEG形式の画像を選択してください'
-            }
-        );
+        const appIconInput = document.getElementById(form.querySelector('input[name="app_icon"]')?.id);
+        const appLogoInput = document.getElementById(form.querySelector('input[name="app_logo"]')?.id);
         
-        handleImagePreview(
-            document.getElementById('{{ form.app_logo.id_for_label }}'), 
-            'logoPreview',
-            {
-                dimensions: { width: 500, height: 1024 },
-                allowedTypes: ['image/png'],
-                errorMessage: 'PNG形式の画像を選択してください'
-            }
-        );
+        if (appIconInput) {
+            handleImagePreview(
+                appIconInput,
+                'iconPreview',
+                {
+                    dimensions: { width: 512, height: 512 },
+                    allowedTypes: ['image/jpeg', 'image/jpg'],
+                    errorMessage: 'JPGまたはJPEG形式の画像を選択してください'
+                }
+            );
+        }
+        
+        if (appLogoInput) {
+            handleImagePreview(
+                appLogoInput,
+                'logoPreview',
+                {
+                    dimensions: { width: 1024, height: 500 },
+                    allowedTypes: ['image/png'],
+                    errorMessage: 'PNG形式の画像を選択してください'
+                }
+            );
+        }
 
         // モーダル関連のイベントリスナー設定
         setupModalEventListeners();
@@ -698,12 +1107,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelectorAll('.modal-close').forEach(button => {
             button.addEventListener('click', function() {
-                this.closest('.usage-modal').classList.remove('show');
+                this.closest('.usage-modal, .screenshot-preview-modal, .store-location-modal, .color-preview-modal').classList.remove('show');
                 document.body.style.overflow = '';
             });
         });
 
-        document.querySelectorAll('.usage-modal').forEach(modal => {
+        document.querySelectorAll('.usage-modal, .screenshot-preview-modal, .store-location-modal, .color-preview-modal').forEach(modal => {
             modal.addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.classList.remove('show');
@@ -715,10 +1124,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初期化
     function initialize() {
+        // 表示制御の初期化
         togglePriceField();
         toggleNamingFields();
+        toggleScreenshotTextFields();
+        
+        // イベントリスナーの設定
         setupEventListeners();
+        
+        // 文字数カウントの設定
+        setupAllCharacterCounts();
+        
+        // 初期バリデーション状態を設定
+        const allFields = form.querySelectorAll('input:not([type="file"]), select, textarea');
+        allFields.forEach(field => {
+            if (field) {
+                validateField(field);
+            }
+        });
+        
+        // フォームバリデーションの実行
         validateForm();
+        
         // スタイルを追加
         const style = document.createElement('style');
         style.textContent = `
@@ -728,6 +1155,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 font-size: 14px;
                 color: #dc3545;
             }
+            .character-count {
+                text-align: right;
+                font-size: 12px;
+                color: #666;
+                margin-top: 5px;
+            }
+            .character-count.error {
+                color: #dc3545;
+            }
+            .form-text-wrapper {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
         `;
         document.head.appendChild(style);
     }
@@ -735,302 +1176,34 @@ document.addEventListener('DOMContentLoaded', function() {
     initialize();
 });
 
-// カラープレビューモーダルの制御
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('colorPreviewModal');
-    const previewBtn = document.querySelector('.btn-preview');
-    if (!modal || !previewBtn) return;
-
-    const closeBtn = modal.querySelector('.modal-close');
-    const slider = modal.querySelector('.color-preview-slider');
-    const colorButtons = modal.querySelectorAll('.color-button');
-    let currentSlide = 0;
-    let currentColor = 'Color_01';
-    // スワイプ対応のための変数
-    let touchStartX = 0;
-    let touchEndX = 0;
-    // ナビゲーションボタンの変数をグローバルに定義
-    let prevButton = null;
-    let nextButton = null;
-
-    // 画像の種類を定義
-    const imageTypes = ['home', 'login', 'more', 'room', 'shop', 'tl'];
-    const slidesPerColor = imageTypes.length;
-
-    // カラーごとの画像パスを管理
-    const colorImages = {
-        Color_01: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_0/' %}" + type + '.png'),
-        Color_02: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_1/' %}" + type + '.png'),
-        Color_03: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_2/' %}" + type + '.png'),
-        Color_04: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_3/' %}" + type + '.png'),
-        Color_05: imageTypes.map(type => "{% static 'front/img/app_color_preview/color_4/' %}" + type + '.png'),
-    };
-
-    // スワイプヒントの追加
-    function addSwipeHint() {
-        const container = modal.querySelector('.color-preview-container');
-        const swipeHint = document.createElement('div');
-        swipeHint.className = 'swipe-hint';
-        swipeHint.innerHTML = `
-            <div class="swipe-icon-wrapper">
-                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-static">
-                <img src="/static/front/img/icon/swipe.png" alt="スワイプ" class="swipe-icon swipe-icon-moving">
-            </div>
-            <span>横スクロール可能です</span>
-        `;
-        container.appendChild(swipeHint);
+window.COLOR_PREVIEW_CONFIG = {
+    paths: {
+        Color_01: "{% static 'front/img/app_color_preview/color_0/' %}",
+        Color_02: "{% static 'front/img/app_color_preview/color_1/' %}",
+        Color_03: "{% static 'front/img/app_color_preview/color_2/' %}",
+        Color_04: "{% static 'front/img/app_color_preview/color_3/' %}",
+        Color_05: "{% static 'front/img/app_color_preview/color_4/' %}"
     }
+};
 
-    // スワイプヒントを非表示にする関数
-    function hideSwipeHint() {
-        if (!modal) return;
-        const hint = modal.querySelector('.swipe-hint');
-        if (hint && !hint.classList.contains('hide')) {
-            hint.classList.add('hide');
-            setTimeout(() => {
-                hint.style.display = 'none';
-            }, 300);
-        }
+
+window.SCREENSHOT_PREVIEW_CONFIG = {
+    images: [
+        "{% static 'front/img/app_store_preview/2.jpg' %}",
+        "{% static 'front/img/app_store_preview/1.jpg' %}",
+        "{% static 'front/img/app_store_preview/3.jpg' %}",
+        "{% static 'front/img/app_store_preview/4.jpg' %}"
+    ]
+};
+
+
+window.STORE_LOCATION_CONFIG = {
+    images: {
+        'short-description': "{% static 'front/img/app_settings_04.jpg' %}",
+        'long-description': "{% static 'front/img/app_settings_05.jpg' %}",
+        'copyright': "{% static 'front/img/app_settings_06.jpg' %}"
     }
-
-    // モーダルを開く処理を拡張
-    previewBtn.addEventListener('click', () => {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        updateSlides();
-        updateDots();
-        
-        // スワイプヒントの初期化
-        const existingHint = modal.querySelector('.swipe-hint');
-        if (existingHint) {
-            existingHint.remove();
-        }
-        addSwipeHint();
-
-        // 矢印ボタンクリック時にもヒントを非表示
-        prevButton = modal.querySelector('.prev');
-        nextButton = modal.querySelector('.next');
-        
-        if (prevButton) {
-            prevButton.onclick = function() {
-                if (modal) {
-                    hideSwipeHint();
-                    goToSlide((currentSlide - 1 + slidesPerColor) % slidesPerColor);
-                }
-            };
-        }
-        
-        if (nextButton) {
-            nextButton.onclick = function() {
-                if (modal) {
-                    hideSwipeHint();
-                    goToSlide((currentSlide + 1) % slidesPerColor);
-                }
-            };
-        }
-
-        // スワイプ対応のイベントリスナーをセットアップ
-        if (slider) {
-            slider.addEventListener('touchstart', e => {
-                touchStartX = e.touches[0].clientX;
-            });
-
-            slider.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].clientX;
-                handleSwipe();
-            });
-        }
-    });
-
-    // スワイプ処理関数
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchEndX - touchStartX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            hideSwipeHint();  // スワイプ判定前にヒントを非表示
-            if (diff > 0) {
-                // 右スワイプ
-                goToSlide((currentSlide - 1 + slidesPerColor) % slidesPerColor);
-            } else {
-                // 左スワイプ
-                goToSlide((currentSlide + 1) % slidesPerColor);
-            }
-        }
-    }
-
-    // スライド移動
-    function goToSlide(index) {
-        if (!modal || !slider) return;
-        const slides = slider.querySelectorAll('.color-preview-slide');
-        const dots = modal.querySelectorAll('.dot');
-        
-        if (!slides.length || !dots.length) return;
-        
-        if (slides[currentSlide]) {
-            slides[currentSlide].classList.remove('active');
-        }
-        
-        if (dots[currentSlide]) {
-            dots[currentSlide].classList.remove('active');
-        }
-        
-        currentSlide = index;
-        
-        if (slides[currentSlide]) {
-            slides[currentSlide].classList.add('active');
-        }
-        
-        if (dots[currentSlide]) {
-            dots[currentSlide].classList.add('active');
-        }
-        
-        hideSwipeHint();
-    }
-
-    // カラーボタンクリック時にもヒントを非表示
-    if (colorButtons && colorButtons.length) {
-        colorButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                hideSwipeHint();
-                
-                // カラーボタンの制御ロジック
-                colorButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                currentColor = this.dataset.color;
-                currentSlide = 0;
-                updateSlides();
-                updateDots();
-    
-                // 選択されたボタンが見えるように自動スクロール
-                const buttonContainer = this.parentElement;
-                const containerWidth = buttonContainer.offsetWidth;
-                const buttonLeft = this.offsetLeft;
-                const buttonWidth = this.offsetWidth;
-                
-                // カラーボタンの配列内でのインデックスを取得
-                const index = Array.from(colorButtons).indexOf(this);
-    
-                // 次のボタンの存在を確認
-                const nextButton = colorButtons[index + 1];
-                
-                if (nextButton) {
-                    // 次のボタンまでの幅を考慮してスクロール位置を計算
-                    const nextButtonRight = nextButton.offsetLeft + nextButton.offsetWidth;
-                    
-                    // 現在のボタンと次のボタンが表示範囲に収まるようにスクロール
-                    if (nextButtonRight > buttonContainer.scrollLeft + containerWidth) {
-                        const scrollPosition = nextButtonRight - containerWidth + 20;
-                        buttonContainer.scrollTo({
-                            left: scrollPosition,
-                            behavior: 'smooth'
-                        });
-                    } else if (buttonLeft < buttonContainer.scrollLeft) {
-                        // 現在のボタンが左に隠れている場合
-                        const scrollPosition = buttonLeft - 20;
-                        buttonContainer.scrollTo({
-                            left: scrollPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                } else {
-                    // 最後のボタンの場合は、そのボタンが完全に見えるようにスクロール
-                    const scrollPosition = buttonLeft - containerWidth + buttonWidth + 20;
-                    buttonContainer.scrollTo({
-                        left: Math.max(0, scrollPosition),
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    }
-
-    // モーダルを閉じる
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
-
-    // モーダルの外側をクリックして閉じる
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
-    function closeModal() {
-        if (modal) {
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            
-            // スライド関連オブジェクトへの参照を解除
-            if (prevButton) {
-                prevButton.onclick = null;
-                prevButton = null;
-            }
-            if (nextButton) {
-                nextButton.onclick = null;
-                nextButton = null;
-            }
-        }
-    }
-
-    // スライド更新
-    function updateSlides() {
-        slider.innerHTML = '';
-        const images = colorImages[currentColor];
-        images.forEach((src, index) => {
-            const slide = document.createElement('div');
-            slide.className = `color-preview-slide${index === currentSlide ? ' active' : ''}`;
-            slide.innerHTML = `<img src="${src}" alt="プレビュー${index + 1}" class="preview-image">`;
-            slider.appendChild(slide);
-        });
-    }
-
-    // ドット更新
-    function updateDots() {
-        const dotsContainer = modal.querySelector('.slider-dots');
-        dotsContainer.innerHTML = '';
-        for (let i = 0; i < slidesPerColor; i++) {
-            const dot = document.createElement('div');
-            dot.className = `dot${i === currentSlide ? ' active' : ''}`;
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        }
-    }
-
-    // カラーメニューのドラッグスクロール
-    const colorMenu = document.querySelector('.color-variation-buttons');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    if (colorMenu) {
-        colorMenu.addEventListener('mousedown', (e) => {
-            isDown = true;
-            colorMenu.style.cursor = 'grabbing';
-            startX = e.pageX - colorMenu.offsetLeft;
-            scrollLeft = colorMenu.scrollLeft;
-        });
-
-        colorMenu.addEventListener('mouseleave', () => {
-            isDown = false;
-            colorMenu.style.cursor = 'grab';
-        });
-
-        colorMenu.addEventListener('mouseup', () => {
-            isDown = false;
-            colorMenu.style.cursor = 'grab';
-        });
-
-        colorMenu.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - colorMenu.offsetLeft;
-            const walk = (x - startX) * 2; // スクロール速度の調整
-            colorMenu.scrollLeft = scrollLeft - walk;
-        });
-    }
-});
+};
 </script>
 
 {% endblock %}

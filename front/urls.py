@@ -33,4 +33,12 @@ urlpatterns = [
     path('setup_confirm/', views.SetupConfirmView.as_view(), name='setup_confirm'),
     path('content_naming_guide/', views.ContentNamingGuideView.as_view(), name='content_naming_guide'),
     path('company/', views.CompanyView.as_view(), name='company'),
+
+    ## コラム記事
+    path('column/<slug:slug>/', views.ColumnDetailView.as_view(), name='column_detail'),
+    ## コラム記事プレビュー
+    path('column/preview/<slug:slug>/', views.ColumnPreviewView.as_view(), name='column_preview'),
+    path('column/category/<slug:slug>/', views.ColumnCategoryView.as_view(), name='column_category'),
+    path('column/tag/<slug:slug>/', views.ColumnTagView.as_view(), name='column_tag'),
+    path('google59ea279a16147b5a.html', views.GoogleSiteVerificationView.as_view(), name="google-site-verification"),
 ]

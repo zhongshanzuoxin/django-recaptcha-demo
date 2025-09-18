@@ -1,119 +1,270 @@
 {% extends 'front/_base.html' %}
 {% load static %}
-
 {% block content %}
-<div class="functional-spec-container">
-    <!-- タイトルセクション -->
-    <h1 class="spec-title">アカウント管理機能の使い方</h1>
 
-    <!-- メイン動画セクション -->
-    <!-- <div class="spec-video-section">
-        <img src="https://via.placeholder.com/800x450" alt="機能説明動画" class="placeholder-video">
-        <div class="play-button">
-            <span class="material-icons">play_circle</span>
-        </div>
-    </div> -->
-
-    <!-- 機能概要 -->
-    <div class="spec-overview">
-        <h2>アカウント管理機能の概要</h2>
-        <p>アカウント管理機能では、管理アカウントの削除と復旧を行うことができます。アカウントの削除・復旧は管理者または管理スタッフのみが実行可能です。</p>
-    </div>
-
-    <!-- 権限表 -->
-    <div class="spec-permissions">
-        <h2>アカウント管理の権限</h2>
-        <div class="permission-table-wrapper">
-            <table class="permission-table">
-                <thead>
-                    <tr>
-                        <th>機能</th>
-                        <th>アーティスト</th>
-                        <th>スタッフ</th>
-                        <th>管理者</th>
-                        <th>管理スタッフ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>アカウントの削除</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>アカウントの復旧</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p class="permission-note">○：利用可能　×：利用不可</p>
-    </div>
-
-    <!-- 機能説明セクション -->
-    <div class="spec-steps">
-        <h2>アカウント管理の操作方法</h2>
-        <div class="step-item">
-            <h3 data-step="1">アカウントの削除</h3>
-            <ol class="step-instructions">
-                <li>Moreの「アカウント管理」を選択</li>
-                <li>「アクティブアカウント」を展開</li>
-                <li>削除したいアカウントの「削除」ボタンをタップ</li>
-                <li>確認画面で「削除する」をタップ</li>
-            </ol>
-            <div class="note-group">
-                <h4 class="note-heading">アカウント削除時の注意点</h4>
-                <p class="note-text">削除したアカウントは一時的に利用停止状態となり、復旧が可能です。</p>
+    <div class="tl-guide-wrapper">
+        <div class="tl-guide-container">
+            <!-- ヘッダーセクション -->
+            <div class="tl-guide-header">
+                <h1 class="tl-guide-title">アカウント管理機能の使い方</h1>
+                <p class="tl-guide-subtitle">管理アカウントの削除と復旧を行うための機能ガイド</p>
             </div>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_23.png' %}" alt="アカウント削除の説明画像" class="step-image">
+
+            <!-- メインナビゲーション -->
+            <div class="tl-guide-nav">
+                <button class="tl-guide-nav-item active" onclick="tlGuideShowContent('overview')">
+                    概要
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('delete-account')">
+                    アカウントの削除
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('restore-account')">
+                    アカウントの復旧
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('permission-table')">
+                    権限一覧
+                </button>
+            </div>
+
+            <!-- 概要コンテンツ -->
+            <div class="tl-guide-content active" id="tl-guide-overview-content">
+                <div class="tl-guide-card">
+                    <!-- 機能概要 -->
+                    <h2 class="tl-guide-h2-mb-1">機能概要</h2>
+                    <p class="tl-guide-p-grey">アカウント管理機能では、管理アカウントの削除と復旧を行うことができます。アカウントの削除・復旧は管理者または管理スタッフのみが実行可能です。</p>
+                    
+                    <div class="tl-guide-mt-2">
+                        <div class="tl-guide-card">
+                            <h3>運営アカウントの権限</h3>
+                            <div class="tl-guide-mt-1">
+                                <p class="mt-4"><strong>1. アーティスト</strong></p>
+                                <p class="tl-guide-p-grey">基本的な管理機能を利用できる権限です。自身のコンテンツ管理が中心となります。</p>
+                                
+                                <p class="tl-guide-p-mt-1"><strong>2. スタッフ</strong></p>
+                                <p class="tl-guide-p-grey">商品管理やルーム管理など、コンテンツ全体の管理機能を利用できます。</p>
+                                
+                                <p class="tl-guide-p-mt-1"><strong>3. 管理者</strong></p>
+                                <p class="tl-guide-p-grey">収益管理やシステム設定など、アプリ全体の管理機能を利用できます。</p>
+                                
+                                <p class="tl-guide-p-mt-1"><strong>4. 管理スタッフ</strong></p>
+                                <p class="tl-guide-p-grey">管理者の全機能に加え、問い合わせ対応のメール通知などスタッフ権限としての機能も利用できます。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-tips tl-guide-tips-mt-1">
+                            <h4><i class="material-icons">info</i> 権限の階層構造</h4>
+                            <ul>
+                                <li>権限は階層構造になっており、上位の権限は下位の権限の機能をすべて利用できます</li>
+                                <li>権限の変更は、適切な権限を持つアカウントのみが実行できます</li>
+                                <li>各権限の詳細な機能については、<a href="{% url 'front:permissions_overview' %}#tl-guide-permission-types-content">権限の詳細</a>をご確認ください</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アカウント削除コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-delete-account-content">
+                <!-- アカウント削除の設定方法 -->
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">アカウント削除の手順</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>運営アカウント管理へ移動</h4>
+                                <p>Moreの「運営アカウント管理」を選択します。</p>
+                                <p class="tl-guide-p-mt-1-red">※権限によっては表示されない場合があります。詳しくは権限設定をご確認ください。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/account_management/account_management1.jpg' %}" alt="アカウント削除の説明画像" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>アクティブアカウントを展開</h4>
+                                <p>「アクティブアカウント」をタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/account_management/account_management2.jpg' %}" alt="アカウント削除の説明画像" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>削除ボタンをタップ</h4>
+                                <p>削除したいアカウントの「削除」ボタンをタップします。</p>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">4</div>
+                            <div class="tl-guide-step-content">
+                                <h4>削除を確認</h4>
+                                <p>確認ダイアログで「削除する」をタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/account_management/account_management3.jpg' %}" alt="アカウント削除の説明画像" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> 削除したアカウントについて</h4>
+                                    <ul>
+                                        <li>削除したアカウントは一時的に利用停止状態となり、復旧が可能です</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アカウント復旧コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-restore-account-content">
+                <!-- アカウント復旧の設定方法 -->
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">アカウント復旧の手順</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>運営アカウント管理へ移動</h4>
+                                <p>Moreの「運営アカウント管理」を選択します。</p>
+                                <p class="tl-guide-p-mt-1-red">※権限によっては表示されない場合があります。詳しくは権限設定をご確認ください。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/account_management/account_management1.jpg' %}" alt="アカウント削除の説明画像" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>削除済みアカウントを展開</h4>
+                                <p>「削除済みアカウント」をタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/account_management/account_management4.jpg' %}" alt="アカウント復旧の説明画像" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>復旧ボタンをタップ</h4>
+                                <p>復旧したいアカウントの「復旧」ボタンをタップします。</p>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">4</div>
+                            <div class="tl-guide-step-content">
+                                <h4>復旧を確認</h4>
+                                <p>確認ダイアログで「復旧する」をタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/account_management/account_management5.jpg' %}" alt="アカウント復旧の説明画像" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 権限一覧コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-permission-table-content">
+                <div class="tl-guide-permissions">
+                    <h2>アカウント管理の権限</h2>
+                    
+                    <!-- デスクトップ用テーブル -->
+                    <table class="tl-guide-perm-table">
+                        <thead>
+                            <tr>
+                                <th>機能</th>
+                                <th>アーティスト</th>
+                                <th>スタッフ</th>
+                                <th>管理者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>アカウントの削除</td>
+                                <td><span class="tl-guide-unavailable">×</span></td>
+                                <td><span class="tl-guide-unavailable">×</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                            <tr>
+                                <td>アカウントの復旧</td>
+                                <td><span class="tl-guide-unavailable">×</span></td>
+                                <td><span class="tl-guide-unavailable">×</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="tl-guide-perm-legend tl-guide-perm-legend-desktop">
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-available">○</span>
+                            <span>利用可能</span>
+                        </div>
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-unavailable">×</span>
+                            <span>利用不可</span>
+                        </div>
+                    </div>
+                    
+                    <!-- モバイル用カード表示 -->
+                    <div class="tl-guide-perm-mobile">
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウントの削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウントの復旧</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-legend">
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-available">○</span>
+                                <span>利用可能</span>
+                            </div>
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-unavailable">×</span>
+                                <span>利用不可</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ナビゲーション -->
+            <div class="spec-navigation">
+                <!-- 前後の記事リンク -->
+                <div class="spec-nav-links">
+                </div>
+                {% include 'front/functional_specs/_spec_list.html' %}
             </div>
         </div>
-
-        <div class="step-item">
-            <h3 data-step="2">アカウントの復旧</h3>
-            <ol class="step-instructions">
-                <li>Moreの「アカウント管理」を選択</li>
-                <li>「削除済みアカウント」を展開</li>
-                <li>復旧したいアカウントの「復旧」ボタンをタップ</li>
-                <li>確認画面で「復旧する」をタップ</li>
-            </ol>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_24.png' %}" alt="アカウント復旧の説明画像" class="step-image">
-            </div>
-        </div>
     </div>
-
-    <!-- アカウント管理のヒント -->
-    <div class="spec-tips">
-        <h3>アカウント管理のヒント</h3>
-        <ul class="note-text-plain">
-            <li>アカウントを削除する前に、本当に削除が必要かどうかを確認しましょう。</li>
-            <li>誤って削除してしまった場合は、すぐに復旧することができます。</li>
-            <li>長期間使用していないアカウントは、セキュリティのため削除を検討しましょう。</li>
-            <li>アカウントの削除・復旧は、必ず権限を持つ管理者間で情報を共有してから実行しましょう。</li>
-        </ul>
-    </div>
-
-    <!-- 機能説明ナビゲーション -->
-    <div class="spec-navigation">
-        <!-- 前後の記事リンク -->
-        <div class="spec-nav-links">
-            <a href="{% url 'front:permission_management' %}" class="spec-nav-link prev">
-                <span class="nav-label">前の記事</span>
-                <span class="nav-title">権限管理機能</span>
-            </a>
-            <a href="{% url 'front:permissions_overview' %}" class="spec-nav-link next">
-                <span class="nav-label">次の記事</span>
-                <span class="nav-title">権限について</span>
-            </a>
-        </div>
-        {% include 'front/functional_specs/_spec_list.html' %}
-    </div>
-</div>
 {% endblock %}

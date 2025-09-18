@@ -192,7 +192,7 @@ class ApplicationForm(forms.Form):
 
 class AppSettingsForm(forms.Form):
     app_name = forms.CharField(
-        max_length=50,
+        max_length=30,
         required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -381,6 +381,113 @@ class AppSettingsForm(forms.Form):
         })
     )
 
+    store_description_short = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '30文字以内で入力してください'
+        }),
+        label='ストアに載せるアプリの概要（短文）'
+    )
+    
+    store_description_long = forms.CharField(
+        max_length=4000,
+        required=True,
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 8,
+            'placeholder': '4000文字以内で入力してください'
+        }),
+        label='ストアに載せるアプリの概要（詳細）'
+    )
+    
+    SCREENSHOT_TEXT_CHOICES = [
+        ('enabled', '有効にする'),
+        ('disabled', '有効にしない')
+    ]
+    screenshot_text_change = forms.ChoiceField(
+        choices=SCREENSHOT_TEXT_CHOICES,
+        widget=forms.RadioSelect(attrs={
+            'class': 'screenshot-radio'
+        }),
+        initial='disabled',
+        label='ストアに載せるスクリーンショット文言変更の希望'
+    )
+    
+    screenshot_text_a = forms.CharField(
+        max_length=20,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        }),
+        label='A'
+    )
+    
+    screenshot_text_b = forms.CharField(
+        max_length=20,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        }),
+        label='B'
+    )
+    
+    screenshot_text_c = forms.CharField(
+        max_length=40,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        }),
+        label='C'
+    )
+    
+    screenshot_text_d = forms.CharField(
+        max_length=20,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        }),
+        label='D'
+    )
+    
+    screenshot_text_e = forms.CharField(
+        max_length=40,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        }),
+        label='E'
+    )
+    
+    screenshot_text_f = forms.CharField(
+        max_length=40,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        }),
+        label='F'
+    )
+    
+    screenshot_text_g = forms.CharField(
+        max_length=40,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+        }),
+        label='G'
+    )
+    
+    store_copyright = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '例: © 2025 Your Company Name'
+        }),
+        label='ストアの著作権表記'
+    )
+
     def __init__(self, *args, applicant=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.applicant = applicant
@@ -429,8 +536,8 @@ class AppSettingsForm(forms.Form):
             
             # 画像サイズのチェック
             img = Image.open(logo)
-            if img.width != 500 or img.height != 1024:
-                raise forms.ValidationError('ロゴ画像は500×1024ピクセルのサイズが必要です')
+            if img.width != 1024 or img.height != 500:
+                raise forms.ValidationError('ロゴ画像は1024×500ピクセルのサイズが必要です')
             # ファイルポインタを先頭に戻す
             logo.seek(0)
         return logo

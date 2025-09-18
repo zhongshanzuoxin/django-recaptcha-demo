@@ -10,7 +10,7 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f7fafc;
+            background-color: #f8fafc;
         }
         .content {
             background: #ffffff;
@@ -63,6 +63,32 @@
             margin-bottom: 10px;
             color: #4a5568;
         }
+        .long-text {
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding: 10px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .long-text::-webkit-scrollbar {
+            width: 8px;
+        }
+        .long-text::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .long-text::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .long-text::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 <body>
@@ -109,6 +135,36 @@
                 <div class="field-value">デフォルト設定を使用</div>
             </div>
             {% endif %}
+
+            <div class="field">
+                <div class="field-label">ストアに載せるアプリの概要（短文）</div>
+                <div class="field-value">{{ store_description_short }}</div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">ストアに載せるアプリの概要（詳細）</div>
+                <div class="field-value">
+                    <div class="long-text">{{ store_description_long }}</div>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">スクリーンショット文言変更</div>
+                {% if screenshot_text_enabled == 'enabled' %}
+                    {% for label, text in screenshot_texts.items %}
+                        {% if text %}
+                        <div class="field-value" style="margin-bottom: 5px; padding-left: 20px;">{{ label }}: {{ text }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="field-value">無効</div>
+                {% endif %}
+            </div>
+
+            <div class="field">
+                <div class="field-label">ストアの著作権表記</div>
+                <div class="field-value">{{ store_copyright }}</div>
+            </div>
         </div>
 
         <div class="next-steps">

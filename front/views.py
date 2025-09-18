@@ -1,16 +1,31 @@
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from django.core.exceptions import ValidationError
+from django.http import HttpResponse, JsonResponse
+from django.utils.decorators import method_decorator
+from django.utils import timezone
 from .forms import ContactForm, ApplicationForm, AppSettingsForm, BankAccountForm, SpecifiedCommercialTransactionForm
 from django.conf import settings
+from django.core.paginator import Paginator
 from common.email_manager import send_email
 from django.template.loader import render_to_string
-from email.mime.image import MIMEImage
-from django.urls import reverse
-from front.models import Applicant
-from urllib.parse import quote, unquote
-from uuid import UUID
 import logging
+from django.core.files.base import ContentFile
+from django.db.models import Count, Q, F
+import base64
+from email.mime.image import MIMEImage
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from django.urls import reverse
+from .models import *
+from urllib.parse import quote, unquote, urljoin
+import json
+from uuid import UUID
+
+
+
 
 logger = logging.getLogger('web')
 
@@ -18,7 +33,7 @@ logger = logging.getLogger('web')
 class TopView(View):
     def get(self, request, *args, **kwargs):
         form = ContactForm()
-        return render(request, 'front/top.html', {'form': form})
+        return render(request, 'front/top.html', {'form': form, 'google_ad': True})
     
     def post(self, request, *args, **kwargs):
         form = ContactForm(request.POST)
@@ -41,7 +56,7 @@ class TopView(View):
             # メール送信処理
             send_email(
                 to=settings.CONTACT_MAIL_TO,
-                subject=f"【{settings.SERVICE_NAME}】{dict(form.CATEGORY_CHOICES)[category]}のお問い合わせを受け付けました",
+                subject=f"【{settings.SERVICE_NAME}】{dict(form.CATEGORY_CHOICES)[category]}を受け付けました",
                 body=email_body,
                 source=settings.MAIL_FROM,
                 html=True
@@ -179,7 +194,7 @@ class ContactView(View):
             # メール送信処理
             send_email(
                 to=settings.CONTACT_MAIL_TO,
-                subject=f"【{settings.SERVICE_NAME}】お問い合わせを受け付けました",
+                subject=f"【{settings.SERVICE_NAME}】{dict(form.CATEGORY_CHOICES)[category]}を受け付けました",
                 body=email_body,
                 source=settings.MAIL_FROM,
                 html=True
@@ -292,6 +307,7 @@ class AppSettingsView(View):
     def get(self, request, *args, **kwargs):
         email = unquote(request.GET.get('email', ''))
         uuid = request.GET.get('uuid')
+        from_confirm = request.GET.get('from_confirm', '')  # 確認画面からの遷移フラグ
 
         # メールアドレスまたはUUIDのパラメータが存在しない場合
         if not email or not uuid:
@@ -338,6 +354,17 @@ class AppSettingsView(View):
                 'room': applicant.room,
                 'dm': applicant.dm_long,
                 'artist_name': applicant.artist_name,
+                'store_description_short': applicant.store_description_short,
+                'store_description_long': applicant.store_description_long,
+                'screenshot_text_change': 'enabled' if applicant.screenshot_text_enabled else 'disabled',
+                'screenshot_text_a': applicant.screenshot_text_a,
+                'screenshot_text_b': applicant.screenshot_text_b,
+                'screenshot_text_c': applicant.screenshot_text_c,
+                'screenshot_text_d': applicant.screenshot_text_d,
+                'screenshot_text_e': applicant.screenshot_text_e,
+                'screenshot_text_f': applicant.screenshot_text_f,
+                'screenshot_text_g': applicant.screenshot_text_g,
+                'store_copyright': applicant.store_copyright,
             }
 
         form = AppSettingsForm(initial=initial_data, applicant=applicant)
@@ -357,7 +384,8 @@ class AppSettingsView(View):
             'current_step': 1,
             'applicant': applicant,
             'app_icon_url': app_icon_url,
-            'app_logo_url': app_logo_url
+            'app_logo_url': app_logo_url,
+            'from_confirm': from_confirm
         }
         return render(request, 'front/app_settings.html', context)
     
@@ -365,6 +393,7 @@ class AppSettingsView(View):
         # URLパラメータを取得
         email = unquote(request.GET.get('email', ''))
         uuid = request.GET.get('uuid')
+        from_confirm = request.GET.get('from_confirm', '')
         
         applicant = Applicant.objects.filter(email=email, verify_token=uuid).first()
         if not applicant:
@@ -381,6 +410,7 @@ class AppSettingsView(View):
             app_icon = request.FILES.get('app_icon')
             app_logo = request.FILES.get('app_logo')
             naming_enabled = form.cleaned_data['naming_enabled']
+            screenshot_text_change = form.cleaned_data['screenshot_text_change']
 
             # Applicantモデルに保存
             applicant.app_name = app_name
@@ -388,6 +418,7 @@ class AppSettingsView(View):
             applicant.subscription_price = subscription_price if subscription_enabled == 'enabled' else None
             applicant.app_color = app_color
             applicant.naming_enabled = naming_enabled == 'enabled'
+            applicant.screenshot_text_enabled = screenshot_text_change == 'enabled'
 
             # 画像ファイルの保存
             if app_icon:
@@ -421,17 +452,39 @@ class AppSettingsView(View):
                 applicant.dm_short = form.cleaned_data.get('dm')
                 applicant.artist_name = form.cleaned_data.get('artist_name')
 
+            # ストア情報の保存
+            applicant.store_description_short = form.cleaned_data.get('store_description_short')
+            applicant.store_description_long = form.cleaned_data.get('store_description_long')
+            applicant.store_copyright = form.cleaned_data.get('store_copyright')
+            
+            # スクリーンショット文言の保存
+            if screenshot_text_change == 'enabled':
+                applicant.screenshot_text_a = form.cleaned_data.get('screenshot_text_a')
+                applicant.screenshot_text_b = form.cleaned_data.get('screenshot_text_b')
+                applicant.screenshot_text_c = form.cleaned_data.get('screenshot_text_c')
+                applicant.screenshot_text_d = form.cleaned_data.get('screenshot_text_d')
+                applicant.screenshot_text_e = form.cleaned_data.get('screenshot_text_e')
+                applicant.screenshot_text_f = form.cleaned_data.get('screenshot_text_f')
+                applicant.screenshot_text_g = form.cleaned_data.get('screenshot_text_g')
+
             applicant.save()
 
-            # bank_account_setupへのURLにパラメータを付与
-            bank_account_path = reverse('front:bank_account_setup')
-            bank_account_url = f"{bank_account_path}?email={quote(email)}&uuid={uuid}"
-            return redirect(bank_account_url)
+            # 確認画面から来た場合は確認画面に戻る
+            if from_confirm == 'true':
+                setup_confirm_path = reverse('front:setup_confirm')
+                setup_confirm_url = f"{setup_confirm_path}?email={quote(email)}&uuid={uuid}"
+                return redirect(setup_confirm_url)
+            else:
+                # 通常のフローの場合は次のステップへ
+                bank_account_path = reverse('front:bank_account_setup')
+                bank_account_url = f"{bank_account_path}?email={quote(email)}&uuid={uuid}"
+                return redirect(bank_account_url)
 
         context = {
             'form': form,
             'current_step': 1,
-            'applicant': applicant
+            'applicant': applicant,
+            'from_confirm': from_confirm
         }
         return render(request, 'front/app_settings.html', context)
 
@@ -442,6 +495,7 @@ class BankAccountSetupView(View):
         # URLパラメータを取得
         email = unquote(request.GET.get('email', ''))
         uuid = request.GET.get('uuid')
+        from_confirm = request.GET.get('from_confirm', '')
 
         # メールアドレスまたはUUIDのパラメータが存在しない場合
         if not email or not uuid:
@@ -484,7 +538,8 @@ class BankAccountSetupView(View):
         context = {
             'form': form,
             'current_step': 2,
-            'applicant': applicant
+            'applicant': applicant,
+            'from_confirm': from_confirm
         }
         return render(request, 'front/bank-account-setup.html', context)
 
@@ -492,6 +547,7 @@ class BankAccountSetupView(View):
         # URLパラメータを取得
         email = unquote(request.GET.get('email', ''))
         uuid = request.GET.get('uuid')
+        from_confirm = request.GET.get('from_confirm', '')
 
         # メールアドレスまたはUUIDのパラメータが存在しない場合
         if not email or not uuid:
@@ -528,15 +584,22 @@ class BankAccountSetupView(View):
         
             applicant.save()
 
-            # 特定商取引法の情報入力へのURLにパラメータを付与
-            specified_commercial_transaction_setup_path = reverse('front:specified_commercial_transaction_setup')
-            specified_commercial_transaction_setup_url = f"{specified_commercial_transaction_setup_path}?email={quote(email)}&uuid={uuid}"
-            return redirect(specified_commercial_transaction_setup_url)
+            # 確認画面から来た場合は確認画面に戻る
+            if from_confirm == 'true':
+                setup_confirm_path = reverse('front:setup_confirm')
+                setup_confirm_url = f"{setup_confirm_path}?email={quote(email)}&uuid={uuid}"
+                return redirect(setup_confirm_url)
+            else:
+                # 通常のフローの場合は次のステップへ
+                specified_commercial_transaction_setup_path = reverse('front:specified_commercial_transaction_setup')
+                specified_commercial_transaction_setup_url = f"{specified_commercial_transaction_setup_path}?email={quote(email)}&uuid={uuid}"
+                return redirect(specified_commercial_transaction_setup_url)
 
         context = {
             'form': form,
             'current_step': 2,
-            'applicant': applicant
+            'applicant': applicant,
+            'from_confirm': from_confirm
         }
         return render(request, 'front/bank-account-setup.html', context)
 
@@ -756,7 +819,20 @@ class SetupConfirmView(View):
                     'Room': applicant.room,
                     'DM': applicant.dm_short,
                     'アーティストの呼称': applicant.artist_name
-                }
+                },
+                'store_description_short': applicant.store_description_short,
+                'store_description_long': applicant.store_description_long,
+                'screenshot_text_enabled': 'enabled' if applicant.screenshot_text_enabled else 'disabled',
+                'screenshot_texts': {
+                    'A': applicant.screenshot_text_a,
+                    'B': applicant.screenshot_text_b,
+                    'C': applicant.screenshot_text_c,
+                    'D': applicant.screenshot_text_d,
+                    'E': applicant.screenshot_text_e,
+                    'F': applicant.screenshot_text_f,
+                    'G': applicant.screenshot_text_g,
+                } if applicant.screenshot_text_enabled else {},
+                'store_copyright': applicant.store_copyright,
             }
 
             # インライン添付用の画像を準備
@@ -821,6 +897,8 @@ class AppRequestCompleteView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'front/app_request_complete.html')
 
+
+
 class CompanyView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'front/companye.html')
@@ -830,3 +908,190 @@ class CompanyView(View):
 class ContactThanksView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'front/contact_thanks.html')
+
+
+
+
+## コラム記事機能
+class ColumnDetailView(View):
+    def _attach_absolute_thumbnail(self, articles):
+        for article in articles:
+            if article.thumbnail_image:
+                article.thumbnail_image = settings.MEDIA_FQDN + article.thumbnail_image.name
+
+    def get(self, request, slug, *args, **kwargs):
+        latest_articles = Article.objects.filter(is_published=True).order_by("-created_at")[:4]
+        self._attach_absolute_thumbnail(latest_articles)
+        
+        article = Article.objects.filter(slug=slug, is_published=True, publish_date__lte=timezone.now()).first()
+        if article is None:
+            context = {
+                'categories': ArticleCategory.objects.filter(is_published=True),
+                'latest_articles': latest_articles,
+                'all_tags': ArticleTag.objects.order_by('?')[:50],
+            }
+            return render(request, 'front/column/column_detail.html', context)
+
+        ## 値をインクリメント
+        Article.objects.filter(pk=article.pk).update(view_count=F('view_count') + 1)
+
+        if article.thumbnail_image:
+            article.thumbnail_image = settings.MEDIA_FQDN + article.thumbnail_image.name
+
+        # 全体人気記事（閲覧数順で4件）
+        popular_articles_overall = Article.objects.filter(
+            is_published=True,
+            publish_date__lte=timezone.now()
+        ).order_by('-view_count')[:4]
+        self._attach_absolute_thumbnail(popular_articles_overall)
+
+
+        popular_tags = ArticleTag.objects.annotate( article_count=Count('article', filter=Q(article__is_published=True))).order_by('-article_count')[:50]
+        context = {
+            'article': article,
+            'categories': ArticleCategory.objects.filter(is_published=True),
+            'latest_articles': latest_articles,
+            'popular_articles_overall': popular_articles_overall,
+            'all_tags': popular_tags,
+        }
+        return render(request, 'front/column/column_detail.html', context)
+
+class ColumnCategoryView(View):
+    def _attach_absolute_thumbnail(self, articles):
+        for article in articles:
+            if article.thumbnail_image:
+                article.thumbnail_image = settings.MEDIA_FQDN + article.thumbnail_image.name
+
+    def get(self, request, slug, *args, **kwargs):
+        category = ArticleCategory.objects.filter(slug=slug, is_published=True).first()
+        if category is None:
+            return render(request, "front/errors/404.html", status=404)
+
+        articles_qs = Article.objects.filter(category=category, is_published=True, publish_date__lte=timezone.now()).order_by("-created_at")
+        page_obj = Paginator(articles_qs, 10).get_page(request.GET.get('page'))
+        self._attach_absolute_thumbnail(page_obj.object_list)
+
+        # カテゴリ別人気記事（閲覧数順で2件）
+        popular_articles_in_category = Article.objects.filter(
+            category=category,
+            is_published=True,
+            publish_date__lte=timezone.now()
+        ).order_by('-view_count')[:2]
+        self._attach_absolute_thumbnail(popular_articles_in_category)
+
+        # 全体人気記事（閲覧数順で4件）
+        popular_articles_overall = Article.objects.filter(
+            is_published=True,
+            publish_date__lte=timezone.now()
+        ).order_by('-view_count')[:4]
+        self._attach_absolute_thumbnail(popular_articles_overall)
+
+
+        latest_articles = Article.objects.filter(is_published=True, publish_date__lte=timezone.now()).order_by("-created_at")[:4]
+        self._attach_absolute_thumbnail(latest_articles)
+
+        popular_tags = ArticleTag.objects.annotate( article_count=Count('article', filter=Q(article__is_published=True))).order_by('-article_count')[:50]
+        context = {
+            'category': category,
+            'page_obj': page_obj,
+            'categories': ArticleCategory.objects.filter(is_published=True),
+            'latest_articles': latest_articles,
+            'popular_articles': popular_articles_in_category,
+            'popular_articles_overall': popular_articles_overall,
+            'all_tags': popular_tags,
+        }
+        return render(request, 'front/column/column_list_by_category.html', context)
+
+
+class ColumnTagView(View):
+    def _attach_absolute_thumbnail(self, articles):
+        for article in articles:
+            if article.thumbnail_image:
+                article.thumbnail_image = settings.MEDIA_FQDN + article.thumbnail_image.name
+
+
+    def get(self, request, slug, *args, **kwargs):
+        tag = ArticleTag.objects.filter(slug=slug).first()
+        logger.debug(tag)
+        if tag is None:
+            return render(request, "front/errors/404.html", status=404)
+
+        articles_qs = Article.objects.filter(tags__id=tag.id, is_published=True, publish_date__lte=timezone.now()).order_by("-created_at")
+        page_obj = Paginator(articles_qs, 10).get_page(request.GET.get('page'))
+        self._attach_absolute_thumbnail(page_obj.object_list)
+
+        # タグに属する記事中で人気のもの（2件）
+        popular_articles_by_tag = Article.objects.filter(
+            tags__id=tag.id,
+            is_published=True,
+            publish_date__lte=timezone.now()
+        ).order_by('-view_count')[:2]
+        self._attach_absolute_thumbnail(popular_articles_by_tag)
+
+        # 全体の人気記事（4件）
+        popular_articles_overall = Article.objects.filter(
+            is_published=True,
+            publish_date__lte=timezone.now()
+        ).order_by('-view_count')[:4]
+        self._attach_absolute_thumbnail(popular_articles_overall)
+
+
+        latest_articles = Article.objects.filter(is_published=True, publish_date__lte=timezone.now()).order_by("-created_at")[:4]
+        self._attach_absolute_thumbnail(latest_articles)
+
+        popular_tags = ArticleTag.objects.annotate( article_count=Count('article', filter=Q(article__is_published=True))).order_by('-article_count')[:50]
+        context = {
+            'tag': tag,
+            'page_obj': page_obj,
+            'categories': ArticleCategory.objects.filter(is_published=True),
+            'latest_articles': latest_articles,
+            'popular_articles': popular_articles_by_tag,
+            'popular_articles_overall': popular_articles_overall,
+            'all_tags': popular_tags,
+        }
+        return render(request, 'front/column/column_list_by_tag.html', context)
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class ColumnPreviewView(View):
+    def _attach_absolute_thumbnail(self, articles):
+        for article in articles:
+            if article.thumbnail_image:
+                article.thumbnail_image = settings.MEDIA_FQDN + article.thumbnail_image.name
+
+    def get(self, request, slug, *args, **kwargs):
+        article = get_object_or_404(Article, slug=slug)
+        if article.thumbnail_image:
+            article.thumbnail_image = settings.MEDIA_FQDN + article.thumbnail_image.name
+
+        latest_articles = Article.objects.filter(is_published=True).order_by("-created_at")[:4]
+        self._attach_absolute_thumbnail(latest_articles)
+
+        popular_tags = ArticleTag.objects.annotate( article_count=Count('article', filter=Q(article__is_published=True))).order_by('-article_count')[:50]
+
+        # 全体人気記事（閲覧数順で4件）
+        popular_articles_overall = Article.objects.filter(
+            is_published=True,
+            publish_date__lte=timezone.now()
+        ).order_by('-view_count')[:4]
+        self._attach_absolute_thumbnail(popular_articles_overall)
+
+        context = {
+            'article': article,
+            'article': article,
+            'categories': ArticleCategory.objects.filter(is_published=True),
+            'latest_articles': latest_articles,
+            'popular_articles_overall': popular_articles_overall,
+            'all_tags': popular_tags,
+        }
+        return render(request, 'front/column/column_detail.html', context)
+
+
+## Google Search Console 用 HTML 所有権確認ビュー
+class GoogleSiteVerificationView(View):
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse(
+            "google-site-verification: google59ea279a16147b5a.html",
+            content_type="text/html"
+        )

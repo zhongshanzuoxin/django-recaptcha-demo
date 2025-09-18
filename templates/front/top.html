@@ -847,8 +847,8 @@
                 <span class="indicator-dot" data-slide="4"></span>
             </div>
 
-            <div class="carousel-nav carousel-prev" onclick="prevSlide()">&#10094;</div>
-            <div class="carousel-nav carousel-next" onclick="nextSlide()">&#10095;</div>
+            <div class="carousel-nav carousel-prev">&#10094;</div>
+            <div class="carousel-nav carousel-next">&#10095;</div>
         </div>
     </section>
 </div>
@@ -1179,7 +1179,9 @@
                     <label class="top-contact-field-label">
                         お問い合わせカテゴリ<span class="top-contact-required">*</span>
                     </label>
-                    {{ form.category }}
+                    <div class="custom-select-wrapper">
+                        {{ form.category }}
+                    </div>
                     {% if form.category.errors %}
                     <div class="custom-error-message">
                         {% for error in form.category.errors %}

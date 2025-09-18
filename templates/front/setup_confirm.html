@@ -45,7 +45,7 @@
             <div class="confirm-header">
                 <h2>アプリ設定</h2>
                 {% if not is_submitted %}
-                <a href="{% url 'front:app_settings' %}?email={{ applicant.email|urlencode }}&uuid={{ applicant.verify_token }}" 
+                <a href="{% url 'front:app_settings' %}?email={{ applicant.email|urlencode }}&uuid={{ applicant.verify_token }}&from_confirm=true" 
                    class="edit-button">
                     編集する
                 </a>
@@ -175,6 +175,54 @@
                         {% endif %}
                     </div>
                 </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">ストアに載せるアプリの概要<br>（短文）</div>
+                    <div class="confirm-value">{{ applicant.store_description_short }}</div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">ストアに載せるアプリの概要<br>（詳細）</div>
+                    <div class="confirm-value">
+                        <div class="long-text">{{ applicant.store_description_long|linebreaksbr }}</div>
+                    </div>
+                </div>
+                <div class="confirm-item">
+                    <div class="confirm-label">スクリーンショット文言変更</div>
+                    <div class="confirm-value">
+                        <div>{% if applicant.screenshot_text_enabled %}有効{% else %}無効{% endif %}</div>
+                        {% if applicant.screenshot_text_enabled %}
+                        <div class="screenshot-text-changes">
+                            {% if applicant.screenshot_text_a %}<div class="screenshot-text-item">
+                                <div class="screenshot-label">A:</div>
+                                <div class="screenshot-value">{{ applicant.screenshot_text_a }}</div>
+                            </div>{% endif %}
+                            {% if applicant.screenshot_text_b %}<div class="screenshot-text-item">
+                                <div class="screenshot-label">B:</div>
+                                <div class="screenshot-value">{{ applicant.screenshot_text_b }}</div>
+                            </div>{% endif %}
+                            {% if applicant.screenshot_text_c %}<div class="screenshot-text-item">
+                                <div class="screenshot-label">C:</div>
+                                <div class="screenshot-value">{{ applicant.screenshot_text_c }}</div>
+                            </div>{% endif %}
+                            {% if applicant.screenshot_text_d %}<div class="screenshot-text-item">
+                                <div class="screenshot-label">D:</div>
+                                <div class="screenshot-value">{{ applicant.screenshot_text_d }}</div>
+                            </div>{% endif %}
+                            {% if applicant.screenshot_text_e %}<div class="screenshot-text-item">
+                                <div class="screenshot-label">E:</div>
+                                <div class="screenshot-value">{{ applicant.screenshot_text_e }}</div>
+                            </div>{% endif %}
+                            {% if applicant.screenshot_text_f %}<div class="screenshot-text-item">
+                                <div class="screenshot-label">F:</div>
+                                <div class="screenshot-value">{{ applicant.screenshot_text_f }}</div>
+                            </div>{% endif %}
+                            {% if applicant.screenshot_text_g %}<div class="screenshot-text-item">
+                                <div class="screenshot-label">G:</div>
+                                <div class="screenshot-value">{{ applicant.screenshot_text_g }}</div>
+                            </div>{% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -182,7 +230,7 @@
             <div class="confirm-header">
                 <h2>口座情報</h2>
                 {% if not is_submitted %}
-                <a href="{% url 'front:bank_account_setup' %}?email={{ applicant.email|urlencode }}&uuid={{ applicant.verify_token }}" 
+                <a href="{% url 'front:bank_account_setup' %}?email={{ applicant.email|urlencode }}&uuid={{ applicant.verify_token }}&from_confirm=true" 
                    class="edit-button">
                     編集する
                 </a>
@@ -216,7 +264,6 @@
             </div>
         </div>
 
-        <!-- 特定商取引法の情報を追加 -->
         <div class="confirm-section">
             <div class="confirm-header">
                 <h2>特定商取引法に基づく表記</h2>
@@ -407,6 +454,67 @@
     .final-confirm-cancel-button:active,
     .final-confirm-submit-button:active {
         transform: translateY(0);
+    }
+
+
+    /* 既存のスタイルに追加 */
+    .long-text {
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .screenshot-text-changes {
+        margin-top: 0.75rem;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .screenshot-text-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .screenshot-text-item:last-child {
+        border-bottom: none;
+    }
+    
+    .screenshot-label {
+        font-weight: 600;
+        color: #4A5568;
+        min-width: 30px;
+        flex-shrink: 0;
+    }
+    
+    .screenshot-value {
+        color: #2D3748;
+        word-break: break-word;
+        flex: 1;
+    }
+    
+    @media (max-width: 768px) {
+        .long-text {
+            font-size: 0.9rem;
+            max-height: 150px;
+        }
+        
+        .screenshot-text-changes {
+            padding: 0.5rem;
+        }
+        
+        .screenshot-text-item {
+            flex-direction: column;
+            gap: 0.25rem;
+        }
     }
 </style>
 

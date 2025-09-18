@@ -34,7 +34,9 @@
 
             <div class="form-field">
                 <label>お問い合わせカテゴリ<span class="required">*</span></label>
-                {{ form.category }}
+                <div class="custom-select-wrapper">
+                    {{ form.category }}
+                </div>
                 {% if form.category.errors %}
                 <div class="custom-error-message">
                     {% for error in form.category.errors %}

@@ -67,6 +67,19 @@ class Applicant(models.Model):
     dm_short              = models.CharField(verbose_name='DM', max_length=255, blank=True, null=True)
     artist_name           = models.CharField(verbose_name='アーティストの呼称', max_length=255, blank=True, null=True)
 
+    store_description_short  = models.CharField(verbose_name='ストア掲載用アプリ概要（短文）', max_length=30, blank=True, null=True)
+    store_description_long   = models.TextField(verbose_name='ストア掲載用アプリ概要（詳細）',  max_length=4000, blank=True, null=True)
+    screenshot_text_enabled  = models.BooleanField(verbose_name='スクリーンショット文言変更の希望', default=0)
+
+    screenshot_text_a        = models.CharField(verbose_name='スクリーンショット文言A', max_length=50, blank=True, null=True)
+    screenshot_text_b        = models.CharField(verbose_name='スクリーンショット文言B', max_length=50, blank=True, null=True)
+    screenshot_text_c        = models.CharField(verbose_name='スクリーンショット文言C', max_length=50, blank=True, null=True)
+    screenshot_text_d        = models.CharField(verbose_name='スクリーンショット文言D', max_length=50, blank=True, null=True)
+    screenshot_text_e        = models.CharField(verbose_name='スクリーンショット文言E', max_length=50, blank=True, null=True)
+    screenshot_text_f        = models.CharField(verbose_name='スクリーンショット文言F', max_length=50, blank=True, null=True)
+    screenshot_text_g        = models.CharField(verbose_name='スクリーンショット文言G', max_length=50, blank=True, null=True)
+    store_copyright          = models.CharField(verbose_name='ストア著作権表記', max_length=50, blank=True, null=True)
+
     bank_name             = models.CharField(verbose_name='銀行名', max_length=255, blank=True, null=True)
     branch_name           = models.CharField(verbose_name='銀行支店名', max_length=255, blank=True, null=True)
     branch_code           = models.CharField(verbose_name='銀行支店コード', max_length=10, blank=True, null=True)
@@ -91,6 +104,66 @@ class Applicant(models.Model):
     class Meta():
         verbose_name_plural = '01-01. 申し込み者'
         db_table = 'applicant'
-        
+
+
+
+class ArticleCategory(models.Model):
+    prefix = "article_category"
+    name            = models.CharField('カテゴリ名', max_length=100)
+    slug            = models.SlugField('スラッグ', unique=True)
+
+    description     = models.TextField('カテゴリ概要', blank=True, null=True)
+    seo_keywords    = models.TextField('SEOキーワード群（カンマ区切り）', blank=True, null=True)
+    is_published    = models.BooleanField(verbose_name='公開', default=False)
+    created_at      = models.DateTimeField(verbose_name='データ作成日時', auto_now_add=True)
+    updated_at      = models.DateTimeField(verbose_name='データ更新日時', auto_now=True)
+
+    class Meta:
+        verbose_name_plural = '02-01. 記事カテゴリ'
+        db_table = 'article_category'
+
     def __str__(self):
-        return self.email
+        return f"{self.id}: {self.name}"
+
+class ArticleTag(models.Model):
+    name            = models.CharField('タグ名', max_length=50)
+    slug            = models.SlugField('スラッグ', unique=True)
+
+    created_at      = models.DateTimeField(verbose_name='データ作成日時', auto_now_add=True)
+    updated_at      = models.DateTimeField(verbose_name='データ更新日時', auto_now=True)
+
+    class Meta:
+        verbose_name_plural = '02-02. タグ'
+        db_table = 'article_tag'
+
+    def __str__(self):
+        return f"{self.id}: {self.name}"
+
+
+class Article(models.Model):
+    prefix       = "article"
+
+    title           = models.CharField(verbose_name='タイトル', max_length=200)
+    category        = models.ForeignKey(ArticleCategory, verbose_name='カテゴリ', on_delete=models.SET_NULL, null=True, blank=True)
+    eyecatch_title  = models.CharField(verbose_name='アイキャッチタイトル',max_length=20,blank=True,null=True)
+    thumbnail_image = models.ImageField(verbose_name='アイキャッチ画像', upload_to=path_and_rename, blank=True, null=True)
+    is_published    = models.BooleanField(verbose_name='公開', default=False)
+    publish_date    = models.DateTimeField(verbose_name='公開日時', blank=True, null=True,)
+    slug            = models.SlugField(verbose_name='スラッグ', unique=True)
+    content         = models.TextField(verbose_name='本文')
+    summary         = models.TextField(verbose_name='記事要約', max_length=500, blank=True, null=True)
+    tags            = models.ManyToManyField(ArticleTag, verbose_name='タグ', blank=True)
+    table_of_contents  = models.TextField(verbose_name='目次', blank=True, null=True)
+    lead_text       = models.TextField(verbose_name='リード文', blank=True, null=True)
+    meta            = models.JSONField(verbose_name="メタデータ", blank=True, null=True, default=dict)
+    view_count      = models.PositiveIntegerField(verbose_name='閲覧数', default=0)
+
+    is_seed_generated = models.BooleanField(verbose_name='タイトル・要約のみ生成済', default=False, help_text='記事生成がレディになった時は外す。')
+    embedding       = models.JSONField(verbose_name='埋め込みベクトル', blank=True, null=True, help_text='タイトル＋要約のベクトル表現（text-embedding-3-small）')
+
+    created_at      = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
+    updated_at      = models.DateTimeField(verbose_name='更新日時', auto_now=True)
+
+    class Meta:
+        verbose_name_plural = '02-03. 記事'
+        db_table = 'article'

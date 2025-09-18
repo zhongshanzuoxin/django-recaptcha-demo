@@ -1,567 +1,1736 @@
 {% extends 'front/_base.html' %}
-
+{% load static %}
 {% block content %}
-<div class="functional-spec-container">
-    <!-- タイトルセクション -->
-    <h1 class="spec-title">権限について</h1>
 
-    <!-- 機能概要 -->
-    <div class="spec-overview">
-        <h2>権限の概要</h2>
-        <p>アプリ内の権限は、アーティスト、スタッフ、管理者、管理スタッフの4種類があります。各権限によって利用できる機能が異なります。</p>
+    <div class="tl-guide-wrapper">
+        <div class="tl-guide-container">
+            <!-- ヘッダーセクション -->
+            <div class="tl-guide-header">
+                <h1 class="tl-guide-title">権限について</h1>
+                <p class="tl-guide-subtitle">アプリ内の4つの権限とそれぞれの利用可能な機能</p>
+            </div>
+
+            <!-- メインナビゲーション -->
+            <div class="tl-guide-nav">
+                <button class="tl-guide-nav-item active" onclick="tlGuideShowContent('overview')">
+                    概要
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('permission-types')">
+                    権限の詳細
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('permission-table')">
+                    権限一覧表
+                </button>
+            </div>
+
+            <!-- 概要コンテンツ -->
+            <div class="tl-guide-content active" id="tl-guide-overview-content">
+                <div class="tl-guide-card">
+                    <!-- 機能概要 -->
+                    <h2 class="tl-guide-h2-mb-1">権限システムの概要</h2>
+                    <p class="tl-guide-p-grey">アプリの運営に関わる方々には、役割に応じて4つの権限レベルが設定されています。各権限によって利用できる機能が異なります。</p>
+                    
+                    <div class="tl-guide-mt-2">
+                        <div class="tl-guide-card">
+                            <h3>4つの権限レベル</h3>
+                            <div class="tl-guide-mt-1">
+                                <p class="mt-4"><strong>1. アーティスト</strong></p>
+                                <p class="tl-guide-p-grey">基本的な管理機能を利用できる権限です。自身のコンテンツ管理が中心となります。</p>
+                                
+                                <p class="tl-guide-p-mt-1"><strong>2. スタッフ</strong></p>
+                                <p class="tl-guide-p-grey">商品管理やルーム管理など、コンテンツ全体の管理機能を利用できます。</p>
+                                
+                                <p class="tl-guide-p-mt-1"><strong>3. 管理者</strong></p>
+                                <p class="tl-guide-p-grey">収益管理やシステム設定など、アプリ全体の管理機能を利用できます。</p>
+                                
+                                <p class="tl-guide-p-mt-1"><strong>4. 管理スタッフ</strong></p>
+                                <p class="tl-guide-p-grey">管理者の全機能に加え、問い合わせ対応のメール通知などスタッフ権限としての機能も利用できます。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-tips tl-guide-tips-mt-1">
+                            <h4><i class="material-icons">info</i> 権限の階層構造</h4>
+                            <ul>
+                                <li>権限は階層構造になっており、上位の権限は下位の権限の機能をすべて利用できます</li>
+                                <li>権限の変更は、適切な権限を持つアカウントのみが実行できます</li>
+                                <li>各権限の詳細な機能については、他のタブでご確認ください</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 権限の種類コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-permission-types-content">
+                <div class="tl-guide-card">
+                    <h2 class="tl-guide-h2-mb-1">権限の詳細</h2>
+                    <p class="tl-guide-p-grey">各権限レベルで利用できる機能を詳しく説明します。上位の権限は下位の権限の機能をすべて利用できます。</p>
+                    
+                    <div class="tl-guide-mt-2">
+                        
+                        <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                            <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                <h5>アーティスト</h5>
+                                <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                            </div>
+                            <div class="tl-guide-accordion-content">
+                                <p>基本的な管理機能を利用できる権限です。自身が作成したコンテンツの管理が中心となります。</p>
+                                <h6 class="tl-guide-mt-1">利用可能な機能</h6>
+                                <ul class="tl-guide-ul-features">
+                                    <li>ライブの登録、編集、削除</li>
+                                    <li>タイムラインの登録、編集、削除</li>
+                                    <li>コレクションの登録、編集、削除</li>
+                                    <li>商品の登録、編集、削除（2shot）</li>
+                                    <li>ユーザーのミュート、制限</li>
+                                    <li>ミュートの解除</li>
+                                    <li>ユーザーの制限解除</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                            <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                <h5>スタッフ</h5>
+                                <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                            </div>
+                            <div class="tl-guide-accordion-content">
+                                <p>アーティストの権限に加えて、商品管理やルーム管理など、より幅広い管理機能を利用できます。</p>
+                                <ul class="tl-guide-ul-features">
+                                    <li>商品の登録、編集、削除（グッズ、デジコン）</li>
+                                    <li>ルームの作成、編集、削除</li>
+                                    <li>他者が作成したコンテンツの編集・削除</li>
+                                    <li>他ユーザーのコメント削除</li>
+                                    <li>運営アカウントの追加</li>
+                                    <li>運営アカウントの権限変更</li>
+                                    <li>ライブの招待コード発行</li>
+                                    <li>配送管理</li>
+                                    <li>定期メッセージの設定</li>
+                                    <li>問い合わせへの回答</li>
+                                    <li>メール通知受信（スタッフ権限のみ）</li>
+                                    <li>CMSへのログイン</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                            <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                <h5>管理者</h5>
+                                <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                            </div>
+                            <div class="tl-guide-accordion-content">
+                                <p>スタッフの権限に加えて、システム設定や収益管理など、アプリ全体の管理機能を利用できます。</p>
+                                <ul class="tl-guide-ul-features">
+                                    <li>収益情報の管理</li>
+                                    <li>アプリカラーの設定</li>
+                                    <li>カレンダーの設定</li>
+                                    <li>運営アカウントの削除・復旧</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tl-guide-tips tl-guide-tips-mt-1">
+                            <h4><i class="material-icons">info</i> 管理スタッフ権限について</h4>
+                            <ul>
+                                <li>管理者と同じすべての機能を利用できます</li>
+                                <li>管理者の機能に加えてメールの通知を受け取ることができます</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 権限一覧表コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-permission-table-content">
+                <div class="tl-guide-permissions">
+                    <h2>権限一覧</h2>
+                    
+                    <!-- デスクトップ用テーブル -->
+                    <div class="tl-guide-perm-table-wrapper" style="overflow-x: auto;">
+                        <table class="tl-guide-perm-table tl-guide-perm-table-detailed">
+                            <thead>
+                                <tr>
+                                    <th>カテゴリ</th>
+                                    <th>機能</th>
+                                    <th>アーティスト</th>
+                                    <th>スタッフ</th>
+                                    <th>管理者</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 商品（グッズ） -->
+                                <tr>
+                                    <td rowspan="3">商品（グッズ）</td>
+                                    <td>新規登録</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>編集</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>削除</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- 商品（デジコン） -->
+                                <tr>
+                                    <td rowspan="3">商品（デジコン）</td>
+                                    <td>新規登録</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>編集</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>削除</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- 商品（2shot） -->
+                                <tr>
+                                    <td rowspan="4">商品（2shot）</td>
+                                    <td>新規登録</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>編集</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>削除</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>開催ユーザーの選択</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+
+                                <!-- タイムライン -->
+                                <tr>
+                                    <td rowspan="3">タイムライン</td>
+                                    <td>新規登録</td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>編集</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>削除</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- コレクション -->
+                                <tr>
+                                    <td rowspan="6">コレクション</td>
+                                    <td>新規登録</td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>編集</td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>削除</td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>コレクションメディアの削除</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>コレクションの並べ替え</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>コレクションメディアの並べ替え</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- ルーム -->
+                                <tr>
+                                    <td rowspan="3">ルーム</td>
+                                    <td>新規作成</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>編集</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>削除</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- 2shot -->
+                                <tr>
+                                    <td rowspan="3">2shot</td>
+                                    <td>2shotの開始</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>監視者機能</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>他者が開催ユーザーの2shotの開始</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- ライブ -->
+                                <tr>
+                                    <td rowspan="6">ライブ</td>
+                                    <td>スケジュールの新規作成</td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>スケジュールの編集</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>スケジュールの削除</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>ライブの開始</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>招待コードの発行</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>開催ユーザーの選択</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- 他ユーザーのコメント・メッセージの削除 -->
+                                <tr>
+                                    <td rowspan="1">他ユーザーのコメント・メッセージの削除</td>
+                                    <td>コメント・メッセージの削除</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- ミュート -->
+                                <tr>
+                                    <td rowspan="2">ミュート</td>
+                                    <td>ミュート</td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>ミュートの解除</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                </tr>
+
+                                <!-- ユーザーの制限 -->
+                                <tr>
+                                    <td rowspan="2">ユーザーの制限</td>
+                                    <td>ユーザーの制限</td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>ユーザーの制限解除</td>
+                                    <td><span class="tl-guide-limited">△</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- アカウント管理系 -->
+                                <tr>
+                                    <td rowspan="6">アカウント管理</td>
+                                    <td>関係者アカウントの削除</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>関係者アカウントの復旧</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>アーティストの追加</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>スタッフの追加</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理者の追加</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理スタッフの追加</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- 権限の変更 -->
+                                <tr>
+                                    <td rowspan="11">権限の変更</td>
+                                    <td>アーティスト → スタッフ</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>アーティスト → 管理者</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>スタッフ → アーティスト</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>スタッフ → 管理者</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>スタッフ → 管理スタッフ</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理者 → アーティスト</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理者 → スタッフ</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理者 → 管理スタッフ</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理スタッフ → アーティスト</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理スタッフ → スタッフ</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>管理スタッフ → 管理者</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- 収益系 -->
+                                <tr>
+                                    <td rowspan="1">収益系</td>
+                                    <td>収益情報の管理・確認</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- 問い合わせチャット -->
+                                <tr>
+                                    <td rowspan="2">問い合わせチャット</td>
+                                    <td>問い合わせへの回答</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>問い合わせのステータス変更</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+
+                                <!-- その他 -->
+                                <tr>
+                                    <td rowspan="5">その他</td>
+                                    <td>アプリカラーの設定</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>カレンダーURLの設定</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>定期メッセージの設定</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CMSへのログイン</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                </tr>
+                                <tr>
+                                    <td>メールの通知（商品購入時など）</td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                    <td><span class="tl-guide-available">○</span></td>
+                                    <td><span class="tl-guide-unavailable">×</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="tl-guide-perm-legend tl-guide-perm-legend-desktop">
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-available">○</span>
+                            <span>利用可能</span>
+                        </div>
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-limited">△</span>
+                            <span>自分が作成・実施したものだけ可能</span>
+                        </div>
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-unavailable">×</span>
+                            <span>利用不可</span>
+                        </div>
+                    </div>
+                    
+                    <!-- モバイル用カード表示 -->
+                    <div class="tl-guide-perm-mobile">
+
+                        <!-- 商品（グッズ） -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（グッズ）- 新規登録</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（グッズ）- 編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（グッズ）- 削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 商品（デジコン） -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（デジコン）- 新規登録</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（デジコン）- 編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（デジコン）- 削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 商品（2shot） -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（2shot）- 新規登録</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（2shot）- 編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（2shot）- 削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">商品（2shot）- 開催ユーザーの選択</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- タイムライン -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">タイムライン - 新規登録</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">タイムライン - 編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">タイムライン - 削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- コレクション -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">コレクション - 新規登録</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">コレクション - 編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">コレクション - 削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">コレクションメディアの削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">コレクションの並べ替え</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">コレクションメディアの並べ替え</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ルーム -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ルーム - 新規作成</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ルーム - 編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ルーム - 削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2shot -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">2shot - 2shotの開始</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">2shot - 監視者機能</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">他者が開催ユーザーの2shotの開始</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ライブ -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ライブ - スケジュールの新規作成</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ライブ - スケジュールの編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ライブ - スケジュールの削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ライブ - ライブの開始</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ライブ - 招待コードの発行</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ライブ - 開催ユーザーの選択</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 他ユーザーのコメント・メッセージの削除 -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">他ユーザーのコメント・メッセージの削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ミュート -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ミュート - ミュート</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ミュート - ミュートの解除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ユーザーの制限 -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ユーザーの制限 - ユーザーの制限</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ユーザーの制限 - ユーザーの制限解除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- アカウント管理 -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウント管理 - 関係者アカウントの削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウント管理 - 関係者アカウントの復旧</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウント管理 - アーティストの追加</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウント管理 - スタッフの追加</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウント管理 - 管理者の追加</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">アカウント管理 - 管理スタッフの追加</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 権限の変更 -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - アーティスト → スタッフ</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - アーティスト → 管理者</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - スタッフ → アーティスト</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - スタッフ → 管理者</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - スタッフ → 管理スタッフ</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - 管理者 → アーティスト</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - 管理者 → スタッフ</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - 管理者 → 管理スタッフ</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - 管理スタッフ → アーティスト</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - 管理スタッフ → スタッフ</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">権限の変更 - 管理スタッフ → 管理者</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 収益系 -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">収益系 - 収益情報の管理・確認</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 問い合わせチャット -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">問い合わせチャット - 問い合わせへの回答</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">問い合わせチャット - 問い合わせのステータス変更</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- その他 -->
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">その他 - アプリカラーの設定</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">その他 - カレンダーURLの設定</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">その他 - 定期メッセージの設定</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">その他 - CMSへのログイン</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">その他 - メールの通知（商品購入時など）</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-legend">
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-available">○</span>
+                                <span>利用可能</span>
+                            </div>
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-limited">△</span>
+                                <span>自分が作成・実施したものだけ可能</span>
+                            </div>
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-unavailable">×</span>
+                                <span>利用不可</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ナビゲーション -->
+            <div class="spec-navigation">
+                <!-- 前後の記事リンク -->
+                <div class="spec-nav-links">
+                </div>
+                {% include 'front/functional_specs/_spec_list.html' %}
+            </div>
+        </div>
     </div>
-
-    <!-- 権限の詳細 -->
-    <div class="spec-section">
-        <h2>権限の詳細</h2>
-
-        <div class="step-item">
-            <h3 data-step="1">共通の権限</h3>
-            <p>全ての管理アカウントが利用できる機能です。</p>
-            <ul class="note-text-plain">
-                <li>ライブの登録、編集、削除</li>
-                <li>タイムラインの登録、編集、削除</li>
-                <li>コレクションの登録、編集、削除</li>
-                <li>ユーザーのミュート、制限</li>
-            </ul>
-        </div>
-
-        <div class="step-item">
-            <h3 data-step="2">スタッフの権限</h3>
-            <p>共通の権限に加えて、以下の機能が利用できます。</p>
-            <ul class="note-text-plain">
-                <li>全ての商品管理</li>
-                <li>ルームの管理</li>
-                <li>ルームのコメント削除</li>
-                <li>アーティストアカウントの追加</li>
-            </ul>
-        </div>
-
-        <div class="step-item">
-            <h3 data-step="3">管理者の権限</h3>
-            <p>スタッフの権限に加えて、以下の機能が利用できます。</p>
-            <ul class="note-text-plain">
-                <li>収益情報の管理と設定</li>
-                <li>システムカラーの設定</li>
-                <li>カレンダーの設定</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 制限事項 -->
-    <div class="spec-section">
-        <h2>制限事項</h2>
-
-        <div class="step-item">
-            <h3 data-step="1">アーティストの制限</h3>
-            <ul class="note-text-plain">
-                <li>2shot以外の商品登録、編集、削除はできません</li>
-                <li>ルームの登録、編集、削除はできません</li>
-                <li>ルームのコメント削除はできません</li>
-            </ul>
-        </div>
-
-        <div class="step-item">
-            <h3 data-step="2">スタッフの制限</h3>
-            <ul class="note-text-plain">
-                <li>管理者アカウントを作成、設定できません</li>
-                <li>管理スタッフアカウントを作成、設定できません</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 詳細な権限一覧 -->
-    <div class="spec-permissions-detail">
-        <h2>詳細な権限一覧</h2>
-        <p class="permissions-detail-note">
-            ○：できる　　△：自分が作成・実施したものだけできる　　×：できない
-        </p>
-
-        <div class="permissions-detail-wrapper">
-            <table class="permissions-detail-table">
-                <thead>
-                    <tr>
-                        <th>カテゴリ</th>
-                        <th>機能</th>
-                        <th>アーティスト</th>
-                        <th>スタッフ</th>
-                        <th>管理者</th>
-                        <th>管理スタッフ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- 商品（グッズ） -->
-                    <tr>
-                        <td rowspan="4">商品（グッズ）</td>
-                        <td class="feature-name">新規登録</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>編集</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>削除</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>配送管理</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- 商品（デジコン） -->
-                    <tr>
-                        <td rowspan="4">商品（デジコン）</td>
-                        <td class="feature-name">新規登録</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>編集</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>削除</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>配送管理</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- 商品（2shot） -->
-                    <tr>
-                        <td rowspan="4">商品（2shot）</td>
-                        <td class="feature-name">新規登録</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>編集</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>削除</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>2shotの開始</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- タイムライン -->
-                    <tr>
-                        <td rowspan="3">タイムライン</td>
-                        <td class="feature-name">新規登録</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>編集</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>削除</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- コレクション -->
-                    <tr>
-                        <td rowspan="3">コレクション</td>
-                        <td class="feature-name">新規登録</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>編集</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>削除</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- コミュニティ -->
-                    <tr>
-                        <td rowspan="3">コミュニティ</td>
-                        <td class="feature-name">新規作成</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>編集</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>削除</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- ライブ -->
-                    <tr>
-                        <td rowspan="5">ライブ</td>
-                        <td class="feature-name">新規登録</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>編集</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>削除</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>ライブの開始</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>招待コードの発行</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- 第三者のコメント・メッセージの削除 -->
-                    <tr>
-                        <td rowspan="1">第三者のコメント・メッセージの削除</td>
-                        <td class="feature-name">コメント・メッセージの削除</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- ミュート -->
-                    <tr>
-                        <td rowspan="2">ミュート</td>
-                        <td class="feature-name">ミュート</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>ミュートの解除</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="partial">△</span></td>
-                    </tr>
-
-                    <!-- ユーザーの制限 -->
-                    <tr>
-                        <td rowspan="2">ユーザーの制限</td>
-                        <td class="feature-name">ユーザーの制限</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>ユーザーの制限解除</td>
-                        <td><span class="partial">△</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- アカウント管理系 -->
-                    <tr>
-                        <td rowspan="6">アカウント管理</td>
-                        <td class="feature-name">関係者アカウントの削除</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>関係者アカウントの復旧</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>アーティストの追加</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>スタッフの追加</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理者の追加</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理スタッフの追加</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- 権限の変更 -->
-                    <tr>
-                        <td rowspan="12">権限の変更</td>
-                        <td class="feature-name">アーティスト→スタッフ</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>アーティスト→管理者</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>アーティスト→管理スタッフ</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>スタッフ→アーティスト</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>スタッフ→管理者</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>スタッフ→管理スタッフ</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理者→アーティスト</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理者→スタッフ</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理者→管理スタッフ</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理スタッフ→アーティスト</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理スタッフ→スタッフ</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>管理スタッフ→管理者</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- 収益系 -->
-                    <tr>
-                        <td>収益系</td>
-                        <td class="feature-name">収益情報の管理（確認）</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- 問い合わせチャット -->
-                    <tr>
-                        <td rowspan="3">問い合わせチャット</td>
-                        <td class="feature-name">問い合わせへの回答</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>新規問い合わせ時のメール通知</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>問い合わせのステータス変更</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-
-                    <!-- その他 -->
-                    <tr>
-                        <td rowspan="4">その他</td>
-                        <td class="feature-name">アプリカラーの設定</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>カレンダーURLの設定</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>定期メッセージの設定</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>CMSへのログイン</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- 権限管理のヒント -->
-    <div class="spec-tips">
-        <h3>権限についての注意点</h3>
-        <ul class="note-text-plain">
-            <li>各権限は階層構造になっており、上位の権限は下位の権限の機能をすべて利用できます。</li>
-            <li>制限事項は各権限レベルで固定されており、個別に変更することはできません。</li>
-            <li>権限の変更は、適切な権限を持つアカウントのみが実行できます。</li>
-        </ul>
-    </div>
-
-    <!-- 機能説明ナビゲーション -->
-    <div class="spec-navigation">
-        <!-- 前後の記事リンク -->
-        <div class="spec-nav-links">
-            <a href="{% url 'front:account_management' %}" class="spec-nav-link prev">
-                <span class="nav-label">前の記事</span>
-                <span class="nav-title">アカウント管理機能</span>
-            </a>
-            <a href="{% url 'front:timeline' %}" class="spec-nav-link next">
-                <span class="nav-label">次の記事</span>
-                <span class="nav-title">タイムライン機能</span>
-            </a>
-        </div>
-        {% include 'front/functional_specs/_spec_list.html' %}
-    </div>
-</div>
 {% endblock %}

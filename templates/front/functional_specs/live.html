@@ -1,331 +1,1106 @@
 {% extends 'front/_base.html' %}
 {% load static %}
-
 {% block content %}
-<div class="functional-spec-container">
-    <!-- タイトルセクション -->
-    <h1 class="spec-title">ライブ機能の使い方</h1>
 
-     <!-- メイン動画セクション -->
-     <div class="spec-video-section">
-        <!-- サムネイル表示部分 -->
-        <div class="video-thumbnail-container" onclick="openVideoModal()">
-            <img class="video-thumbnail" src="{% static 'front/img/top/functional_specs/live.png' %}" alt="ライブ機能の説明動画サムネイル">
-            <div class="play-overlay">
-                <i class="material-icons">play_arrow</i>
+    <div class="tl-guide-wrapper">
+        <div class="tl-guide-container">
+            <!-- ヘッダーセクション -->
+            <div class="tl-guide-header">
+                <h1 class="tl-guide-title">ライブ機能の使い方</h1>
+                <p class="tl-guide-subtitle">ファンとリアルタイムでつながることができる配信機能のガイド</p>
             </div>
-        </div>
 
-        <!-- ビデオモーダル -->
-        <div class="video-modal" id="videoModal">
-            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
-            <div class="modal-content">
-                <video controls class="modal-video" id="modalVideo">
-                    <source src="{% static 'front/video/functional_specs/live.mp4' %}" type="video/mp4">
-                    お使いのブラウザは動画の再生に対応していません。
-                </video>
+            <!-- メインナビゲーション -->
+            <div class="tl-guide-nav">
+                <button class="tl-guide-nav-item active" onclick="tlGuideShowContent('overview')">
+                    概要
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('schedule')">
+                    スケジュールの登録
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('schedule-edit')">
+                    スケジュールの編集・削除
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('start')">
+                    スケジュールから開始
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('live-now')">
+                    今すぐ開始
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('features')">
+                    詳細機能
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('archive')">
+                    アーカイブ機能
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('invitation')">
+                    招待コード機能
+                </button>
+                <button class="tl-guide-nav-item" onclick="tlGuideShowContent('permissions')">
+                    権限設定
+                </button>
+            </div>
+
+            <!-- 概要コンテンツ -->
+            <div class="tl-guide-content active" id="tl-guide-overview-content">
+                <div class="tl-guide-card">
+                    <!-- 機能概要 -->
+                    <h2 class="tl-guide-h2-mb-1">ライブの機能概要</h2>
+                    <p class="tl-guide-p-grey">ライブ機能を使用すると、ファンとリアルタイムでつながることができます。ライブ配信の開始方法には、「スケジュールを設定して開始する」方法と、「すぐに開始する」方法の２種類があります。</p>
+                    
+                    <!-- メイン動画セクション -->
+                    <div class="tl-guide-video-section">
+                        <!-- サムネイル表示部分 -->
+                        <div class="tl-guide-video-thumbnail-container" onclick="tlGuideOpenVideoModal()">
+                            <div class="tl-guide-video-wrapper">
+                                <img class="tl-guide-video-thumbnail" src="{% static 'front/img/top/functional_specs/live.png' %}" alt="ライブ機能の説明動画サムネイル">
+                            </div>
+                            <div class="tl-guide-play-overlay">
+                                <i class="material-icons">play_arrow</i>
+                            </div>
+                        </div>
+
+                        <!-- ビデオモーダル -->
+                        <div class="tl-guide-video-modal" id="tlGuideVideoModal">
+                            <span class="tl-guide-close-modal" onclick="tlGuideCloseVideoModal()">&times;</span>
+                            <div class="tl-guide-modal-content">
+                                <video controls class="tl-guide-modal-video" id="tlGuideModalVideo">
+                                    <source src="{% static 'front/video/functional_specs/live.mp4' %}" type="video/mp4">
+                                    お使いのブラウザは動画の再生に対応していません。
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 開始方法コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-start-content">
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">スケジュールから開始</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>開始するスケジュールを選択</h4>
+                                <p>スケジュール一覧から開始したいライブを選択し、詳細画面を開きます。</p>
+                                <p class="tl-guide-p-mt-1-red">※権限によってライブを開始できない場合があります。詳しくは権限設定をご確認ください。</p>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>配信画面へ移動</h4>
+                                <p>「配信画面へ」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live5.jpg' %}" alt="配信画面へボタン" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> 配信開始前の確認事項</h4>
+                                    <ul>
+                                        <li>端末のカメラとマイクの使用許可が必要です</li>
+                                        <li>安定したインターネット接続環境を確保してください</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブの開始</h4>
+                                <p>「スタート」ボタンをタップしてライブを開始します。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live3.jpg' %}" alt="ライブスタートボタン" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">4</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブの終了</h4>
+                                <p>ライブを終了する場合は、右上の「✖️」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live4.jpg' %}" alt="ライブ終了ボタン" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> ライブ終了時の注意事項</h4>
+                                    <ul>
+                                        <li>アーカイブの保存設定がONの場合、終了後に自動的に保存処理が開始されます</li>
+                                        <li>終了後は再開できませんのでご注意ください</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- スケジュール設定コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-schedule-content">
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">スケジュールの登録</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブ設定画面へ移動</h4>
+                                <p>「ライブを開始・予定を登録」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live1.jpg' %}" alt="スケジュール作成" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブの設定</h4>
+                                <p>スケジュール設定に必要な情報を入力します。「＊」がついている項目は必須項目です。</p>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>音声のみ配信（カメラ映像なし）</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>カメラ映像なしで配信したい場合は、こちらを選択してください。</p>
+                                        <p class="tl-guide-p-mt-1-red">※詳細については詳細機能の音声のみ配信をご確認ください。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>ライブタイトル</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブのタイトルを入力することができます。<br/>
+                                            50文字までの入力が可能ですが、長いタイトルは省略して表示される場合がありますのでご注意ください。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>配信者</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブを配信するアーティストの方を選択します。<br/>
+                                            選択肢に表示されるのは「アーティスト検索に含める」設定がONになっている方のみです。<br/><br/>
+                                            
+                                            <p class="tl-guide-p-mt-1-red">※編集では変更できない項目です。</p>
+                                            <p class="tl-guide-p-mt-1-red">※権限によっては配信者の選択ができない場合があります。詳しくは権限設定をご確認ください。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>公開範囲</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>公開範囲では、どのファンの方がライブに参加できるかを設定することができます。<br/>
+                                            3種類の公開範囲が存在します。<br/>
+                                            &nbsp;1. 全体向け<br/>
+                                            &nbsp;2. 有料会員向け<br/>
+                                            &nbsp;3. 個人向け<br/><br/>
+
+                                            1の全体向けでは、ゲストの方も含め、全てのファンの方が参加できます。<br/>
+                                            2の有料会員向けでは、月額有料会員に登録しているファンの方のみ参加できます。<br/>
+                                            3の個人向けでは、選択した特定のファンの方のみ参加できます。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>スクリーンショットの許可</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ファンの方々がスクリーンショットを撮れないように設定することができます。<br/>
+                                            設定をONにすると、スクリーンショットを撮ることができ、OFFにすると撮ることができません。<br/><br/>
+
+                                            ONにした場合、スクリーンショットを撮ると黒い画像に置き換わります。<br/>
+                                            また、画面録画も同様に黒い画面が録画されます。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>アーカイブの保存</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブのアーカイブを保存するかどうかを設定することができます。<br/>
+                                            設定をONにすると保存され、OFFにすると保存されません。<br/><br/>
+
+                                            保存されたアーカイブは、ライブ終了後にコレクションとして公開されます。</p>
+                                        <p class="tl-guide-p-mt-1-red">※詳細についてはアーカイブ機能をご確認ください。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>告知開始日時</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブの告知を開始する日時を設定することができます。<br/>
+                                            こちらに設定した日時になると、ファンの方に該当するライブが表示されるようになります。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>告知開始時プッシュ通知</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブの告知を開始日時になった際に、ファンの方に通知を送るかどうかを選択することができます。<br/>
+                                            ONにすると通知が送られ、OFFにすると通知は送られません。
+                                        </p>
+                                        <p class="tl-guide-p-mt-1-red">※編集では変更できない項目です。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>ライブ開始日時</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブを開始する日時を設定することができます。<br/>
+                                            こちらに設定した日時は、ファンの方に表示されます。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>ライブ開始時プッシュ通知</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブ開始時に、ファンの方に通知を送るかどうかを選択することができます。<br/>
+                                            ONにすると通知が送られ、OFFにすると通知は送られません。。<br/>
+                                        </p>
+                                        <p class="tl-guide-p-mt-1-red">※編集では変更できない項目です。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>サムネイル画像</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>一覧画面などに表示するための画像を設定することができます。<br/>
+                                            GIFなどは設定できません。<br/><br/>
+
+                                            画像を設定しない場合はプロフィール画像が自動で設定されます。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>スケジュールの登録</h4>
+                                <p>すべての情報を入力したら「登録」ボタンをタップして、スケジュールを登録します。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- スケジュールの編集・削除コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-schedule-edit-content">
+                <!-- 編集セクション -->
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">スケジュールの編集</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>編集するスケジュールを選択</h4>
+                                <p>ライブ一覧から編集したいスケジュールを選択し、詳細画面を開きます。</p>
+                                <p class="tl-guide-p-mt-1-red">※権限によって編集ができない場合があります。詳しくは権限設定をご確認ください。</p>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>編集ボタンをタップ</h4>
+                                <p>詳細画面の「ペンアイコン」ボタンをタップして編集画面に遷移します。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live5.jpg' %}" alt="詳細画面の編集ボタン" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>スケジュール内容を修正</h4>
+                                <p>編集可能な項目：</p>
+                                <ul class="tl-guide-ul-edit">
+                                    <li>音声のみ配信設定</li>
+                                    <li>ライブタイトル（最大50文字）</li>
+                                    <li>サムネイル画像</li>
+                                    <li>公開範囲（全体/有料会員/個人）</li>
+                                    <li>スクリーンショット許可設定</li>
+                                    <li>アーカイブの保存</li>
+                                    <li>告知開始日時</li>
+                                    <li>ライブ開始日時</li>
+                                </ul>
+                                <p class="tl-guide-p-mt-1-red">※以下の項目は編集できません：</p>
+                                <ul class="tl-guide-ul-edit">
+                                    <li>配信者</li>
+                                    <li>告知開始時プッシュ通知</li>
+                                    <li>ライブ開始時プッシュ通知</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">4</div>
+                            <div class="tl-guide-step-content">
+                                <h4>変更を保存</h4>
+                                <p>編集が完了したら「保存」ボタンをタップして変更を保存します。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 削除セクション -->
+                <div class="tl-guide-steps tl-guide-steps-mt-3">
+                    <h2 class="tl-guide-h2-mb-2">スケジュールの削除</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>削除するスケジュールを選択</h4>
+                                <p>ライブ一覧から削除したいスケジュールを選択し、詳細画面を開きます。</p>
+                                <p class="tl-guide-p-mt-1-red">※権限によって削除ができない場合があります。詳しくは権限設定をご確認ください。</p>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>削除ボタンをタップ</h4>
+                                <p>詳細画面の「ゴミ箱アイコン」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live6.jpg' %}" alt="詳細画面の削除ボタン" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">warning</i> 削除前の確認事項</h4>
+                                    <ul>
+                                        <li>削除したスケジュールは復元できません</li>
+                                        <li>すでに告知が開始されているスケジュールも削除可能です</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>削除を確認</h4>
+                                <p>確認ダイアログが表示されるので、本当に削除してよいか最終確認します。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live7.jpg' %}" alt="確認ダイアログ" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">4</div>
+                            <div class="tl-guide-step-content">
+                                <h4>削除完了</h4>
+                                <p>「削除する」をタップすると、スケジュールが完全に削除されます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 今すぐ開始コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-live-now-content">
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">今すぐライブを開始</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブ設定画面へ移動</h4>
+                                <p>「ライブを開始・予定を登録」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live1.jpg' %}" alt="今すぐ開始" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブの設定</h4>
+                                <p>ライブ開始に必要な情報を入力します。「*」がついている項目は必須項目です。</p>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>音声のみ配信（カメラ映像なし）</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>カメラ映像なしで配信したい場合は、こちらを選択してください。</p>
+                                        <p class="tl-guide-p-mt-1-red">※詳細については詳細機能の音声のみ配信をご確認ください。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>ライブタイトル</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブのタイトルを入力することができます。<br/>
+                                            50文字までの入力が可能ですが、長いタイトルは省略して表示される場合がありますのでご注意ください。<br/><br/>
+
+                                            何も入力しない場合は、「ゲリラライブ開始！」というタイトルが自動で設定されます。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>配信者</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブを配信するアーティストの方を選択します。<br/>
+                                            選択肢に表示されるのは「アーティスト検索に含める」設定がONになっている方のみです。<br/><br/>
+                                            
+                                            <p class="tl-guide-p-mt-1-red">※権限によっては配信者の選択ができない場合があります。詳しくは権限設定をご確認ください。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>公開範囲</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>公開範囲では、どのファンの方がライブに参加できるかを設定することができます。<br/>
+                                            3種類の公開範囲が存在します。<br/>
+                                            &nbsp;1. 全体向け<br/>
+                                            &nbsp;2. 有料会員向け<br/>
+                                            &nbsp;3. 個人向け<br/><br/>
+
+                                            1の全体向けでは、ゲストの方も含め、全てのファンの方が参加できます。<br/>
+                                            2の有料会員向けでは、月額有料会員に登録しているファンの方のみ参加できます。<br/>
+                                            3の個人向けでは、選択した特定のファンの方のみ参加できます。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>スクリーンショットの許可</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ファンの方々がスクリーンショットを撮れないように設定することができます。<br/>
+                                            設定をONにすると、スクリーンショットを撮ることができ、OFFにすると撮ることができません。<br/><br/>
+
+                                            ONにした場合、スクリーンショットを撮ると黒い画像に置き換わります。<br/>
+                                            また、画面録画も同様に黒い画面が録画されます。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>アーカイブの保存</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブのアーカイブを保存するかどうかを設定することができます。<br/>
+                                            設定をONにすると保存され、OFFにすると保存されません。<br/><br/>
+
+                                            保存されたアーカイブは、ライブ終了後にコレクションとして公開されます。</p>
+                                        <p class="tl-guide-p-mt-1-red">※詳細についてはアーカイブ機能をご確認ください。</p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>ライブ開始時プッシュ通知</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>ライブ開始時に、ファンの方に通知を送るかどうかを選択することができます。<br/>
+                                            ONにすると通知が送られ、OFFにすると通知は送られません。。<br/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tl-guide-accordion tl-guide-accordion-mt-1">
+                                    <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                                        <h5>サムネイル画像</h5>
+                                        <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                                    </div>
+                                    <div class="tl-guide-accordion-content">
+                                        <p>一覧画面などに表示するための画像を設定することができます。<br/>
+                                            GIFなどは設定できません。<br/><br/>
+
+                                            画像を設定しない場合はプロフィール画像が自動で設定されます。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブ準備画面へ移動</h4>
+                                <p>「ライブスタート」ボタンをタップしてライブ準備画面に移動します。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live8.jpg' %}" alt="ライブスタート" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> 配信開始前の確認事項</h4>
+                                    <ul>
+                                        <li>端末のカメラとマイクの使用許可が必要です</li>
+                                        <li>安定したインターネット接続環境を確保してください</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">4</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブスタート</h4>
+                                <p>「スタート」ボタンをタップしてライブを開始します。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live3.jpg' %}" alt="ライブスタート" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">5</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブの終了</h4>
+                                <p>ライブを終了する場合は、右上の「✖️」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live4.jpg' %}" alt="ライブ終了ボタン" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> ライブ終了時の注意事項</h4>
+                                    <ul>
+                                        <li>アーカイブの保存設定がONの場合、終了後に自動的に保存処理が開始されます</li>
+                                        <li>終了後は再開できませんのでご注意ください</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 詳細機能コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-features-content">
+                <div class="tl-guide-card">
+                    <h2 class="tl-guide-h2-mb-2">詳細機能の説明</h2>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>公開範囲の種類</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>3種類の公開範囲から選択できます。</p>
+                            <ul class="tl-guide-ul-features">
+                                <li><strong>全体向け：&nbsp; </strong>ゲストを含むすべてのユーザーが閲覧可能</li>
+                                <li><strong>有料会員向け：&nbsp;</strong>月額有料会員に登録しているファンの方のみ閲覧可能</li>
+                                <li><strong>個人向け：&nbsp;</strong>選択した特定のファンのみ閲覧可能</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>スクリーンショット制限機能</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>コンテンツの保護機能です。</p>
+                            <ul class="tl-guide-ul-features">
+                                <li>OFF設定時：&nbsp;スクリーンショット・画面録画が制限されます</li>
+                                <li>制限時は黒い画面として記録されます</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>音声のみ配信</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>カメラ映像なしで配信することができます。</p>
+                            <ul class="tl-guide-ul-features">
+                                <li>音声のみ配信をONにすると、映像には設定したサムネイル画像が表示されます。</li>
+                                <li>保存されるアーカイブについても、サムネイル画像が表示されます。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>アーカイブの保存</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>ライブのアーカイブを保存することができます。</p>
+                            <ul class="tl-guide-ul-features">
+                                <li>保存されたアーカイブは、ライブ終了後にコレクションとして公開されます。</li>
+                            </ul>
+                            <p>詳細についてはアーカイブ機能をご確認ください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アーカイブ機能コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-archive-content">
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">アーカイブ機能の概要</h2>
+                    <p class="tl-guide-p-grey">アーカイブ機能を使用すると、ライブ配信の内容を自動的に録画・保存し、後からファンの方が視聴できるようにすることができます。保存されたアーカイブはコレクションとして公開することができます。</p>
+                    
+                    <div class="tl-guide-timeline tl-guide-mt-2">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>アーカイブの設定</h4>
+                                <p>ライブ作成時に「アーカイブの保存」をONに設定します。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>アーカイブ保存先の選択</h4>
+                                <p>アーカイブの保存先を選択します。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live9.jpg' %}" alt="アーカイブ保存先選択" class="tl-guide-step-img">
+                                </div>
+                                <ul class="tl-guide-ul-edit">
+                                    <li class="mt-4"><strong>新規コレクションに保存：</strong>新しいコレクションを作成し追加</li>
+                                    <li><strong>既存コレクションに保存：</strong>既に作成済みのコレクションに追加</li>
+                                </ul>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">warning</i> 保存先選択の注意事項</h4>
+                                    <ul>
+                                        <li>新規コレクションの場合、タイトルは自動的にライブのタイトルが設定されます</li>
+                                        <li>既存コレクションを選択する場合、選択しているコレクションを削除しないでください</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>アーカイブ公開開始日時の設定（新規コレクションの場合）</h4>
+                                <p>新規コレクションに保存する場合、アーカイブの公開開始日時を設定できます。</p>
+                                <p class="tl-guide-p-mt-1">設定しない場合は、アーカイブが作成され次第、自動的に公開されます。</p>
+                                <p class="tl-guide-p-mt-1-red">※既存コレクションに保存する場合は、そのコレクションの公開設定と同じとなります。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">5</div>
+                            <div class="tl-guide-step-content">
+                                <h4>アーカイブの保存</h4>
+                                <p>ライブ終了後、自動的にアーカイブの保存処理が開始されます。</p>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> 保存時間について</h4>
+                                    <ul>
+                                        <li>長時間のライブ（1時間以上）の場合は、時間がかかる場合があります</li>
+                                        <li>保存中はアプリは通常通り使用することができます</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">6</div>
+                            <div class="tl-guide-step-content">
+                                <h4>アーカイブの公開</h4>
+                                <p>保存が完了すると、アーカイブは指定した方法で公開されます。</p>
+                                <ul class="tl-guide-ul-edit">
+                                    <li><strong>新規コレクションの場合：</strong>設定した公開開始日時（または即時）に公開</li>
+                                    <li><strong>既存コレクションの場合：</strong>選択したコレクションの公開設定に従って公開</li>
+                                </ul>
+                                <p class="tl-guide-p-mt-1">公開されたアーカイブは、コレクションにて確認・管理できます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- よくある質問セクション -->
+                <div class="tl-guide-card tl-guide-mt-3">
+                    <h2 class="tl-guide-h2-mb-2">アーカイブに関するよくある質問</h2>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>新規コレクションと既存コレクションの違い</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>新規コレクションに保存する場合は、ライブ専用の新しいコレクションが作成され、公開日時や公開範囲を自由に設定できます。既存コレクションに保存する場合は、選択したコレクションの設定に従い、メディアとして追加されます。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>アーカイブの画質について</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>アーカイブの画質は、ライブ配信開始時に選択した画質に依存します。安定したインターネット環境で配信することで、高品質なアーカイブを保存できます。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>音声のみ配信のアーカイブ</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>音声のみ配信の場合、アーカイブには設定したサムネイル画像が静止画として表示され、音声のみが再生されます。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>アーカイブの容量制限</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>アーカイブの保存容量に制限はありませんが、極端に長時間のライブ（1時間以上）の場合は、保存に時間がかかる場合があります。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 招待コード機能コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-invitation-content">
+                <div class="tl-guide-steps">
+                    <h2 class="tl-guide-h2-mb-2">招待コード機能の概要</h2>
+                    <p class="tl-guide-p-grey">招待コード機能では、招待コードを発行して特定のファンやユーザーに向けて、ライブの招待コードを発行することができます。発行された招待コードを使用することで、限定的なライブへのアクセスを管理できます。</p>
+                    
+                    <div class="tl-guide-timeline tl-guide-mt-2">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブスケジュールの編集画面へ</h4>
+                                <p>招待コードを発行したいライブスケジュールの編集画面に移動します。</p>
+                                <p class="tl-guide-p-mt-1-red">※権限によっては招待コードの発行ができない場合があります。詳しくは権限設定をご確認ください。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>招待コード発行画面を開く</h4>
+                                <p>画面右上の「QRコードアイコン」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live10.jpg' %}" alt="QRコードアイコン" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>招待コードを配るユーザーの選択</h4>
+                                <p>1人当たりに配る招待コードの数、誰に発行するのか選択します。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live11.jpg' %}" alt="ユーザー選択画面" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> 招待コード発行時の設定</h4>
+                                    <ul>
+                                        <li>1人のユーザーに対して複数の招待コードを発行可能</li>
+                                        <li>発行後の招待コードは取り消しできません</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">4</div>
+                            <div class="tl-guide-step-content">
+                                <h4>招待コードの発行</h4>
+                                <p>「招待コードを発行する」ボタンをタップし、招待コードを発行します。</p>
+                                <p class="tl-guide-p-mt-1">発行済みの招待コードは「発行済みの招待コード」タブを選択すると、いつ誰が、どのユーザーに向かって発行したか確認することができます。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live12.jpg' %}" alt="発行済み招待コード一覧" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 招待コードの確認方法セクション -->
+                <div class="tl-guide-steps tl-guide-steps-mt-3">
+                    <h2 class="tl-guide-h2-mb-2">招待コードの確認方法</h2>
+                    <div class="tl-guide-timeline">
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">1</div>
+                            <div class="tl-guide-step-content">
+                                <h4>ライブ詳細画面へ移動</h4>
+                                <p>Pick Upのライブ詳細画面に移動します。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">2</div>
+                            <div class="tl-guide-step-content">
+                                <h4>招待コード取得ボタンをタップ</h4>
+                                <p>「招待コードを取得」ボタンをタップします。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live13.jpg' %}" alt="招待コード取得ボタン" class="tl-guide-step-img">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-step-item">
+                            <div class="tl-guide-step-number">3</div>
+                            <div class="tl-guide-step-content">
+                                <h4>招待コードの確認・コピー</h4>
+                                <p>確認したい招待コードをタップすると、その招待コードを確認・コピーすることができます。</p>
+                                <div class="tl-guide-step-img-container">
+                                    <img src="{% static 'front/img/functional_specs/live/live14.jpg' %}" alt="招待コード確認画面" class="tl-guide-step-img">
+                                </div>
+                                <div class="tl-guide-tips tl-guide-tips-mt-1">
+                                    <h4><i class="material-icons">info</i> 招待コードの使用について</h4>
+                                    <ul>
+                                        <li>1つの招待コードは1回のみ使用可能です</li>
+                                        <li>使用済みの招待コードは再利用できません</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 招待コード管理に関する注意事項 -->
+                <div class="tl-guide-card tl-guide-mt-3">
+                    <h2 class="tl-guide-h2-mb-2">招待コード機能のよくある質問</h2>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>招待コードの有効期限</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>招待コードはライブ終了時刻まで有効です。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tl-guide-accordion">
+                        <div class="tl-guide-accordion-header" onclick="tlGuideToggleAccordion(this.parentElement)">
+                            <h5>招待コードの使用回数</h5>
+                            <i class="material-icons tl-guide-accordion-icon">expand_more</i>
+                        </div>
+                        <div class="tl-guide-accordion-content">
+                            <p>招待コードは1回のみ使用できます。別のユーザーに共有する場合は、新しい招待コードを発行してください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 権限設定コンテンツ -->
+            <div class="tl-guide-content" id="tl-guide-permissions-content">
+                <div class="tl-guide-permissions">
+                    <h2>権限と利用可能な機能</h2>
+                    
+                    <!-- デスクトップ用テーブル -->
+                    <table class="tl-guide-perm-table">
+                        <thead>
+                            <tr>
+                                <th>機能</th>
+                                <th>アーティスト</th>
+                                <th>スタッフ</th>
+                                <th>管理者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>スケジュールの新規作成</td>
+                                <td><span class="tl-guide-available">○</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                            <tr>
+                                <td>スケジュールの編集</td>
+                                <td><span class="tl-guide-limited">△</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                            <tr>
+                                <td>スケジュールの削除</td>
+                                <td><span class="tl-guide-limited">△</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                            <tr>
+                                <td>ライブの開始</td>
+                                <td><span class="tl-guide-limited">△</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                            <tr>
+                                <td>招待コードの発行</td>
+                                <td><span class="tl-guide-unavailable">×</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                            <tr>
+                                <td>開催ユーザーの選択</td>
+                                <td><span class="tl-guide-unavailable">×</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                                <td><span class="tl-guide-available">○</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="tl-guide-perm-legend tl-guide-perm-legend-desktop">
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-available">○</span>
+                            <span>利用可能</span>
+                        </div>
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-limited">△</span>
+                            <span>自分が作成・実施したものだけ可能</span>
+                        </div>
+                        <div class="tl-guide-perm-legend-item">
+                            <span class="tl-guide-unavailable">×</span>
+                            <span>利用不可</span>
+                        </div>
+                    </div>
+                    
+                    <!-- モバイル用カード表示 -->
+                    <div class="tl-guide-perm-mobile">
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">スケジュールの新規作成</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">スケジュールの編集</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">スケジュールの削除</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">ライブの開始</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-limited">△</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">招待コードの発行</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tl-guide-perm-card">
+                            <div class="tl-guide-perm-card-title">開催ユーザーの選択</div>
+                            <div class="tl-guide-perm-card-roles">
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">アーティスト</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-unavailable">×</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">スタッフ</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                                <div class="tl-guide-perm-role">
+                                    <div class="tl-guide-perm-role-name">管理者</div>
+                                    <div class="tl-guide-perm-role-status tl-guide-available">○</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tl-guide-perm-legend">
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-available">○</span>
+                                <span>利用可能</span>
+                            </div>
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-limited">△</span>
+                                <span>自分が作成・実施したものだけ可能</span>
+                            </div>
+                            <div class="tl-guide-perm-legend-item">
+                                <span class="tl-guide-unavailable">×</span>
+                                <span>利用不可</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-navigation">
+                <!-- 前後の記事リンク -->
+                <div class="spec-nav-links">
+                </div>
+                {% include 'front/functional_specs/_spec_list.html' %}
             </div>
         </div>
     </div>
-
-    <!-- 機能概要 -->
-    <div class="spec-overview">
-        <h2>ライブの機能概要</h2>
-        <p>ライブ機能を使用すると、ファンとリアルタイムでつながることができます。スケジュールを設定して開始するパターンと、すぐに開始できるパターンの２種類があります。</p>
-    </div>
-
-    <!-- 権限表 -->
-    <div class="spec-permissions">
-        <h2>権限と利用可能な機能</h2>
-        <div class="permission-table-wrapper">
-            <table class="permission-table">
-                <thead>
-                    <tr>
-                        <th>機能</th>
-                        <th>アーティスト</th>
-                        <th>スタッフ</th>
-                        <th>管理者</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>スケジュールの新規作成</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>スケジュールの編集</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>スケジュールの削除</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>ライブの開始</td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                    <tr>
-                        <td>他者が作成したスケジュールの開始・編集・削除</td>
-                        <td><span class="unavailable">×</span></td>
-                        <td><span class="available">○</span></td>
-                        <td><span class="available">○</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p class="permission-note">○：利用可能　×：利用不可</p>
-    </div>
-
-    <!-- ライブの開始方法セクション -->
-    <div class="spec-steps">
-        <h2>ライブの開始方法</h2>
-        <div class="step-item">
-            <h3 data-step="1">ライブ機能にアクセス</h3>
-            <p>アプリのフッターメニューから「More」を選択し、「ライブ」をタップします。</p>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_05.png' %}" alt="ステップ1の説明画像" class="step-image">
-            </div>
-        </div>
-
-        <div class="step-item">
-            <h3 data-step="2">ライブ方式の選択と情報の入力</h3>
-            <p>ライブを開始する方式には、以下の２種類があります。</p>
-            
-            <ul class="step-options">
-                <li>
-                    <span class="option-title">スケジュールから開始：</span>
-                    <span class="option-description">事前に設定した日時からライブを開始できます</span>
-                </li>
-                <li>
-                    <span class="option-title">今すぐ始める：</span>
-                    <span class="option-description">その場ですぐにライブを開始できます</span>
-                </li>
-            </ul>
-
-            {% comment %} <div class="info-box">
-                <h4>配信者について</h4>
-                <p>配信者の選択について、以下の点に注意してください：</p>
-                <ul>
-                    <li>選択肢として表示されるのは、アーティストフラグが設定されているユーザーのみです</li>
-                    <li>配信者を選択できるのは管理者・スタッフのみです</li>
-                    <li>配信者は登録後に変更できません</li>
-                </ul>
-                <p>適切なユーザーが選択できない場合は、管理者にアーティストフラグの設定を依頼してください。</p>
-            </div> {% endcomment %}
-
-            <h4 class="mt-4">スケジュール設定の場合</h4>
-            <ol class="step-instructions">
-                <li>右下の「➕」ボタンをタップ</li>
-                <li>必要情報を入力します</li>
-                <li>「登録」をタップ</li>
-            </ol>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_06.png' %}" alt="ステップ2の説明画像" class="step-image">
-            </div>
-            
-            <h4>今すぐ始めるの場合</h4>
-            <ol class="step-instructions">
-                <li>「今すぐに開始する」をタップ</li>
-                <li>「スタート」をタップ</li>
-                <li>必要情報を入力します</li>
-            </ol>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_07.png' %}" alt="ステップ2の説明画像" class="step-image">
-            </div>
-
-            <h4 style="margin-top: 70px;">入力項目について</h4>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    タイトル
-                </div>
-                <div class="accordion-content js-details-content">
-                    ライブの配信タイトルを入力することができます。<br/>
-                    255文字までの入力が可能ですが、長いタイトルは省略して表示される場合がございますのでご注意ください。
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    配信者
-                </div>
-                <div class="accordion-content js-details-content">
-                    ライブを配信するアーティストの方を選択します。<br/>
-                    選択肢に表示されるのは「アーティスト検索に含める」設定がONになっている方のみです。<br/><br/>
-
-                    <div class="edit-point">※編集では変更できない項目です。</div>
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    公開範囲
-                </div>
-                <div class="accordion-content js-details-content">
-                    公開範囲では、どのファンの方がライブに参加できるかを設定することができます。<br/>
-                    3種類の公開範囲が存在します。<br/>
-                    &nbsp;1. 全体向け<br/>
-                    &nbsp;2. 有料会員向け<br/>
-                    &nbsp;3. 個人向け<br/><br/>
-
-                    1の全体向けでは、ゲストの方も含め、全てのファンの方が参加できます。<br/>
-                    2の有料会員向けでは、サブスクリプションに登録しているファンの方のみ参加できます。<br/>
-                    3の個人向けでは、選択した特定のファンの方のみ参加できます。
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    スクリーンショットの許可
-                </div>
-                <div class="accordion-content js-details-content">
-                    こちらの項目では、スクリーンショットできないように設定することができます。<br/>
-                    設定をONにすると、スクリーンショットを撮ることができ、OFFにすると撮ることができません。<br/><br/>
-
-                    ONにした場合、スクリーンショットを撮ると黒い画像に置き換わります。<br/>
-                    また、画面録画も同様に黒い画面が録画されます。
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    アーカイブの保存
-                </div>
-                <div class="accordion-content js-details-content">
-                    アーカイブを保存するかどうかを設定することができます。<br/>
-                    設定をONにすると保存され、OFFにすると保存されません。<br/><br/>
-
-                    保存されたアーカイブは、ライブ終了後にコレクションとして表示されます。
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    アーカイブ公開開始日時
-                </div>
-                <div class="accordion-content js-details-content">
-                    アーカイブを公開する日時を設定することができます。<br/>
-                    この日時を設定していても、設定した時間までにライブが終了していない、アーカイブの保存が終了していない場合には、アーカイブの保存が終了した時点で公開されるようになります。<br/><br/>
-
-                    アーカイブ保存にはライブ終了後15分ほどお時間をいただきます。<br/>
-                    ライブを長時間行った際には15分以上お時間がかかる場合がございます。<br/>
-                    ご了承ください。
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    告知開始日時
-                </div>
-                <div class="accordion-content js-details-content">
-                    ライブの告知を開始する日時を設定することができます。<br/>
-                    こちらに設定した日時になりますと、Home画面のPick Upに該当するライブが表示されるようになります。
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    告知開始時プッシュ通知
-                </div>
-                <div class="accordion-content js-details-content">
-                    告知を開始した時に、ファンの方に通知をするかどうか設定することができます。<br/>
-                    ONにすると通知が送られ、OFFにすると通知は送られません。<br/><br/>
-
-                    <div class="edit-point">※編集では変更できない項目です。</div>
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    ライブ開始日時
-                </div>
-                <div class="accordion-content js-details-content">
-                    配信を開始する日時を設定することができます。
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    ライブ開始時プッシュ通知
-                </div>
-                <div class="accordion-content js-details-content">
-                    配信を開始した時に、ファンの方に通知するかどうかを設定することができます。<br/>
-                    ONにすると通知が送られ、OFFにすると通知は送られません。<br/><br/>
-
-                    「今すぐライブを始める」から開始した場合、通知は必ず送られるようになっています。<br/><br/>
-
-                    <div class="edit-point">※編集では変更できない項目です。</div>
-                </div>
-            </div>
-            <div class="accordion js-details">
-                <div class="accordion-header js-details-summary">
-                    サムネイル画像
-                </div>
-                <div class="accordion-content js-details-content">
-                    Pick Up画面などに表示するための画像を設定することができます。
-                    GIFなどは設定できません。
-                </div>
-            </div>
-        </div>
-
-        <div class="step-item">
-            <h3 data-step="3">ライブの開始</h3>
-            <h4>スケジュール設定の場合</h4>
-            <ol class="step-instructions">
-                <li>登録したスケジュールをタップ</li>
-                <li>「配信画面へ」をタップ</li>
-                <li>「スタート」をタップ</li>
-            </ol>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_10.png' %}" alt="ステップ3の説明画像" class="step-image">
-            </div>
-            <h4>今すぐ始めるの場合</h4>
-            <ol class="step-instructions">
-                <li>「ライブスタート」をタップでライブを開始</li>
-            </ol>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_09.png' %}" alt="ステップ3の説明画像" class="step-image">
-            </div>
-        </div>
-
-        <div class="step-item">
-            <h3 data-step="4">ライブの終了</h3>
-            <p>ライブを終了する場合は、ライブ画面の右上にある「✖️」ボタンをタップします。</p>
-            <div class="step-image-container">
-                <img src="{% static 'front/img/functional_specs/specs_18.png' %}" alt="ステップ5の説明画像" class="step-image">
-            </div>
-            <div class="info-box">
-                <h4>ライブのアーカイブについて</h4>
-                <ul>
-                    <li>アーカイブの保存をONにしている場合、ライブ終了後15分以内にコレクションに自動で保存され公開されます。</li>
-                    <li>コレクションについては<a href="{% url 'front:collection' %}">こちら</a>からご確認いただけます。</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- ライブ配信のヒント -->
-    <div class="spec-tips">
-        <h3>ライブ配信のヒント</h3>
-        <ul>
-            <li>定期的にライブスケジュールを設定することで、ファンの期待感を高められます。</li>
-            <li>ライブ中はコメントをこまめにチェックし、ファンとの対話を大切にしましょう。</li>
-        </ul>
-    </div>
-
-    <!-- 機能説明ナビゲーション -->
-    <div class="spec-navigation">
-        <!-- 前後の記事リンク -->
-        <div class="spec-nav-links">
-            <a href="{% url 'front:room' %}" class="spec-nav-link prev">
-                <span class="nav-label">前の記事</span>
-                <span class="nav-title">ルーム機能</span>
-            </a>
-            <a href="{% url 'front:goods_shop' %}" class="spec-nav-link next">
-                <span class="nav-label">次の記事</span>
-                <span class="nav-title">ショップ機能（グッズ）</span>
-            </a>
-        </div>
-        {% include 'front/functional_specs/_spec_list.html' %}
-    </div>
-</div>
 
 {% endblock %}

@@ -1,0 +1,50 @@
+:root {
+    --form-text-color: #333333;
+    --form-sub-text-color: #495057;
+    --form-label-color: #2d3748;
+    --form-help-text-color: #6c757d;
+    --form-counter-color: #6c757d;
+    --form-checkbox-text-color: #2d3748;
+
+
+
+
+
+
+
+
+/* 機能説明ページ */
+    /* プライマリカラー */
+    --tl-guide-color-primary: #6366F1;
+    --tl-guide-color-primary-dark: #8B5CF6;
+    --tl-guide-gradient-primary: linear-gradient(135deg, var(--tl-guide-color-primary) 0%, var(--tl-guide-color-primary-dark) 100%);
+    
+    /* テキストカラー */
+    --tl-guide-color-text-primary: #333;
+    --tl-guide-color-text-secondary: #666;
+    --tl-guide-color-text-white: #ffffff;
+    --tl-guide-color-text-danger: #ef4444;
+    
+    /* ステータスカラー */
+    --tl-guide-color-status-available: #6366F1;    /* ○ 利用可能（プライマリカラー） */
+    --tl-guide-color-status-limited: #75c791;      /* △ 制限付き（緑） */
+    --tl-guide-color-status-unavailable: #ef4444;  /* × 利用不可（赤） */
+    
+    /* 背景色 */
+    --tl-guide-color-bg-primary: #ffffff;
+    --tl-guide-color-bg-secondary: #f5f5f7;
+    --tl-guide-color-bg-tertiary: #f9fafb;
+    --tl-guide-color-bg-quaternary: #f3f4f6;
+    --tl-guide-color-bg-dark: #000000;
+    --tl-guide-color-bg-overlay: rgba(0, 0, 0, 0.6);
+    --tl-guide-color-bg-modal: rgba(0, 0, 0, 0.9);
+    
+    /* ボーダー色 */
+    --tl-guide-color-border-primary: #e2e8f0;
+    --tl-guide-color-border-light: #f3f4f6;
+    
+    /* シャドウ */
+    --tl-guide-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --tl-guide-shadow-primary: 0 2px 8px rgba(99, 102, 241, 0.3);
+
+}

@@ -27,7 +27,8 @@
     <div class="bank-account-container">
         <p class="bank-account-description">収益の振込先となる口座情報を入力してください。</p>
         
-        <form method="post" class="bank-account-form" novalidate>
+        <form method="post" class="bank-form" novalidate
+        action="{% url 'front:bank_account_setup' %}?email={{ request.GET.email|urlencode }}&uuid={{ request.GET.uuid }}{% if request.GET.from_confirm %}&from_confirm={{ request.GET.from_confirm }}{% endif %}">
             {% csrf_token %}
             
             <div class="bank-form-field">
@@ -79,7 +80,11 @@
                 <label>
                     口座種別<span class="required">*</span>
                 </label>
-                {{ form.bank_account_type }}
+                <div class="bank-form-field-select">
+                    <div class="custom-select-wrapper">
+                        {{ form.bank_account_type }}
+                    </div>
+                </div>
                 {% if form.bank_account_type.errors %}
                 <div class="error-message">
                     {% for error in form.bank_account_type.errors %}
