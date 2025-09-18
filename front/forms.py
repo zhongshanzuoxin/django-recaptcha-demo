@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 from front.models import Applicant
 from PIL import Image
 from io import BytesIO
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV3
 
 class ContactForm(forms.Form):
     CATEGORY_CHOICES = [
@@ -11,7 +13,7 @@ class ContactForm(forms.Form):
         ('general', '一般的なお問い合わせ'),
         ('business', 'ビジネスに関するお問い合わせ'),
         ('technical', '技術的なお問い合わせ'),
-        ('other', 'その他')
+        ('other', 'その他のお問い合わせ')
     ]
 
     name = forms.CharField(
@@ -47,6 +49,14 @@ class ContactForm(forms.Form):
             'class': 'form-control',
             'rows': 5
         })
+    )
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV3(
+            action='contact',
+        ),
+        error_messages={
+        'captcha_invalid': '送信に失敗しました。恐れ入りますが、再度お試しください。'
+        }
     )
 
 

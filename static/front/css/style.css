@@ -15,8 +15,18 @@ h1, h2, h3 {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+.main-header .container {
+    max-width: 1200px;
     padding: 0 20px;
 }
 
@@ -4897,340 +4907,7 @@ input {
 
 
 /* お問い合わせ・アプリ申請（1段目）フォーム */
-.form-field select.form-control {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url('../img/icon/arrow.svg');
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 15px;
-}
 
-.contact-title {
-    text-align: center;
-    margin: 3rem 02rem;
-    font-size: 2rem;
-}
-
-.contact-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding-bottom: 100px;
-}
-
-.contact-form {
-    padding: 2rem;
-}
-
-.contact-form h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: #2d3748;
-}
-
-.form-field {
-    margin-bottom: 1.5rem;
-}
-
-.form-field label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #2d3748;
-}
-
-.required {
-    color: #e53e3e;
-    margin-left: 0.3rem;
-    font-size: 0.7rem;
-}
-
-.char-count {
-    text-align: right;
-    font-size: 0.875rem;
-    color: #718096;
-    margin-top: 0.25rem;
-}
-
-.count-error {
-    color: #e53e3e;
-}
-
-.error-message {
-    color: #e53e3e;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-}
-
-.privacy-notice {
-    font-size: 0.875rem;
-    color: #718096;
-    margin: 1rem 0 1.5rem 0;
-    line-height: 1.5;
-}
-
-.privacy-section {
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    padding: 1.5em;
-    margin: 2rem 0;
-}
-
-.privacy-title {
-    margin-bottom: 0.5em;
-    font-size: 1.1rem;
-}
-
-.privacy-section p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #555;
-}
-
-.checkbox-container {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.checkbox-container input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-    cursor: pointer;
-}
-
-.checkbox-label {
-    font-size: 0.95rem;
-}
-
-.privacy-notice a {
-    color: #6366F1;
-    text-decoration: underline;
-}
-
-.privacy-notice a:hover {
-    text-decoration: none;
-    opacity: 0.8;
-}
-
-.submit-container {
-    text-align: center;
-}
-
-.submit-button {
-    padding: 0.55rem 4rem;
-    font-size: 1rem;
-    background-color: #6366F1;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.submit-button:hover:not(:disabled) {
-    background-color: #4F46E5;
-    transform: translateY(-1px);
-}
-
-.submit-button:disabled {
-    background-color: #A5B4FC;
-    cursor: not-allowed;
-}
-
-.message-container {
-    max-width: 800px;
-    margin: 0 auto 1.5rem;
-}
-
-
-.submit-notice {
-    text-align: center;
-    color: #4a5568;
-    font-size: 0.9rem;
-    margin-top: 1rem;
-}
-
-@media (max-width: 480px) {
-    .submit-notice {
-        font-size: 0.8rem;
-    }
-}
-
-.message {
-    padding: 1rem;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
-}
-
-.message-success {
-    background-color: #DEF7EC;
-    color: #03543F;
-    border: 1px solid #BEE3D4;
-}
-
-.message-error {
-    background-color: #FDE8E8;
-    color: #9B1C1C;
-    border: 1px solid #F8B4B4;
-}
-
-.custom-error-message {
-    color: #ff4444;
-    font-size: 0.8em;
-    margin-top: 5px;
-    padding: 5px;
-}
-
-.followers-input-group {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    max-width: 200px;
-}
-
-.followers-input-group input {
-    width: 150px;
-}
-
-.followers-unit {
-    color: #2d3748;
-    font-size: 1rem;
-}
-
-.form-description {
-    text-align: center;
-    color: #2d3748;
-    margin-bottom: 1rem;
-}
-
-/* その他のSNS入力フォーム用スタイル */
-.add-sns-button {
-    display: inline-flex;
-    align-items: center;
-    padding: 0;
-    background: none;
-    border: none;
-    color: #6366F1;
-    cursor: pointer;
-    font-size: 0.9rem;
-    margin-top: 0.75rem;
-    transition: color 0.3s ease;
-}
-
-.add-sns-button:hover {
-    color: #4F46E5;
-}
-
-.add-icon {
-    margin-right: 0.25rem;
-    font-size: 1rem;
-}
-
-.other-sns-field {
-    margin-top: 0.75rem;
-}
-
-.sns-input-group {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-}
-
-.sns-name-input {
-    padding: .375rem .75rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
-    width: 30% !important;
-}
-
-.sns-url-input {
-    flex-grow: 1;
-    padding: .375rem .75rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
-}
-
-.delete-sns-btn {
-    background: none;
-    border: none;
-    color: #e53e3e;
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 0.25rem 0.5rem;
-    transition: color 0.3s ease;
-}
-
-.delete-sns-btn:hover {
-    color: #c53030;
-}
-
-
-@media (max-width: 768px) {
-    .contact-title {
-        font-size: 1.5rem;
-    }
-
-    .privacy-title {
-        font-size: 1.0rem;
-    }
-
-    .privacy-notice p {
-        font-size: 0.8rem;
-    }
-
-    .submit-button {
-        width: 100%;
-    }
-    .sns-input-group {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: normal;
-    }
-
-    .sns-name-input {
-        width: 100% !important;
-    }
-
-    .delete-sns-btn {
-        align-self: flex-end;
-    }
-}
-
-@media (max-width: 480px) {
-    .contact-title {
-        margin: 2rem 0 2rem;
-    }
-
-    .form-description {
-        font-size: 0.9rem;
-    }
-
-    .contact-form {
-        padding: 2rem 1rem;
-    }
-
-    .form-field label {
-        font-size: 0.8rem;
-    }
-
-    .form-field input,
-    .form-field textarea {
-        font-size: 0.875rem;
-    }
-    .followers-unit {
-        font-size: 0.875rem;
-    }
-}
-
-@media (max-width: 375px) {
-    .contact-form {
-        padding: 0;
-    }
-}
 
 
 
@@ -6018,12 +5695,21 @@ textarea::placeholder {
 
 
 
+/* ステップインジケーターのラッパー */
+.confirm-step-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.confirm-step-wrapper.hidden {
+    display: none !important;
+}
+
 /* 確認ページのステップインジケーター */
 .confirm-step-indicator {
     display: flex;
     align-items: stretch;
-    margin: 2rem auto;
-    max-width: 800px;
+    margin: 2rem 0;
     gap: 4px;
 }
 
@@ -6073,12 +5759,12 @@ textarea::placeholder {
     color: white;
 }
 
-.confirm-step-indicator.hidden {
-    display: none !important;
-}
-
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+    .confirm-step-wrapper {
+        padding: 0 1rem;
+    }
+    
     .confirm-step {
         padding: 1rem 1.5rem;
     }
@@ -6086,7 +5772,7 @@ textarea::placeholder {
 
 @media (max-width: 480px) {
     .confirm-step-indicator {
-        margin: 1rem auto;
+        margin: 1rem 0;
     }
 
     .confirm-step {
@@ -7012,116 +6698,244 @@ textarea::placeholder {
 
 
 /* 申請完了画面のスタイル */
-.complete-container {
-    max-width: 800px;
-    margin: auto;
+.app-application-thanks-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(2.5rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
 }
 
-.complete-title {
+.app-application-thanks-content {
     text-align: center;
-    font-size: 2rem;
-    margin: 3rem 0 2rem;
+    max-width: clamp(20rem, 90vw, 37.5rem);
+    width: 100%;
 }
 
-.complete-message {
-    text-align: center;
-    margin-bottom: 3rem;
+.app-application-thanks-success-icon {
+    width: clamp(3.75rem, 10vw, 5rem);
+    height: clamp(3.75rem, 10vw, 5rem);
+    margin: 0 auto clamp(1.875rem, 5vw, 2.5rem);
+    background-color: #7B61FF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-application-thanks-success-icon svg {
+    width: clamp(2.25rem, 6vw, 3.125rem);
+    height: clamp(2.25rem, 6vw, 3.125rem);
+    stroke: white;
+    stroke-width: 6;
+    fill: none;
+}
+
+.app-application-thanks-title {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: #1a1a1a;
+    margin-bottom: clamp(1.25rem, 3vw, 1.5rem);
+    line-height: 1.4;
+}
+
+.app-application-thanks-message {
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: clamp(2.5rem, 6vw, 3.75rem);
+}
+
+.app-application-thanks-process {
+    background-color: #f8f9fa;
+    padding: clamp(1.25rem, 4vw, 1.875rem);
+    border-radius: 0.5rem;
+    margin: 0 auto clamp(1.875rem, 5vw, 2.5rem) auto;
+    max-width: 530px;
+    width: 100%;
+}
+
+.app-application-thanks-process-title {
+    font-size: clamp(0.875rem, 2vw, 1.2rem);
+    color: #333;
+    margin-bottom: clamp(0.75rem, 2vw, 1rem);
+}
+
+.app-application-thanks-process-text {
+    font-size: clamp(0.65rem, 1.8vw, 0.875rem);
+    color: #666;
     line-height: 1.8;
 }
 
-.complete-message p {
-    margin-bottom: 0.5rem;
-    color: #2d3748;
+.app-application-thanks-next-steps {
+    border: 1px solid #E5E5E5;
+    padding: clamp(1.25rem, 4vw, 1.875rem) clamp(1rem, 3vw, 1.5rem);
+    border-radius: 0.5rem;
+    margin: 0 auto clamp(1.875rem, 5vw, 2.5rem) auto;
+    max-width: 530px;
+    width: 100%;
 }
 
-.next-steps {
-    background: #f8f9fa;
-    padding: 2rem;
-    border-radius: 8px;
-    margin-bottom: 3rem;
+.app-application-thanks-next-steps-title {
+    font-size: clamp(0.875rem, 2vw, 1.2rem);
+    color: #333;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    text-align: center;
 }
 
-.next-steps h2 {
-    font-size: 1.25rem;
-    color: #2d3748;
+.app-application-thanks-timeline {
+    text-align: left;
+}
+
+.app-application-thanks-timeline-item {
+    display: flex;
+    align-items: flex-start;
     margin-bottom: 1.5rem;
+    position: relative;
 }
 
-.next-steps ul {
-    padding-left: 1.5rem;
-}
-
-.next-steps li {
-    margin-bottom: 1rem;
-    color: #4a5568;
-    line-height: 1.6;
-}
-
-.next-steps li:last-child {
+.app-application-thanks-timeline-item:last-child {
     margin-bottom: 0;
 }
 
-.button-container {
-    text-align: center;
-    margin-bottom: 2rem;
+.app-application-thanks-timeline-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: white;
+    color: #7B61FF;
+    border: 2px solid #7B61FF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 1.5rem;
+    font-size: 1rem;
 }
 
-.back-to-top {
+.app-application-thanks-timeline-content {
+    flex: 1;
+}
+
+.app-application-thanks-timeline-title {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.app-application-thanks-timeline-desc {
+    font-size: clamp(0.65rem, 1.8vw, 0.875rem);
+    color: #666;
+}
+
+.app-application-thanks-back-btn {
     display: inline-block;
-    padding: 0.55rem 4rem;
-    background-color: #6366F1;
-    color: white;
+    padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1.5rem, 4vw, 2rem);
+    background-color: #fff;
+    border: 0.125rem solid #7B61FF;
+    color: #7B61FF;
     text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.3s ease;
+    border-radius: 3.125rem;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    transition: all 0.2s ease;
 }
 
-.back-to-top:hover {
-    background-color: #4F46E5;
-    transform: translateY(-1px);
+.app-application-thanks-back-btn:hover {
+    background-color: #7B61FF;
+    color: #fff;
 }
 
-@media (max-width: 768px) {
-    .complete-title {
-        font-size: 1.5rem;
-    }
 
-    .next-steps {
-        padding: 1.5rem;
-    }
 
-    .next-steps h2 {
-        font-size: 1.1rem;
-    }
 
-    .next-steps li {
-        font-size: 0.8rem;
-    }
 
-    .back-to-top {
-        display: block;
-        width: 100%;
-    }
+
+
+
+
+/* お問い合わせ完了画面のスタイル */
+.contact-thanks-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(2.5rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2.5rem);
 }
 
-@media (max-width: 480px) {
-    .complete-title {
-        margin: 2rem 0 2rem;
-    }
-    
-    .complete-message p {
-        font-size: 0.9rem;
-    }
-
-    .next-steps {
-        padding: 1rem;
-    }
+.contact-thanks-content {
+    text-align: center;
+    max-width: clamp(20rem, 90vw, 37.5rem);
+    width: 100%;
 }
 
-@media (max-width: 375px) {
-    .complete-container {
-        padding: 0;
-    }
+.contact-thanks-success-icon {
+    width: clamp(3.75rem, 10vw, 5rem);
+    height: clamp(3.75rem, 10vw, 5rem);
+    margin: 0 auto clamp(1.875rem, 5vw, 2.5rem);
+    background-color: #7B61FF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-thanks-success-icon svg {
+    width: clamp(2.25rem, 6vw, 3.125rem);
+    height: clamp(2.25rem, 6vw, 3.125rem);
+    stroke: white;
+    stroke-width: 6;
+    fill: none;
+}
+
+.contact-thanks-title {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: #1a1a1a;
+    margin-bottom: clamp(1.25rem, 3vw, 1.5rem);
+    line-height: 1.4;
+}
+
+.contact-thanks-message {
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: clamp(2.5rem, 6vw, 3.75rem);
+}
+
+.contact-thanks-notice {
+    background-color: #f8f9fa;
+    padding: clamp(1.25rem, 4vw, 1.875rem);
+    border-radius: 0.5rem;
+    margin: 0 auto clamp(1.875rem, 5vw, 2.5rem) auto;
+    max-width: 530px;
+    width: 100%;
+}
+
+.contact-thanks-notice-title {
+    font-size: clamp(0.875rem, 2vw, 1.2rem);
+    color: #333;
+    margin-bottom: clamp(0.75rem, 2vw, 1rem);
+}
+
+.contact-thanks-notice-text {
+    font-size: clamp(0.65rem, 1.8vw, 0.875rem);
+    color: #666;
+    line-height: 1.8;
+}
+
+.contact-thanks-back-btn {
+    display: inline-block;
+    padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(1.5rem, 4vw, 2rem);
+    background-color: #fff;
+    border: 0.125rem solid #7B61FF;
+    color: #7B61FF;
+    text-decoration: none;
+    border-radius: 3.125rem;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    transition: all 0.2s ease;
+}
+
+.contact-thanks-back-btn:hover {
+    background-color: #7B61FF;
+    color: #fff;
 }
 
 

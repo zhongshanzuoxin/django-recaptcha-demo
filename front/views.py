@@ -48,7 +48,7 @@ class TopView(View):
             )
             
             messages.success(request, 'お問い合わせを送信しました。')
-            return redirect('front:top')
+            return redirect('front:contact_thanks')
         
         return render(request, 'front/top.html', {'form': form})
 
@@ -186,7 +186,7 @@ class ContactView(View):
             )
             
             messages.success(request, 'お問い合わせを送信しました。')
-            return redirect('front:contact')
+            return redirect('front:contact_thanks')
         
         return render(request, 'front/contact.html', {'form': form})
 
@@ -824,3 +824,9 @@ class AppRequestCompleteView(View):
 class CompanyView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'front/companye.html')
+
+
+
+class ContactThanksView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'front/contact_thanks.html')

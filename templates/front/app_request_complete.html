@@ -1,26 +1,73 @@
 {% extends 'front/_base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1 class="complete-title">申請が完了しました</h1>
-        
-    <div class="complete-message">
-        <p>ご入力いただいた情報を確認の上、順次ご連絡いたします</p>
-    </div>
-    <div class="complete-container">
-        <div class="next-steps">
-            <h2>次のステップ</h2>
-            <ul>
-                <li>ご登録いただいたメールアドレスに確認メールをお送りしました。メールが届いているかご確認ください。</li>
-                <li>申請内容の確認には通常7営業日ほどお時間をいただいております。</li>
-                <li>追加情報が必要な場合は、ご登録いただいたメールアドレスにご連絡いたします。</li>
-                <li>申請が承認されましたら、アプリの設定や公開に関する詳細な手順をお送りいたします。</li>
-            </ul>
+
+<div class="app-application-thanks-container">
+    <div class="app-application-thanks-content">
+        <div class="app-application-thanks-success-icon">
+            <svg viewBox="0 0 52 52">
+                <path d="M14 27 L22 35 L38 17"/>
+            </svg>
         </div>
 
-        <div class="button-container">
-            <a href="{% url 'front:top' %}" class="back-to-top">トップページに戻る</a>
+        <h1 class="app-application-thanks-title">ファンアプリの申請を受け付けました</h1>
+        
+        <p class="app-application-thanks-message">
+            この度はL4Uファンアプリの開設をお申し込みいただき、<br>
+            誠にありがとうございます。<br>
+            ご登録いただいたメールアドレスに確認メールをお送りしました。
+        </p>
+
+        <div class="app-application-thanks-process">
+            <h2 class="app-application-thanks-process-title">審査について</h2>
+            <p class="app-application-thanks-process-text">
+                通常7営業日以内に当サービス側で審査を行います。<br>
+                審査結果はメールでお知らせいたします。
+            </p>
         </div>
+
+        <div class="app-application-thanks-next-steps">
+            <h2 class="app-application-thanks-next-steps-title">今後の流れ</h2>
+            <div class="app-application-thanks-timeline">
+                <div class="app-application-thanks-timeline-item">
+                    <div class="app-application-thanks-timeline-number">1</div>
+                    <div class="app-application-thanks-timeline-content">
+                        <div class="app-application-thanks-timeline-title">申請内容の審査</div>
+                        <div class="app-application-thanks-timeline-desc">通常7営業日以内</div>
+                    </div>
+                </div>
+                <div class="app-application-thanks-timeline-item">
+                    <div class="app-application-thanks-timeline-number">2</div>
+                    <div class="app-application-thanks-timeline-content">
+                        <div class="app-application-thanks-timeline-title">審査結果をメールでご連絡</div>
+                        <div class="app-application-thanks-timeline-desc">承認・非承認をお知らせ</div>
+                    </div>
+                </div>
+                <div class="app-application-thanks-timeline-item">
+                    <div class="app-application-thanks-timeline-number">3</div>
+                    <div class="app-application-thanks-timeline-content">
+                        <div class="app-application-thanks-timeline-title">アプリ情報の入力</div>
+                        <div class="app-application-thanks-timeline-desc">アプリ名やロゴ画像、コンテンツ名などの設定情報を入力</div>
+                    </div>
+                </div>
+                <div class="app-application-thanks-timeline-item">
+                    <div class="app-application-thanks-timeline-number">4</div>
+                    <div class="app-application-thanks-timeline-content">
+                        <div class="app-application-thanks-timeline-title"><strong>アプリの開設</strong></div>
+                        <div class="app-application-thanks-timeline-desc">準備が整った段階でGoogle PlayとApp Storeへ申請を行います</div>
+                    </div>
+                </div>
+                <div class="app-application-thanks-timeline-item">
+                    <div class="app-application-thanks-timeline-number">5</div>
+                    <div class="app-application-thanks-timeline-content">
+                        <div class="app-application-thanks-timeline-title"><strong>サービスのスタート</strong></div>
+                        <div class="app-application-thanks-timeline-desc">サービスのスタート</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="{% url 'front:top' %}" class="app-application-thanks-back-btn">トップに戻る</a>
     </div>
 </div>
 {% endblock %}

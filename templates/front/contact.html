@@ -59,6 +59,15 @@
                 {% endif %}
             </div>
 
+            {{ form.captcha }}
+            {% if form.captcha.errors %}
+            <div class="custom-error-message">
+                {% for error in form.captcha.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <div class="privacy-notice">
                 ※お問い合わせいただいた内容は、弊社の掲げる個人情報保護方針に沿って管理し、
                 お客様の同意なく第三者に開示・提供することはありません。
@@ -87,11 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const maxLength = 1000;
 
     function updateSubmitButton() {
-        const allFields = form.querySelectorAll('input, textarea');
+        const allFields = form.querySelectorAll('input[type="text"], input[type="email"], select, textarea');
         let isValid = true;
         
         allFields.forEach(field => {
-            if (!field.value) {
+            // reCAPTCHAフィールドは除外
+            if (field.name !== 'g-recaptcha-response' && !field.value) {
                 isValid = false;
             }
         });
@@ -118,6 +128,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     messageField.addEventListener('input', updateCharCount);
     form.addEventListener('input', updateSubmitButton);
+    
+    form.addEventListener('submit', function(e) {
+        if (!submitBtn.disabled) {
+            submitBtn.textContent = '送信中...';
+            submitBtn.disabled = true;
+        }
+    });
 });
 </script>
+
+<style>
+/* reCAPTCHA バッジのスタイル調整 */
+.grecaptcha-badge {
+    visibility: visible !important;
+    bottom: 14px !important;
+    right: 28px !important;
+}
+
+/* モバイルでのバッジ位置調整 */
+@media (max-width: 768px) {
+    .grecaptcha-badge {
+        right: 14px !important;
+    }
+}
+</style>
 {% endblock %}

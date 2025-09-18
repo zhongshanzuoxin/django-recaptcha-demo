@@ -24,6 +24,7 @@ urlpatterns = [
     path('help/', views.HelpView.as_view(), name="help"),
     path('privacy/', views.PrivacyView.as_view(), name="privacy"),
     path('contact/', views.ContactView.as_view(), name='contact'),
+    path('contact_thanks/', views.ContactThanksView.as_view(), name='contact_thanks'),
     path('app_request/', views.AppRequestView.as_view(), name='app_request'),
     path('app_request_complete/', views.AppRequestCompleteView.as_view(), name='app_request_complete'),
     path('app_settings/', views.AppSettingsView.as_view(), name='app_settings'),

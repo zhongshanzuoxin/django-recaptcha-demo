@@ -43,7 +43,7 @@
     </div>
 </section>
 
-<div class="service-features-wrapper">
+<div class="service-features-wrapper" id="features">
     <div class="service-features-container">
         <div class="service-features-title-wrapper">
             <h2 class="service-features-title">L4Uの3つの特徴</h2>
@@ -154,7 +154,7 @@
 
 
 
-<section class="features-detail">
+<section class="features-detail" id="functions">
     <h2 class="features-detail-title">アプリの機能紹介</h2>
     <div class="feature-block">
         <div class="feature-content">
@@ -386,11 +386,11 @@
 </section>
 
 
-{% include 'front/_case_study.html' %}
+{% comment %}{% include 'front/_case_study.html' %}{% endcomment %}
 
 
 
-<section class="revenue-section">
+<section class="revenue-section" id="monetization">
     <div class="revenue-title-wrapper">
         <h2 class="revenue-title">収益化の仕組み</h2>
     </div>
@@ -673,7 +673,7 @@
 </section>
 
 
-<div class="setup-flow-wrapper">
+<div class="setup-flow-wrapper" id="setup">
     <section class="setup-flow-alternate">
         <div class="section-header">
             <h2 class="section-title">開設までの流れ</h2>
@@ -1206,6 +1206,15 @@
                     {% endif %}
                 </div>
 
+                {{ form.captcha }}
+                {% if form.captcha.errors %}
+                <div class="custom-error-message">
+                    {% for error in form.captcha.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
                 <button type="submit" class="top-contact-submit" id="submitBtn" disabled>送信する</button>
             </form>
 
@@ -1238,22 +1247,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let isValid = true;
         
-        // 各フィールドのバリデーション
-        if (!nameField.value.trim()) {
-            isValid = false;
-        }
+        // 各フィールドのバリデーション（reCAPTCHAは除外）
+        const requiredFields = [nameField, emailField, categoryField, messageField];
         
-        if (!emailField.value.trim()) {
-            isValid = false;
-        }
-        
-        if (categoryField && !categoryField.value) {
-            isValid = false;
-        }
-        
-        if (!messageField.value.trim()) {
-            isValid = false;
-        }
+        requiredFields.forEach(field => {
+            if (field && field.name !== 'g-recaptcha-response') {
+                if (!field.value || !field.value.trim()) {
+                    isValid = false;
+                }
+            }
+        });
 
         if (messageField.value.length > maxLength) {
             isValid = false;
@@ -1283,9 +1286,84 @@ document.addEventListener('DOMContentLoaded', function() {
     messageField.addEventListener('input', updateCharCount);
     form.addEventListener('input', updateSubmitButton);
     
-    // 初期状態のボタン状態を更新
+    form.addEventListener('submit', function(e) {
+        if (!submitBtn.disabled) {
+            submitBtn.textContent = '送信中...';
+            submitBtn.disabled = true;
+        }
+    });
+    
     updateSubmitButton();
+    
+    const contactSection = document.querySelector('.top-contact-section');
+    
+    const waitForBadge = setInterval(function() {
+        const recaptchaBadge = document.querySelector('.grecaptcha-badge');
+        
+        if (recaptchaBadge && contactSection) {
+            clearInterval(waitForBadge);
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '-100px 0px 0px 0px',
+                threshold: 0.3
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+                        recaptchaBadge.classList.add('show');
+                    } else {
+                        recaptchaBadge.classList.remove('show');
+                    }
+                });
+            }, observerOptions);
+            
+            // 監視を開始
+            observer.observe(contactSection);
+            
+            // 初期状態を設定（ページ読み込み時にセクションが見えている場合）
+            const rect = contactSection.getBoundingClientRect();
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const visibleRatio = visibleHeight / rect.height;
+            
+            // セクションの30%以上が見えていて、上部が100px以上画面内にある場合
+            if (visibleRatio >= 0.3 && rect.top < window.innerHeight - 100) {
+                setTimeout(() => {
+                    recaptchaBadge.classList.add('show');
+                }, 300);
+            }
+        }
+    }, 100);
+
+    setTimeout(() => clearInterval(waitForBadge), 10000);
 });
 </script>
 
+<style>
+/* reCAPTCHA バッジのスタイル調整 */
+.grecaptcha-badge {
+    visibility: visible !important;
+    bottom: 14px !important;
+    right: 28px !important;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.grecaptcha-badge.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* モバイルでのバッジ位置調整 */
+@media (max-width: 768px) {
+    .grecaptcha-badge {
+        right: 14px !important;
+    }
+}
+</style>
 {% endblock %}

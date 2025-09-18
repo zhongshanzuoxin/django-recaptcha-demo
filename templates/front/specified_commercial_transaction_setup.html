@@ -1,8 +1,8 @@
 {% extends 'front/_base.html' %}
 
 {% block content %}
-<div class="container">
-    <div class="confirm-step-indicator {% if is_submitted %}hidden{% endif %}">
+<div class="confirm-step-wrapper {% if is_submitted %}hidden{% endif %}">
+    <div class="confirm-step-indicator">
         <div class="confirm-step {% if current_step == 1 %}active{% endif %}">
             <div class="confirm-step-number">STEP 1</div>
             <div class="confirm-step-label">アプリ設定情報の入力</div>
@@ -20,7 +20,9 @@
             <div class="confirm-step-label">確認</div>
         </div>
     </div>
+</div>
 
+<div class="container">
     <h1 class="sct-title">特定商取引法に基づく表記の入力</h1>
     <div class="sct-container">
         <div class="sct-info-box">

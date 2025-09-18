@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <div class="confirm-step-indicator {% if is_submitted %}hidden{% endif %}">
+<div class="confirm-step-wrapper {% if is_submitted %}hidden{% endif %}">
+    <div class="confirm-step-indicator">
         <div class="confirm-step {% if current_step == 1 %}active{% endif %}">
             <div class="confirm-step-number">STEP 1</div>
             <div class="confirm-step-label">アプリ設定情報の入力</div>
@@ -21,7 +21,9 @@
             <div class="confirm-step-label">確認</div>
         </div>
     </div>
+</div>
 
+<div class="container">
     <h1 class="settings-title">アプリ設定情報の入力</h1>
     <p class="settings-description">アプリの開設に必要な設定情報を入力してください。</p>
 
